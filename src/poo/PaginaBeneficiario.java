@@ -143,27 +143,23 @@ public class PaginaBeneficiario extends JFrame {
         column.setPreferredWidth(200);
         table_1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
+            	if (!e.getValueIsAdjusting()) {
                     if (!ventanaAbierta) { // Verificar si la ventana no está abierta
                         int selectedRow = table_1.getSelectedRow();
                         if (selectedRow != -1) {
                         	
-                            Funcionario f = null;
-                            int cod = Integer.parseInt((String) table_1.getValueAt(selectedRow, 0));
+                            FormlarioRegistro f = null;
+                            int cod = Integer.parseInt((String) table_1.getValueAt(selectedRow, 4));
                             try {
-                                f = Conexion.traerFuncionario(cod);
+                                f = Conexion.traerFormulario(cod);
                             } catch (SQLException e1) {
                                 e1.printStackTrace();
                             }
-                            PerfilFuncionario pf = new PerfilFuncionario(f, true);
-                            pf.setVisible(true);
-                            ventanaAbierta = true; // Marcar la ventana como abierta
-                            pf.addWindowListener(new WindowAdapter() {
-                                @Override
-                                public void windowClosed(WindowEvent e) {
-                                    ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
-                                }
-                            });
+                           // Registro reg= new Registro(f);
+                            //reg.setVisible(true);
+                            JPopupMenu popupMenu = createPopupMenu(f);
+    						popupMenu.show(table_1, 0, table_1.getRowHeight() * selectedRow);
+                          
                         
                         }
                     }
@@ -172,4 +168,43 @@ public class PaginaBeneficiario extends JFrame {
         });
 
 	}
+	private static JPopupMenu createPopupMenu(FormlarioRegistro f) {
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        // Crear botones con las acciones deseadas
+        JButton boton1 = new JButton("Eliminar");
+        boton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            
+            }
+        });
+
+        
+        JButton boton3 = new JButton("Visualizar y Actualizar");
+        boton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	 Registro reg= new Registro(f);
+                reg.setVisible(true);
+            	 ventanaAbierta = true; // Marcar la ventana como abierta
+                 reg.addWindowListener(new WindowAdapter() {
+                     @Override
+                     public void windowClosed(WindowEvent e) {
+                       ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
+                    }
+                 });
+            }
+        });
+        
+
+        
+
+        // Agregar los botones al menú flotante
+        popupMenu.add(boton1);
+        popupMenu.add(boton3);
+        //popupMenu.add(boton4);
+
+        return popupMenu;
+    }
 }

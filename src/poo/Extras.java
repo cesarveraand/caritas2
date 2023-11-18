@@ -18,4 +18,5 @@ public static LocalDate fechas(String  d) {
 	String [] fecha = d.split("/");
 return LocalDate.of(Integer.parseInt(fecha[2]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[0]));
 }
+
 }

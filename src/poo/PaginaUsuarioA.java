@@ -20,7 +20,7 @@ public class PaginaUsuarioA extends JFrame {
 	
 	public PaginaUsuarioA() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 821, 463);
+		setBounds(100, 100, 821, 501);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -80,6 +80,19 @@ public class PaginaUsuarioA extends JFrame {
 		contentPane.add(btnFormReg);
 		
 		JButton btnRegFormHoja = new JButton("Formulario hoja de ruta");
+		btnRegFormHoja.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<FormlarioRegistro> f=new ArrayList<>();
+				try {
+					f=Conexion.traerFormulariosSinHojaDeRuta();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				PaginaHojaRuta pag=new PaginaHojaRuta(f);
+				pag.setVisible(true);
+			}
+		});
 		btnRegFormHoja.setBounds(298, 332, 198, 21);
 		contentPane.add(btnRegFormHoja);
 		
@@ -106,5 +119,22 @@ public class PaginaUsuarioA extends JFrame {
 			}
 		});
 		contentPane.add(btnRefugiados);
+		
+		JButton btnRegAcciones = new JButton("Agregar acciones hoja de ruta");
+		btnRegAcciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<Hoja_de_ruta> f=new ArrayList<Hoja_de_ruta>();
+				try {
+					f = Conexion.formHojaRutaAccions();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				PaginaHojaRutaAcciones hjr =new PaginaHojaRutaAcciones(f);
+				hjr.setVisible(true);
+			}
+		});
+		btnRegAcciones.setBounds(298, 387, 198, 21);
+		contentPane.add(btnRegAcciones);
 	}
 }
