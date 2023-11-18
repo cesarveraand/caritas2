@@ -615,8 +615,8 @@ public class Conexion {
 		PreparedStatement s;
 		
 		String query="insert into formularioregistro"
-				+ "(cfr, lugar, fecharegistro ,telefono,paisorigen,fechadesalida,transporte,razon,fechadeingreso,fronterodeingreso,documentodeingreso,diasdepermanencia,destinofinal,paissiguiente,porquepais,alojamiento,enviodinero,sustento,leenviandinero,medioenviodinero,comosecomunicafamilia,observaciones,transito,refugio,atencion) values "
-				+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "(cfr, lugar, fecharegistro ,telefono,paisorigen,fechadesalida,transporte,razon,fechadeingreso,fronterodeingreso,documentodeingreso,diasdepermanencia,destinofinal,paissiguiente,porquepais,alojamiento,enviodinero,sustento,leenviandinero,medioenviodinero,comosecomunicafamilia,observaciones,transito,refugio,atencion,estado) values "
+				+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			s=(PreparedStatement) conexion.prepareStatement(query);
 			s.setInt(1,form.getCfr() );
@@ -644,7 +644,7 @@ public class Conexion {
 			s.setBoolean(23, form.isTransito());
 			s.setBoolean(24, form.isRefugio());
 			s.setBoolean(25, form.isAtencion());
-
+			s.setBoolean(26, true);
 			s.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -659,8 +659,8 @@ public class Conexion {
 		PreparedStatement s;
 		
 		String query="insert into paisorigen"
-				+ "(cpo, pais, tiempo,estadomigratorio) values "
-				+ "(?,?,?,?)";
+				+ "(cpo, pais, tiempo,estadomigratorio,estado) values "
+				+ "(?,?,?,?,?)";
 		try {
 			s=(PreparedStatement) conexion.prepareStatement(query);
 			s.setInt(1, pf.getCpo());
@@ -668,7 +668,7 @@ public class Conexion {
 			s.setInt(3,pf.getTiempoDias());
 			s.setString(4,pf.getEstadoMigratorioString());
 			
-
+			s.setBoolean(5, true);
 			s.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -683,8 +683,8 @@ public class Conexion {
 		PreparedStatement s;
 		
 		String query="insert into beneficiario"
-				+ "(cid, nombre, edad ,sexo,ci,fechaexpedido,ingreso,educacion) values "
-				+ "(?,?,?,?,?,?,?,?)";
+				+ "(cid, nombre, edad ,sexo,ci,fechaexpedido,ingreso,educacion,estado) values "
+				+ "(?,?,?,?,?,?,?,?,?)";
 		try {
 			s=(PreparedStatement) conexion.prepareStatement(query);
 			s.setInt(1, b.getCodBen());
@@ -695,7 +695,8 @@ public class Conexion {
 			s.setDate(6, java.sql.Date.valueOf(b.getFechaExpedido()));
 			s.setBoolean(7,b.isIngreso());
 			s.setString(8,b.getEducacion());
-			
+			s.setBoolean(9, true);
+
 
 			s.executeUpdate();
 			
@@ -711,14 +712,15 @@ public class Conexion {
 		PreparedStatement s;
 		
 		String query="insert into familias"
-				+ "(cf, cantidad, ci_r) values "
-				+ "(?,?,?)";
+				+ "(cf, cantidad, ci_r,estado) values "
+				+ "(?,?,?,?)";
 		try {
 			s=(PreparedStatement) conexion.prepareStatement(query);
 			s.setInt(1, fam.getCodFamilia());
 			s.setInt(2,fam.getCantidad());
 			s.setString(3,fam.getPrin().getCi());
-		
+			s.setBoolean(4, true);
+
 			
 
 			s.executeUpdate();
@@ -885,8 +887,8 @@ regAbms(Main.getCod(),fun.getCod(),"Actualizar");
 		PreparedStatement s;
 		
 		String query="insert into formulariohojaderuta"
-				+ "(cfhd, numero, fecha ,cantPer,observaciones,legal,refugio,atencion,accionAlbergue,accionSerMedico,accionAlimentacion,accionAyudaHum,accionPasajes,accionCondonacion,accionOtro,otraAccion,fechaOtraAccion) values "
-				+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "(cfhd, numero, fecha ,cantPer,observaciones,legal,refugio,atencion,accionAlbergue,accionSerMedico,accionAlimentacion,accionAyudaHum,accionPasajes,accionCondonacion,accionOtro,otraAccion,fechaOtraAccion,estado) values "
+				+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			s=(PreparedStatement) conexion.prepareStatement(query);
 			s.setInt(1, hj.getCfhd());
@@ -912,7 +914,8 @@ regAbms(Main.getCod(),fun.getCod(),"Actualizar");
 				s.setDate(17, null);
 
 			}
-			
+			s.setBoolean(18, true);
+
 			s.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -955,8 +958,8 @@ regAbms(Main.getCod(),fun.getCod(),"Actualizar");
 				PreparedStatement s;
 				
 				String query="insert into pmh"
-						+ "(cpmh, accionrealizada,derivado,instruccion,observaciones,fecha) values "
-						+ "(?,?,?,?,?,?)";
+						+ "(cpmh, accionrealizada,derivado,instruccion,observaciones,fecha,estado) values "
+						+ "(?,?,?,?,?,?,?)";
 				try {
 					s=(PreparedStatement) conexion.prepareStatement(query);
 					s.setInt(1, hjr.getCpmh());
@@ -965,7 +968,8 @@ regAbms(Main.getCod(),fun.getCod(),"Actualizar");
 					s.setString(4,hjr.getInstruccion());
 					s.setString(5,hjr.getObservaciones());
 					s.setDate(6,  java.sql.Date.valueOf(hjr.getFechaAccion()));
-					
+					s.setBoolean(7, true);
+
 					
 					s.executeUpdate();
 					
