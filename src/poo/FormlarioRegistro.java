@@ -29,12 +29,12 @@ public class FormlarioRegistro {
 	private String obs;
 	private boolean transito,refugio,atencion;
 	private Familias fam;
-	
+	private boolean estado;
 	public FormlarioRegistro(int cfr, String lugar,LocalDate fechaRegistro, String telefono, String paisOrigen,
 			LocalDate fechaSalida, boolean transporte, String razon, LocalDate fechaIngreso, String fronteraIngreso,
 			String documentoIngreso, int diasPermanencia, boolean destinoFinal, String paisSiguiente, String porquePais,
 			String alojamiento,boolean enviaDinero, boolean sustento, boolean leEnviaDienro, String medioEvniaDinero, String comunicaFamilia,
-			String obs,boolean transito, boolean refugio, boolean atencion, Familias fam) {
+			String obs,boolean transito, boolean refugio, boolean atencion, Familias fam,boolean estado) {
 		this.cfr = cfr;
 		this.lugar = lugar;
 		this.fechaRegistro =fechaRegistro;
@@ -61,13 +61,15 @@ public class FormlarioRegistro {
 		this.refugio=refugio;
 		this.atencion=atencion;
 		this.fam=fam;
+		this.estado=estado;
+
 	}
 	
 	public FormlarioRegistro(int cfr, String lugar, String telefono, String paisOrigen,
 			LocalDate fechaSalida, boolean transporte, String razon, LocalDate fechaIngreso, String fronteraIngreso,
 			String documentoIngreso, String diasPermanencia, boolean destinoFinal, String paisSiguiente, String porquePais,
 			String alojamiento,boolean enviaDinero, boolean sustento, boolean leEnviaDienro, String medioEvniaDinero, String comunicaFamilia,
-			String obs,boolean transito, boolean refugio, boolean atencion, Familias fam) {
+			String obs,boolean transito, boolean refugio, boolean atencion, Familias fam,boolean estado) {
 		this.cfr = cfr;
 		this.lugar = lugar;
 		this.fechaRegistro =LocalDate.now();
@@ -94,12 +96,14 @@ public class FormlarioRegistro {
 		this.refugio=refugio;
 		this.atencion=atencion;
 		this.fam=fam;
+		this.estado=estado;
+
 	}
 	public FormlarioRegistro( String lugar, String telefono, String paisOrigen,
 			LocalDate fechaSalida, boolean transporte, String razon, LocalDate fechaIngreso, String fronteraIngreso,
 			String documentoIngreso, String diasPermanencia, boolean destinoFinal, String paisSiguiente, String porquePais,
 			String alojamiento,boolean enviaDinero, boolean sustento, boolean leEnviaDienro, String medioEvniaDinero, String comunicaFamilia,
-			String obs,boolean transito, boolean refugio, boolean atencion, Familias fam) {
+			String obs,boolean transito, boolean refugio, boolean atencion, Familias fam,boolean estado) {
 		try {
 			this.cfr = Conexion.ultimoFormularioRegistro();
 		} catch (SQLException e) {
@@ -131,9 +135,19 @@ public class FormlarioRegistro {
 		this.refugio=refugio;
 		this.atencion=atencion;
 		this.fam=fam;
+		this.estado=estado;
+
 	}
 	
 	
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 
 	public Familias getFam() {
 		return fam;

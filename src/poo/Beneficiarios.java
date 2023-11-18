@@ -14,8 +14,9 @@ public class Beneficiarios {
 	private boolean ingreso;//0-regular/1-irregular
 	private String educacion;
 	private ArrayList<PaisVisita> pais;
+	private boolean estado;
 	public Beneficiarios(int codBen, String nombre, int edad, String sexo, String ci, LocalDate fechaExpedido,
-			boolean ingreso, String educacion, ArrayList<PaisVisita> pais) {
+			boolean ingreso, String educacion, ArrayList<PaisVisita> pais,boolean estado) {
 		this.codBen = codBen;
 		this.nombre = nombre;
 		this.edad = edad;
@@ -25,9 +26,10 @@ public class Beneficiarios {
 		this.ingreso = ingreso;
 		this.educacion = educacion;
 		this.pais=pais;
+		this.estado=estado;
 	}
 	public Beneficiarios( String nombre, int edad, String sexo, String ci, LocalDate fechaExpedido,
-			boolean ingreso, String educacion, ArrayList<PaisVisita> pais) {
+			boolean ingreso, String educacion, ArrayList<PaisVisita> pais,boolean estado) {
 		try {
 			this.codBen = Conexion.ultimoBeneficiario();
 		} catch (SQLException e) {
@@ -42,6 +44,8 @@ public class Beneficiarios {
 		this.ingreso = ingreso;
 		this.educacion = educacion;
 		this.pais=pais;
+		this.estado=estado;
+
 	}
 	public boolean isPais() {
 		return pais==null;
@@ -54,6 +58,12 @@ public class Beneficiarios {
 		this.pais = pais;
 	}
 
+	public boolean isEstado() {
+		return estado;
+	}
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 	public int getCodBen() {
 		return codBen;
 	}

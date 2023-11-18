@@ -295,7 +295,7 @@ public class Hoja_ruta_acciones extends JFrame {
 					e1.printStackTrace();
 				}
         		if(!txtAcciones.getText().equals("")&& !txtInstrucciones.getText().equals("")&& !txtObservacionAccion.getText().equals("")&&!txtFechaAtencion.getText().equals("")) {
-        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar());
+        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar(),true);
         			try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
 					} catch (SQLException e1) {
@@ -399,7 +399,7 @@ public class Hoja_ruta_acciones extends JFrame {
 					e1.printStackTrace();
 				}
         		if(!txtAcciones_1.getText().equals("")&& !txtInstrucciones2.getText().equals("")&& !txtObservacionAccion2.getText().equals("")&&!textField_1.getText().equals("")) {
-        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar());
+        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar(),true);
         			try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
 					} catch (SQLException e1) {
@@ -743,7 +743,7 @@ public class Hoja_ruta_acciones extends JFrame {
 					e1.printStackTrace();
 				}
         		if(!txtAcciones.getText().equals("")&& !txtInstrucciones.getText().equals("")&& !txtObservacionAccion.getText().equals("")&&!txtFechaAtencion.getText().equals("")) {
-        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar());
+        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar(),true);
         			try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
 					} catch (SQLException e1) {
@@ -847,7 +847,7 @@ public class Hoja_ruta_acciones extends JFrame {
 					e1.printStackTrace();
 				}
         		if(!txtAcciones_1.getText().equals("")&& !txtInstrucciones2.getText().equals("")&& !txtObservacionAccion2.getText().equals("")&&!textField_1.getText().equals("")) {
-        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar());
+        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar(),true);
         			try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
 					} catch (SQLException e1) {
@@ -1197,7 +1197,7 @@ public class Hoja_ruta_acciones extends JFrame {
 					e1.printStackTrace();
 				}
         		if(!txtAcciones.getText().equals("")&& !txtInstrucciones.getText().equals("")&& !txtObservacionAccion.getText().equals("")&&!txtFechaAtencion.getText().equals("")) {
-        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar());
+        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar(),true);
         			try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
 					} catch (SQLException e1) {
@@ -1305,7 +1305,7 @@ public class Hoja_ruta_acciones extends JFrame {
 					e1.printStackTrace();
 				}
         		if(!txtAcciones_1.getText().equals("")&& !txtInstrucciones2.getText().equals("")&& !txtObservacionAccion2.getText().equals("")&&!textField_1.getText().equals("")) {
-        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar());
+        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar(),true);
         			try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
 					} catch (SQLException e1) {
@@ -1664,7 +1664,7 @@ public class Hoja_ruta_acciones extends JFrame {
 					e1.printStackTrace();
 				}
         		if(!txtAcciones.getText().equals("")&& !txtInstrucciones.getText().equals("")&& !txtObservacionAccion.getText().equals("")&&!txtFechaAtencion.getText().equals("")) {
-        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar());
+        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar(),true);
         			try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
 					} catch (SQLException e1) {

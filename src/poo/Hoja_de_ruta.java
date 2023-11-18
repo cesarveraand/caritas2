@@ -13,10 +13,11 @@ public class Hoja_de_ruta {
 	private boolean legal,refugio,atencion,accionAlbergue,accionSerMedico,accionAlimentacion,accionAyudaHum,accionPasajes, accionCondonacion ;
 	private String asignacion;
 	private LocalDate fechaAsig;
+	private boolean estado;
 	public Hoja_de_ruta(int cfhd, String numero, LocalDate fechaReg, int cantPer, String obs, boolean legal,
 			boolean refugio, boolean atencion, boolean accionAlbergue, boolean accionSerMedico,
 			boolean accionAlimentacion, boolean accionAyudaHum, boolean accionPasajes, boolean accionCondonacion,
-			String asignacion, LocalDate fechaAsig, FormlarioRegistro form) {
+			String asignacion, LocalDate fechaAsig, FormlarioRegistro form,boolean estado) {
 		this.cfhd = cfhd;
 		this.numero = numero;
 		this.fechaReg = fechaReg;
@@ -34,12 +35,14 @@ public class Hoja_de_ruta {
 		this.asignacion = asignacion;
 		this.fechaAsig =fechaAsig;
 		this.form=form;
+		this.estado=estado;
+
 	}
 	
 	public Hoja_de_ruta(int cfhd, String numero, int cantPer, String obs, boolean legal,
 			boolean refugio, boolean atencion, boolean accionAlbergue, boolean accionSerMedico,
 			boolean accionAlimentacion, boolean accionAyudaHum, boolean accionPasajes, boolean accionCondonacion,
-			String asignacion, LocalDate fechaAsig, FormlarioRegistro form) {
+			String asignacion, LocalDate fechaAsig, FormlarioRegistro form,boolean estado) {
 		this.cfhd = cfhd;
 		this.numero = numero;
 		this.fechaReg = LocalDate.now();
@@ -57,11 +60,12 @@ public class Hoja_de_ruta {
 		this.asignacion = asignacion;
 		this.fechaAsig=fechaAsig;
 		this.form=form;
+		this.estado=estado;
 
 	}
 	public Hoja_de_ruta(int cfhd, String numero, int cantPer, String obs, boolean legal,
 			boolean refugio, boolean atencion, boolean accionAlbergue, boolean accionSerMedico,
-			boolean accionAlimentacion, boolean accionAyudaHum, boolean accionPasajes, boolean accionCondonacion, FormlarioRegistro form) {
+			boolean accionAlimentacion, boolean accionAyudaHum, boolean accionPasajes, boolean accionCondonacion, FormlarioRegistro form,boolean estado) {
 		this.cfhd = cfhd;
 		this.numero = numero;
 		this.fechaReg = LocalDate.now();
@@ -79,11 +83,20 @@ public class Hoja_de_ruta {
 		this.asignacion = "";
 		this.fechaAsig=null;
 		this.form=form;
+		this.estado=estado;
 
 	}
 
 	
 	
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 
 	public String getAsignacion() {
 		return asignacion;

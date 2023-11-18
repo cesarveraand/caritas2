@@ -7,8 +7,9 @@ public class HojaRutaAcciones {
 	private String accionRealizada,derivado,instruccion,observaciones;
 	private LocalDate fechaAccion;
 	private Hoja_de_ruta hjr;
+	private boolean estado;
 	public HojaRutaAcciones(int cpmh, String accionRealizada, String derivado, String instruccion, String observaciones,
-			LocalDate fechaAccion,Hoja_de_ruta hjr) {
+			LocalDate fechaAccion,Hoja_de_ruta hjr,boolean estado) {
 		this.cpmh = cpmh;
 		this.accionRealizada = accionRealizada;
 		this.derivado = derivado;
@@ -16,7 +17,18 @@ public class HojaRutaAcciones {
 		this.observaciones = observaciones;
 		this.fechaAccion = fechaAccion;
 		this.hjr=hjr;
+		this.estado=estado;
+
 	}
+	
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
 	public Hoja_de_ruta getHjr() {
 		return hjr;
 	}

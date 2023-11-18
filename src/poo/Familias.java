@@ -8,13 +8,16 @@ public class Familias {
 	private int cantidad;
 	private Beneficiarios prin;
 	private ArrayList<Beneficiarios> familia;
-	public Familias(int codFamilia,int cantidad, Beneficiarios prin, ArrayList<Beneficiarios> familia) {
+	private boolean estado;
+	public Familias(int codFamilia,int cantidad, Beneficiarios prin, ArrayList<Beneficiarios> familia,boolean estado) {
 		this.codFamilia=codFamilia;
 		this.cantidad = cantidad;
 		this.prin = prin;
 		this.familia = familia;
+		this.estado=estado;
+
 	}
-	public Familias(int cantidad, Beneficiarios prin, ArrayList<Beneficiarios> familia) {
+	public Familias(int cantidad, Beneficiarios prin, ArrayList<Beneficiarios> familia,boolean estado) {
 		try {
 			this.codFamilia=Conexion.ultimaFamilia();
 		} catch (SQLException e) {
@@ -24,6 +27,14 @@ public class Familias {
 		this.cantidad = cantidad;
 		this.prin = prin;
 		this.familia = familia;
+		this.estado=estado;
+
+	}
+	public boolean isEstado() {
+		return estado;
+	}
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 	public int getCodFamilia() {
 		return codFamilia;

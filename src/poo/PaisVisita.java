@@ -7,13 +7,16 @@ public class PaisVisita {
 	private String pais;
 	private int tiempoDias;
 	private String estadoMigratorioString;
-	public PaisVisita(int cpo, String pais, int tiempoDias, String estadoMigratorioString) {
+	private boolean estado;
+	public PaisVisita(int cpo, String pais, int tiempoDias, String estadoMigratorioString,boolean estado) {
 		this.cpo = cpo;
 		this.pais = pais;
 		this.tiempoDias = tiempoDias;
 		this.estadoMigratorioString = estadoMigratorioString;
+		this.estado=estado;
+
 	}
-	public PaisVisita( String pais, int tiempoDias, String estadoMigratorioString) {
+	public PaisVisita( String pais, int tiempoDias, String estadoMigratorioString,boolean estado) {
 		try {
 			this.cpo = Conexion.ultimoPaisVisita();
 		} catch (SQLException e) {
@@ -23,6 +26,15 @@ public class PaisVisita {
 		this.pais = pais;
 		this.tiempoDias = tiempoDias;
 		this.estadoMigratorioString = estadoMigratorioString;
+		this.estado=estado;
+
+	}
+	
+	public boolean isEstado() {
+		return estado;
+	}
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 	public int getCpo() {
 		return cpo;

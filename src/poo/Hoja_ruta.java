@@ -205,14 +205,14 @@ public class Hoja_ruta extends JFrame {
         		if(!txtNombresBenef.getText().equals("")&&!txtObservaciones.getText().equals("")) {
         			if(!txtAsignacion.getText().equals("") ||!textFieldFechaAsigacion.getText().equals("") ) {
         				if(!textFieldFechaAsigacion.getText().equals("")&&!txtAsignacion.getText().equals("")) {
-                    		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(), txtAsignacion.getText(),Extras.fechas(textFieldFechaAsigacion.getText()),Main.getUltimoForm());
+                    		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(), txtAsignacion.getText(),Extras.fechas(textFieldFechaAsigacion.getText()),Main.getUltimoForm(),true);
 
         				}else {
                 			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos de asignacion");
 
         				}
         			}else {
-                		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm());
+                		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm(),true);
 
         			}
 
@@ -245,14 +245,14 @@ public class Hoja_ruta extends JFrame {
             		if(!txtNombresBenef.getText().equals("")&&!txtObservaciones.getText().equals("")) {
             			if(!txtAsignacion.getText().equals("") ||!textFieldFechaAsigacion.getText().equals("") ) {
             				if(!textFieldFechaAsigacion.getText().equals("")&&!txtAsignacion.getText().equals("")) {
-                        		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(), txtAsignacion.getText(),Extras.fechas(textFieldFechaAsigacion.getText()),Main.getUltimoForm());
+                        		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(), txtAsignacion.getText(),Extras.fechas(textFieldFechaAsigacion.getText()),Main.getUltimoForm(),true);
 
             				}else {
                     			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos de asignacion");
 
             				}
             			}else {
-                    		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm());
+                    		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm(),true);
 
             			}
 
@@ -463,14 +463,14 @@ public class Hoja_ruta extends JFrame {
         		if(!txtNombresBenef.getText().equals("")&&!txtObservaciones.getText().equals("")) {
         			if(!txtAsignacion.getText().equals("") ||!textFieldFechaAsigacion.getText().equals("") ) {
         				if(!textFieldFechaAsigacion.getText().equals("")&&!txtAsignacion.getText().equals("")) {
-                    		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(), txtAsignacion.getText(),Extras.fechas(textFieldFechaAsigacion.getText()),Main.getUltimoForm());
+                    		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(), txtAsignacion.getText(),Extras.fechas(textFieldFechaAsigacion.getText()),Main.getUltimoForm(),true);
 
         				}else {
                 			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos de asignacion");
 
         				}
         			}else {
-                		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm());
+                		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm(),true);
 
         			}
 
@@ -503,14 +503,14 @@ public class Hoja_ruta extends JFrame {
             		if(!txtNombresBenef.getText().equals("")&&!txtObservaciones.getText().equals("")) {
             			if(!txtAsignacion.getText().equals("") ||!textFieldFechaAsigacion.getText().equals("") ) {
             				if(!textFieldFechaAsigacion.getText().equals("")&&!txtAsignacion.getText().equals("")) {
-                        		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(), txtAsignacion.getText(),Extras.fechas(textFieldFechaAsigacion.getText()),Main.getUltimoForm());
+                        		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(), txtAsignacion.getText(),Extras.fechas(textFieldFechaAsigacion.getText()),Main.getUltimoForm(),true);
 
             				}else {
                     			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos de asignacion");
 
             				}
             			}else {
-                    		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm());
+                    		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm(),true);
 
             			}
 
