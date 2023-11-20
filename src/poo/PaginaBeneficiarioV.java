@@ -35,7 +35,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class PaginaBeneficiario extends JFrame {
+public class PaginaBeneficiarioV extends JFrame {
 
 	private JPanel contentPane;
 	private static ArrayList<FormlarioRegistro> forms = new ArrayList<FormlarioRegistro>();
@@ -48,12 +48,12 @@ public class PaginaBeneficiario extends JFrame {
 	private static JTextField txtFechaFinal;
 	private static JButton btnBuscarFechas;
 
-	public PaginaBeneficiario(ArrayList<FormlarioRegistro> forms) {
-		bens.clear();
-		this.forms.clear();
-		this.forms=forms;
-		for( FormlarioRegistro i:forms) {
-			for(Beneficiarios j: i.getFam().getFamilia()) {
+	public PaginaBeneficiarioV(ArrayList<FormlarioRegistro> forms) {
+		setTitle("Beneficiarios");
+
+		this.forms = forms;
+		for (FormlarioRegistro i : forms) {
+			for (Beneficiarios j : i.getFam().getFamilia()) {
 				bens.add(j);
 			}
 		}
@@ -107,8 +107,7 @@ public class PaginaBeneficiario extends JFrame {
 		contentPane.add(txtBuscar);
 		txtBuscar.setColumns(10);
 
-		comboBoxBuqueda
-				.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "C.I.", "Sexo", "Edad", "Formulario" }));
+		comboBoxBuqueda.setModel(new DefaultComboBoxModel(new String[] {"Nombre", "C.I.", "Sexo", "Edad", "Formulario"}));
 		comboBoxBuqueda.setBounds(36, 41, 140, 21);
 		contentPane.add(comboBoxBuqueda);
 		comboBoxBuqueda.addActionListener(new ActionListener() {
@@ -151,25 +150,24 @@ public class PaginaBeneficiario extends JFrame {
 
 		btnBuscarFechas = new JButton("Buscar por Fechas");
 		btnBuscarFechas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Obtener las fechas de inicio y fin ingresadas en los campos de texto
-				String fechaInicioStr = txtFechaInicio.getText();
-				String fechaFinalStr = txtFechaFinal.getText();
+		    public void actionPerformed(ActionEvent e) {
+		        // Obtener las fechas de inicio y fin ingresadas en los campos de texto
+		        String fechaInicioStr = txtFechaInicio.getText();
+		        String fechaFinalStr = txtFechaFinal.getText();
 
-				// Validar si ambas fechas tienen el formato correcto
-				if (validarFormatoFecha(fechaInicioStr) && validarFormatoFecha(fechaFinalStr)) {
-					LocalDate fechaInicio = LocalDate.parse(fechaInicioStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-					LocalDate fechaFinal = LocalDate.parse(fechaFinalStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		        // Validar si ambas fechas tienen el formato correcto
+		        if (validarFormatoFecha(fechaInicioStr) && validarFormatoFecha(fechaFinalStr)) {
+		            LocalDate fechaInicio = LocalDate.parse(fechaInicioStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		            LocalDate fechaFinal = LocalDate.parse(fechaFinalStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-					// Filtrar los funcionarios por fecha, nombre y tipo de búsqueda y actualizar la
-					// tabla
-					filtrarPorFechas(fechaInicio, fechaFinal, txtBuscar.getText());
-				} else {
-					// Mostrar mensaje de error si alguna de las fechas no tiene el formato correcto
-					JOptionPane.showMessageDialog(null, "Ingrese fechas válidas en el formato dd/MM/yyyy",
-							"Error en fechas", JOptionPane.ERROR_MESSAGE);
-				}
-			}
+		            // Filtrar los funcionarios por fecha, nombre y tipo de búsqueda y actualizar la tabla
+		            filtrarPorFechas(fechaInicio, fechaFinal, txtBuscar.getText());
+		        } else {
+		            // Mostrar mensaje de error si alguna de las fechas no tiene el formato correcto
+		            JOptionPane.showMessageDialog(null, "Ingrese fechas válidas en el formato dd/MM/yyyy", "Error en fechas",
+		                    JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
 		});
 		// btnBuscarFechas.setEnabled(false);
 		btnBuscarFechas.setBounds(615, 68, 150, 20);
@@ -224,17 +222,15 @@ public class PaginaBeneficiario extends JFrame {
 		txtFechaInicio.setEditable(true);
 		btnBuscarFechas.setEnabled(true);
 	}
-
 	// Método para validar el formato de la fecha
 	private boolean validarFormatoFecha(String fechaStr) {
-		try {
-			LocalDate.parse(fechaStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-			return true;
-		} catch (DateTimeParseException e) {
-			return false;
-		}
+	    try {
+	        LocalDate.parse(fechaStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+	        return true;
+	    } catch (DateTimeParseException e) {
+	        return false;
+	    }
 	}
-
 	private void filtrarPorFechas(LocalDate fechaInicio, LocalDate fechaFinal, String valor) {
 		// Nombres de columna
 		String[] columnNames = { "Beneficiario", "Nombre", "CI", "Fecha registro", "Edad", "Sexo", "Formulario" };
@@ -254,30 +250,30 @@ public class PaginaBeneficiario extends JFrame {
 
 						if (j.getNombre().toLowerCase().contains(valor.toLowerCase())) {
 							model.addRow(new String[] { j.getCodBen() + "", j.getNombre(), j.getCi(),
-									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()),
-									j.getSexo(), String.valueOf(i.getCfr()) });
+									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()), j.getSexo(),
+									String.valueOf(i.getCfr()) });
 						}
 						break;
 					case "C.I.":
 						if (j.getCi().contains(valor)) {
 							model.addRow(new String[] { j.getCodBen() + "", j.getNombre(), j.getCi(),
-									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()),
-									j.getSexo(), String.valueOf(i.getCfr()) });
+									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()), j.getSexo(),
+									String.valueOf(i.getCfr()) });
 						}
 						break;
 					case "Edad":
 						if (String.valueOf(j.getEdad()).contains(valor)) {
 							model.addRow(new String[] { j.getCodBen() + "", j.getNombre(), j.getCi(),
-									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()),
-									j.getSexo(), String.valueOf(i.getCfr()) });
+									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()), j.getSexo(),
+									String.valueOf(i.getCfr()) });
 						}
 						break;
 					case "Sexo":
 						// Agregar búsqueda por sexo
 						if (j.getSexo().toLowerCase().contains(valor.toLowerCase())) {
 							model.addRow(new String[] { j.getCodBen() + "", j.getNombre(), j.getCi(),
-									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()),
-									j.getSexo(), String.valueOf(i.getCfr()) });
+									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()), j.getSexo(),
+									String.valueOf(i.getCfr()) });
 						}
 						break;
 					case "Formulario":
@@ -332,30 +328,30 @@ public class PaginaBeneficiario extends JFrame {
 
 						if (j.getNombre().toLowerCase().contains(valor.toLowerCase())) {
 							model.addRow(new String[] { j.getCodBen() + "", j.getNombre(), j.getCi(),
-									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()),
-									j.getSexo(), String.valueOf(i.getCfr()) });
+									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()), j.getSexo(),
+									String.valueOf(i.getCfr()) });
 						}
 						break;
 					case "C.I.":
 						if (j.getCi().contains(valor)) {
 							model.addRow(new String[] { j.getCodBen() + "", j.getNombre(), j.getCi(),
-									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()),
-									j.getSexo(), String.valueOf(i.getCfr()) });
+									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()), j.getSexo(),
+									String.valueOf(i.getCfr()) });
 						}
 						break;
 					case "Edad":
 						if (String.valueOf(j.getEdad()).contains(valor)) {
 							model.addRow(new String[] { j.getCodBen() + "", j.getNombre(), j.getCi(),
-									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()),
-									j.getSexo(), String.valueOf(i.getCfr()) });
+									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()), j.getSexo(),
+									String.valueOf(i.getCfr()) });
 						}
 						break;
 					case "Sexo":
 						// Agregar búsqueda por sexo
 						if (j.getSexo().toLowerCase().contains(valor.toLowerCase())) {
 							model.addRow(new String[] { j.getCodBen() + "", j.getNombre(), j.getCi(),
-									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()),
-									j.getSexo(), String.valueOf(i.getCfr()) });
+									i.getFechaRegistro().format(dateFormatter), String.valueOf(j.getEdad()), j.getSexo(),
+									String.valueOf(i.getCfr()) });
 						}
 						break;
 					case "Formulario":
@@ -370,12 +366,10 @@ public class PaginaBeneficiario extends JFrame {
 				}
 
 			}
-
 		}
 
 		// Asignar el modelo a la instancia existente de JTable
 		table_1.setModel(model);
-
 		// Ajustar el ancho de las columnas
 		int[] columnWidths = { 80, 200, 150, 150, 130 }; // Puedes ajustar estos valores según tus necesidades
 
@@ -421,39 +415,25 @@ public class PaginaBeneficiario extends JFrame {
 	}
 
 	private static JPopupMenu createPopupMenu(FormlarioRegistro f) {
-        JPopupMenu popupMenu = new JPopupMenu();
-        
-        // Crear botones con las acciones deseadas
-        JButton boton1 = new JButton("Eliminar");
-        boton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            
-            }
-        });
+		JPopupMenu popupMenu = new JPopupMenu();
 
-        
-        JButton boton3 = new JButton("Visualizar y Actualizar");
-        boton3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	 Registro reg= new Registro(f);
-                reg.setVisible(true);
-            	 ventanaAbierta = true; // Marcar la ventana como abierta
-                 reg.addWindowListener(new WindowAdapter() {
-                     @Override
-                     public void windowClosed(WindowEvent e) {
-                       ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
-                    }
-                 });
-            }
-        });
-        
-
-        
+		JButton boton3 = new JButton("Visualizar y Actualizar");
+		boton3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Registro reg = new Registro(f);
+				reg.setVisible(true);
+				ventanaAbierta = true; // Marcar la ventana como abierta
+				reg.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosed(WindowEvent e) {
+						ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
+					}
+				});
+			}
+		});
 
 		// Agregar los botones al menú flotante
-		popupMenu.add(boton1);
 		popupMenu.add(boton3);
 		// popupMenu.add(boton4);
 

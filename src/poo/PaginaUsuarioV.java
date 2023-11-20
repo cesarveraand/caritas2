@@ -83,6 +83,16 @@ public class PaginaUsuarioV extends JFrame {
 		JButton btnBene = new JButton("Beneficiarios");
 		btnBene.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ArrayList<FormlarioRegistro> forms=new ArrayList<FormlarioRegistro>();
+				try {
+					forms = Conexion.formulariosRegistrado();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				PaginaBeneficiarioV pg=new PaginaBeneficiarioV(forms);
+				pg.setVisible(true);
+				
 			}
 		});
 		btnBene.setBounds(298, 152, 198, 21);
