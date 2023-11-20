@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class Conexion {
 	static final String DB_URl="jdbc:postgresql://localhost/Caritas";
 	static final String USER ="postgres";
-	static final String PASS= "D4l3mb3rt";
+	static final String PASS= "3211";
 	public Connection getConexionPostgres() throws SQLException {
 		Connection conn=null;
 		try {
@@ -33,7 +33,8 @@ public class Conexion {
 		Connection conexion = con.getConexionPostgres();
 		Funcionario ad=null;
 		java.sql.Statement s= conexion.createStatement();
-		ResultSet rs=  s.executeQuery("select distinct cv,nombreperfil,ci,correo,telefono,fechanacimiento,direccion,ciudad,contrasenia,fecharegistrado,empleado,admin from funcionario where  empleado=true and cv='"+cod+"'");
+		ResultSet rs=  s.executeQuery("select distinct cv,nombreperfil,ci,correo,telefono,fechanacimiento,direccion,ciudad,contrasenia,fecharegistrado,empleado,admin "
+				+ "from funcionario where  empleado=true and cv='"+cod+"'");
 		while (rs.next()) {
 			ad=new Funcionario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(8), rs.getString(7), rs.getString(9),rs.getDate(6).toLocalDate(),rs.getDate(10).toLocalDate(),rs.getBoolean(11),rs.getBoolean(12));
 		}
@@ -41,6 +42,35 @@ public class Conexion {
 		System.out.println("admin: "+ad );
 		return ad;
 	}
+	public static Funcionario traerFuncionarioBusqueda(int cod, String valor)throws SQLException{
+		Conexion cn=new Conexion();
+		Connection conexion = cn.getConexionPostgres();
+		Funcionario ad=null;
+		java.sql.Statement s= conexion.createStatement();
+		ResultSet rs=  s.executeQuery("select distinct cv,nombreperfil,ci,correo,telefono,fechanacimiento,direccion,ciudad,contrasenia,fecharegistrado,empleado,admin "
+				+ "from funcionario WHERE nombrePerfil LIKE '%" + valor + "%' and empleado=true");
+		while (rs.next()) {
+			ad=new Funcionario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(8), rs.getString(7), rs.getString(9),rs.getDate(6).toLocalDate(),rs.getDate(10).toLocalDate(),rs.getBoolean(11),rs.getBoolean(12));
+		}
+		conexion.close();
+		System.out.println("admin: "+ad );
+		return ad;
+	}
+	public static Funcionario busquedaAdminFechas(String ini, String fin)throws SQLException{
+		Conexion cn=new Conexion();
+		Connection conexion = cn.getConexionPostgres();
+		Funcionario ad=null;
+		java.sql.Statement s= conexion.createStatement();
+		ResultSet rs=  s.executeQuery("select distinct cv,nombreperfil,ci,correo,telefono,fechanacimiento,direccion,ciudad,contrasenia,fecharegistrado,empleado,admin \n"
+				+ "from funcionario WHERE fecharegistrado between '"+ini+"' and '"+fin+"' and admin = true");
+		while (rs.next()) {
+			ad=new Funcionario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(8), rs.getString(7), rs.getString(9),rs.getDate(6).toLocalDate(),rs.getDate(10).toLocalDate(),rs.getBoolean(11),rs.getBoolean(12));
+		}
+		conexion.close();
+		System.out.println("admin: "+ad );
+		return ad;
+	}
+	
 	public static FormlarioRegistro traerFormulario(int cod)throws SQLException{
 		Conexion con=new Conexion();
 		Connection conexion = con.getConexionPostgres();

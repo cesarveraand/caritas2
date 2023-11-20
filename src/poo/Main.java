@@ -2,6 +2,8 @@ package poo;
 
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 public class Main {
 	private static Funcionario fun=null;
 	private static FormlarioRegistro ultimoForm=null;
@@ -34,14 +36,14 @@ public class Main {
 	public static void setUltimaHojar(Hoja_de_ruta f) {
 		hojar=f;
 	}
-	public static void ingresar(String ci, String contra) {
-		try {
-			fun=Conexion.ingresarFun(ci,contra);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public static boolean ingresar(String ci, String contra) {
+	    try {
+	        fun = Conexion.ingresarFun(ci, contra);
+	        return (fun != null); // Retorna true si el inicio de sesión es exitoso
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false; // Retorna false en caso de excepción
+	    }
 	}
 	
 
