@@ -55,7 +55,7 @@ public class PaginaBeneficiario extends JFrame {
 		for( FormlarioRegistro i:forms) {
 			for(Beneficiarios j: i.getFam().getFamilia()) {
 				bens.add(j);
-			}
+			} 
 		} 
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -107,8 +107,7 @@ public class PaginaBeneficiario extends JFrame {
 		contentPane.add(txtBuscar);
 		txtBuscar.setColumns(10);
 
-		comboBoxBuqueda
-				.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "C.I.", "Sexo", "Edad", "Formulario" }));
+		comboBoxBuqueda.setModel(new DefaultComboBoxModel(new String[] { "Nombre", "C.I.", "Sexo", "Edad", "Formulario" }));
 		comboBoxBuqueda.setBounds(36, 41, 140, 21);
 		contentPane.add(comboBoxBuqueda);
 		comboBoxBuqueda.addActionListener(new ActionListener() {

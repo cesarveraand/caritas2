@@ -74,11 +74,11 @@ public class PaginaUsuarioV extends JFrame {
 					e1.printStackTrace();
 				}
 				PaginaHojaRutaAccionesV hjr =new PaginaHojaRutaAccionesV(f);
-				hjr.setVisible(true);
+				hjr.setVisible(true); 
 			}
 		});
 		btnRegAcciones.setBounds(298, 320, 198, 21);
-		contentPane.add(btnRegAcciones);
+		contentPane.add(btnRegAcciones); 
 		
 		JButton btnBene = new JButton("Beneficiarios");
 		btnBene.addActionListener(new ActionListener() {

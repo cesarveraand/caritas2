@@ -183,25 +183,40 @@ public class PaginaHojaRuta extends JFrame {
 	}
 
 	/*
-	public static void agregarFun(Funcionario fun) {
-		admins.add(fun);
-	}
-	public static void removerFun(Funcionario fun) {
-		admins.remove(fun);
-	}
-	public static void cambiar() {
-		admins.clear();
+	 * public static void agregarFun(Funcionario fun) { admins.add(fun); } public
+	 * static void removerFun(Funcionario fun) { admins.remove(fun); } public static
+	 * void cambiar() { admins.clear(); try { admins =Conexion.adminsRegistrados();
+	 * } catch (SQLException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); } }
+	 */
+	private void txtbuscarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtbuscarActionPerformed
+		// TODO add your handling code here:
+	}// GEN-LAST:event_txtbuscarActionPerformed
+
+	private void txtbuscarKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_txtbuscarKeyReleased
+		// TODO add your handling code here:
+		buscar(txtBuscar.getText());
+	}// GEN-LAST:event_txtbuscarKeyReleased
+
+	// Método para validar el formato de la fecha
+	private boolean validarFormatoFecha(String fechaStr) {
 		try {
-			admins =Conexion.adminsRegistrados();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LocalDate.parse(fechaStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+			return true;
+		} catch (DateTimeParseException e) {
+			return false;
 		}
-	}*/
-	public static void tabla() {
-		
-		String[][] data = new String[forms.size()][3];
-		int c = 0;
+	}
+
+	private void filtrarPorFechas(LocalDate fechaInicio, LocalDate fechaFinal, String valor) {
+		// Nombres de columna
+		String[] columnNames = { "Codigo registro", "fecha", "CI representante" };
+		// Crear el modelo de la tabla con los datos de las columnas
+		DefaultTableModel model = new DefaultTableModel(null, columnNames);
+		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		// Filtrar los funcionarios que coinciden con el valor de búsqueda
+
 		for (FormlarioRegistro i : forms) {
 			LocalDate fechaRegsitro = i.getFechaRegistro();
 
@@ -288,37 +303,46 @@ public class PaginaHojaRuta extends JFrame {
 
 		// Asignar el modelo a la instancia existente de JTable
 		table_1.setModel(model);
-		TableColumn column = table_1.getColumnModel().getColumn(1);
-        column.setPreferredWidth(200);
-        table_1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    if (!ventanaAbierta) { // Verificar si la ventana no está abierta
-                        int selectedRow = table_1.getSelectedRow();
-                        if (selectedRow != -1) {
-                        	
-                            FormlarioRegistro f = null;
-                            int cod = Integer.parseInt((String) table_1.getValueAt(selectedRow, 0));
-                            try {
-                                f = Conexion.traerFormulario(cod);
-                            } catch (SQLException e1) {
-                                e1.printStackTrace();
-                            }
-                            Registro reg= new Registro(f);
-                            reg.setVisible(true);
-                        	 ventanaAbierta = true; // Marcar la ventana como abierta
-                             reg.addWindowListener(new WindowAdapter() {
-                                 @Override
-                                 public void windowClosed(WindowEvent e) {
-                                   ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
-                                }
-                             });
-                        
-                        }
-                    }
-                }
-            }
-        });
+		// Ajustar el ancho de las columnas
+		int[] columnWidths = { 120, 120, 120 }; // Puedes ajustar estos valores según tus necesidades
+
+		for (int i = 0; i < columnWidths.length; i++) {
+			TableColumn column = table_1.getColumnModel().getColumn(i);
+			column.setPreferredWidth(columnWidths[i]);
+		}
+	}
+
+	public static void tabla() {
+
+		table_1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
+					if (!ventanaAbierta) { // Verificar si la ventana no está abierta
+						int selectedRow = table_1.getSelectedRow();
+						if (selectedRow != -1) {
+
+							FormlarioRegistro f = null;
+							int cod = Integer.parseInt((String) table_1.getValueAt(selectedRow, 0));
+							try {
+								f = Conexion.traerFormulario(cod);
+							} catch (SQLException e1) {
+								e1.printStackTrace();
+							}
+							Registro reg = new Registro(f);
+							reg.setVisible(true);
+							ventanaAbierta = true; // Marcar la ventana como abierta
+							reg.addWindowListener(new WindowAdapter() {
+								@Override
+								public void windowClosed(WindowEvent e) {
+									ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
+								}
+							});
+
+						}
+					}
+				}
+			}
+		});
 
 	}
 
