@@ -72,7 +72,7 @@ public class PaginaHojaRutaAcciones extends JFrame {
 		btnVolver.setBounds(29, 491, 85, 21);
 		contentPane.add(btnVolver);
 		
-		JButton btnAgregar = new JButton("Editar");
+		JButton btnAgregar = new JButton("Editar Acciones");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<HojaRutaAcciones> f= new ArrayList<HojaRutaAcciones>();
@@ -152,6 +152,7 @@ public class PaginaHojaRutaAcciones extends JFrame {
 		JButton btnBuscar = new JButton("Mostrar Todo");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				txtBuscar.setText("");
 				buscar("");
 			}
 		});
