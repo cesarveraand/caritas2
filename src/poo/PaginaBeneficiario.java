@@ -56,7 +56,7 @@ public class PaginaBeneficiario extends JFrame {
 			for(Beneficiarios j: i.getFam().getFamilia()) {
 				bens.add(j);
 			}
-		}
+		} 
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 816, 574);
