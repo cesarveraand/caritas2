@@ -121,7 +121,7 @@ public class PaginaHojaRutaE extends JFrame {
 					data[c][0] = i.getCfhd()+"";
 					data[c][1] = i.getFechaReg() + "";
 					data[c][2] =i.getForm().getFam().getPrin().getCi()+ "";
-					c++;
+					c++; 
 				
 			
 		} 
@@ -149,15 +149,9 @@ public class PaginaHojaRutaE extends JFrame {
                             } catch (SQLException e1) {
                                 e1.printStackTrace();
                             }
-                            Hoja_ruta reg= new Hoja_ruta(f);
-                            reg.setVisible(true);
-                        	 ventanaAbierta = true; // Marcar la ventana como abierta
-                             reg.addWindowListener(new WindowAdapter() {
-                                 @Override
-                                 public void windowClosed(WindowEvent e) {
-                                   ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
-                                }
-                             });
+                            JPopupMenu popupMenu = createPopupMenu(f);
+    						popupMenu.show(table_1, 0, table_1.getRowHeight() * selectedRow);
+                          
                         
                         }
                     }
@@ -166,6 +160,52 @@ public class PaginaHojaRutaE extends JFrame {
         });
 
 	}
-	
+	private static JPopupMenu createPopupMenu(Hoja_de_ruta f) {
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        // Crear botones con las acciones deseadas
+        JButton boton1 = new JButton("Eliminar");
+        boton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	try {
+					Conexion.eliminarHojaRuta(f);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            	forms.remove(f);
+            	tabla();
+      
+            }
+        });
+
+        
+        JButton boton3 = new JButton("Visualizar y Actualizar");
+        boton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	Hoja_ruta reg= new Hoja_ruta(f);
+                reg.setVisible(true);
+            	 ventanaAbierta = true; // Marcar la ventana como abierta
+                 reg.addWindowListener(new WindowAdapter() {
+                     @Override
+                     public void windowClosed(WindowEvent e) {
+                       ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
+                    }
+                 });
+            }
+        });
+        
+
+        
+
+        // Agregar los botones al menú flotante
+        popupMenu.add(boton1);
+        popupMenu.add(boton3);
+        //popupMenu.add(boton4);
+
+        return popupMenu;
+    }
 }
 

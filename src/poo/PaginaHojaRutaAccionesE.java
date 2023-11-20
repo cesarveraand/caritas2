@@ -124,7 +124,7 @@ public class PaginaHojaRutaAccionesE extends JFrame {
 					data[c][2] =i.getHjr().getForm().getFam().getPrin().getCi()+ "";
 					data[c][3]= i.getHjr().getCfhd()+"";
 					c++;
-				
+				 
 			
 		} 
 
@@ -143,7 +143,7 @@ public class PaginaHojaRutaAccionesE extends JFrame {
                     if (!ventanaAbierta) { // Verificar si la ventana no está abierta
                         int selectedRow = table_1.getSelectedRow();
                         if (selectedRow != -1) {
-                        	Hoja_ruta_acciones reg=null;
+                        	
                         	ArrayList<HojaRutaAcciones> f = new ArrayList<HojaRutaAcciones>();
                             int cod = Integer.parseInt((String) table_1.getValueAt(selectedRow, 3));
                             try {
@@ -151,21 +151,9 @@ public class PaginaHojaRutaAccionesE extends JFrame {
                             } catch (SQLException e1) {
                                 e1.printStackTrace();
                             }
-                            if(f.size()>1) {
-                            	reg= new Hoja_ruta_acciones(f.get(0),f.get(1));
-                                reg.setVisible(true);
-                            }else {
-                            	reg= new Hoja_ruta_acciones(f.get(0));
-                                reg.setVisible(true);
-                            }
-                            
-                        	 ventanaAbierta = true; // Marcar la ventana como abierta
-                             reg.addWindowListener(new WindowAdapter() {
-                                 @Override
-                                 public void windowClosed(WindowEvent e) {
-                                   ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
-                                }
-                             });
+                            JPopupMenu popupMenu = createPopupMenu(f);
+    						popupMenu.show(table_1, 0, table_1.getRowHeight() * selectedRow);
+                          
                         
                         }
                     }
@@ -174,7 +162,62 @@ public class PaginaHojaRutaAccionesE extends JFrame {
         });
 
 	}
-	
+	private static JPopupMenu createPopupMenu(ArrayList<HojaRutaAcciones> f) {
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        // Crear botones con las acciones deseadas
+        JButton boton1 = new JButton("Eliminar");
+        boton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	try {
+					Conexion.eliminarAccion(f);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            	for(HojaRutaAcciones i:f) {
+            		forms.remove(i);
+            	}
+            	tabla();
+      
+            }
+        });
+
+        
+        JButton boton3 = new JButton("Visualizar y Actualizar");
+        boton3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	Hoja_ruta_acciones reg=null;
+                if(f.size()>1) {
+                	reg= new Hoja_ruta_acciones(f.get(0),f.get(1));
+                    reg.setVisible(true);
+                }else {
+                	reg= new Hoja_ruta_acciones(f.get(0));
+                    reg.setVisible(true);
+                }
+                
+            	 ventanaAbierta = true; // Marcar la ventana como abierta
+                 reg.addWindowListener(new WindowAdapter() {
+                     @Override
+                     public void windowClosed(WindowEvent e) {
+                       ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
+                     }
+                 
+                 });
+            }
+        });
+
+        
+
+        // Agregar los botones al menú flotante
+        popupMenu.add(boton1);
+        popupMenu.add(boton3);
+        //popupMenu.add(boton4);
+
+        return popupMenu;
+    }
 }
 
 

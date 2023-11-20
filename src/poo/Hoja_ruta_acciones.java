@@ -320,7 +320,10 @@ public class Hoja_ruta_acciones extends JFrame {
         
         btnAñadirAccion.setBounds(288, 495, 230, 23);
         panelLlenado.add(btnAñadirAccion);
+JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         
+        btnQuitarAccion.setBounds(500, 495, 230, 23);
+        panelLlenado.add(btnQuitarAccion);
         JSeparator separator_1 = new JSeparator();
         separator_1.setBounds(0, 485, 1894, 2);
         panelLlenado.add(separator_1);
@@ -459,6 +462,22 @@ public class Hoja_ruta_acciones extends JFrame {
                     	scrollPane2.setVisible(true);
                         panelAcRealizada2.setVisible(true);
                         contadorAcciones = 2;
+                    }
+                }
+            }
+        });
+        btnQuitarAccion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (contadorAcciones == 2) {
+                	scrollPane2.setVisible(false);
+                    panelAcRealizada2.setVisible(false);
+                	
+                    contadorAcciones = 1;
+                } else {
+                    if (contadorAcciones == 1) {
+                    	scrollPane.setVisible(false);
+                        panelAcRealizada1.setVisible(false);
+                        contadorAcciones = 0;
                     }
                 }
             }
@@ -768,7 +787,10 @@ public class Hoja_ruta_acciones extends JFrame {
         
         btnAñadirAccion.setBounds(288, 495, 230, 23);
         panelLlenado.add(btnAñadirAccion);
+JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         
+        btnQuitarAccion.setBounds(500, 495, 230, 23);
+        panelLlenado.add(btnQuitarAccion);
         JSeparator separator_1 = new JSeparator();
         separator_1.setBounds(0, 485, 1894, 2);
         panelLlenado.add(separator_1);
@@ -907,6 +929,22 @@ public class Hoja_ruta_acciones extends JFrame {
                     	scrollPane2.setVisible(true);
                         panelAcRealizada2.setVisible(true);
                         contadorAcciones = 2;
+                    }
+                }
+            }
+        });
+        btnQuitarAccion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (contadorAcciones == 2) {
+                	scrollPane2.setVisible(false);
+                    panelAcRealizada2.setVisible(false);
+                	
+                    contadorAcciones = 1;
+                } else {
+                    if (contadorAcciones == 1) {
+                    	scrollPane.setVisible(false);
+                        panelAcRealizada1.setVisible(false);
+                        contadorAcciones = 0;
                     }
                 }
             }
@@ -1183,7 +1221,7 @@ public class Hoja_ruta_acciones extends JFrame {
         txtInstrucciones.setText(hhhd.getInstruccion());
         txtObservacionAccion.setText(hhhd.getObservaciones());
         txtAcciones.setText(hhhd.getAccionRealizada());
-        JButton btnGuardarAccion = new JButton("REGISTRAR ACCIÓN");
+        JButton btnGuardarAccion = new JButton("ACTUALIZAR ACCIÓN");
         btnGuardarAccion.setBounds(452, 190, 152, 23);
         panelAcRealizada1.add(btnGuardarAccion);
       
@@ -1199,7 +1237,7 @@ public class Hoja_ruta_acciones extends JFrame {
         		if(!txtAcciones.getText().equals("")&& !txtInstrucciones.getText().equals("")&& !txtObservacionAccion.getText().equals("")&&!txtFechaAtencion.getText().equals("")) {
         			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar(),true);
         			try {
-						Conexion.registrarHojaDeRutaAcciones(hjr);
+						Conexion.actualizarHojaDeRutaAcciones(hjr,hhhd);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -1222,7 +1260,10 @@ public class Hoja_ruta_acciones extends JFrame {
         
         btnAñadirAccion.setBounds(288, 495, 230, 23);
         panelLlenado.add(btnAñadirAccion);
+JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         
+        btnQuitarAccion.setBounds(500, 495, 230, 23);
+        panelLlenado.add(btnQuitarAccion);
         JSeparator separator_1 = new JSeparator();
         separator_1.setBounds(0, 485, 1894, 2);
         panelLlenado.add(separator_1);
@@ -1292,7 +1333,7 @@ public class Hoja_ruta_acciones extends JFrame {
         txtInstrucciones2.setText(hhhd_1.getInstruccion());
         txtObservacionAccion2.setText(hhhd_1.getObservaciones());
         txtAcciones_1.setText(hhhd_1.getAccionRealizada());
-        JButton btnGuardarAccion_1 = new JButton("REGISTRAR ACCIÓN");
+        JButton btnGuardarAccion_1 = new JButton("ACTUALIZAR ACCIÓN");
         btnGuardarAccion_1.setBounds(452, 190, 152, 23);
         panelAcRealizada2.add(btnGuardarAccion_1);
         btnGuardarAccion_1.addActionListener(new ActionListener() {
@@ -1307,7 +1348,7 @@ public class Hoja_ruta_acciones extends JFrame {
         		if(!txtAcciones_1.getText().equals("")&& !txtInstrucciones2.getText().equals("")&& !txtObservacionAccion2.getText().equals("")&&!textField_1.getText().equals("")) {
         			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar(),true);
         			try {
-						Conexion.registrarHojaDeRutaAcciones(hjr);
+						Conexion.actualizarHojaDeRutaAcciones(hjr,hhhd_1);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -1374,6 +1415,22 @@ public class Hoja_ruta_acciones extends JFrame {
                     	scrollPane2.setVisible(true);
                         panelAcRealizada2.setVisible(true);
                         contadorAcciones = 2;
+                    }
+                }
+            }
+        });
+        btnQuitarAccion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (contadorAcciones == 2) {
+                	scrollPane2.setVisible(false);
+                    panelAcRealizada2.setVisible(false);
+                	
+                    contadorAcciones = 1;
+                } else {
+                    if (contadorAcciones == 1) {
+                    	scrollPane.setVisible(false); 
+                        panelAcRealizada1.setVisible(false);
+                        contadorAcciones = 0;
                     }
                 }
             }
@@ -1650,7 +1707,7 @@ public class Hoja_ruta_acciones extends JFrame {
         txtInstrucciones.setText(hhhd.getInstruccion());
         txtObservacionAccion.setText(hhhd.getObservaciones());
         txtAcciones.setText(hhhd.getAccionRealizada());
-        JButton btnGuardarAccion = new JButton("REGISTRAR ACCIÓN");
+        JButton btnGuardarAccion = new JButton("ACTUALIZAR ACCIÓN");
         btnGuardarAccion.setBounds(452, 190, 152, 23);
         panelAcRealizada1.add(btnGuardarAccion);
       
@@ -1666,7 +1723,7 @@ public class Hoja_ruta_acciones extends JFrame {
         		if(!txtAcciones.getText().equals("")&& !txtInstrucciones.getText().equals("")&& !txtObservacionAccion.getText().equals("")&&!txtFechaAtencion.getText().equals("")) {
         			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar(),true);
         			try {
-						Conexion.registrarHojaDeRutaAcciones(hjr);
+						Conexion.actualizarHojaDeRutaAcciones(hjr,hhhd);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -1689,7 +1746,10 @@ public class Hoja_ruta_acciones extends JFrame {
         
         btnAñadirAccion.setBounds(288, 495, 230, 23);
         panelLlenado.add(btnAñadirAccion);
+        JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         
+        btnQuitarAccion.setBounds(500, 495, 230, 23);
+        panelLlenado.add(btnQuitarAccion);
         JSeparator separator_1 = new JSeparator();
         separator_1.setBounds(0, 485, 1894, 2);
         panelLlenado.add(separator_1);
@@ -1731,6 +1791,15 @@ public class Hoja_ruta_acciones extends JFrame {
                 	scrollPane.setVisible(true);
                     panelAcRealizada1.setVisible(true);
                     contadorAcciones = 1;
+                } 
+            }
+        });
+        btnQuitarAccion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (contadorAcciones == 1) {
+                	scrollPane.setVisible(false);
+                    panelAcRealizada1.setVisible(false);
+                    contadorAcciones = 0;
                 } 
             }
         });

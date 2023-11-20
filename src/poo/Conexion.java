@@ -46,7 +46,7 @@ public class Conexion {
 		Connection conexion = con.getConexionPostgres();
 		FormlarioRegistro ad=null;
 		java.sql.Statement s= conexion.createStatement();
-		ResultSet rs=  s.executeQuery("select distinct cfr, lugar, fecharegistro ,telefono,paisorigen,fechadesalida,transporte,razon,fechadeingreso,fronterodeingreso,documentodeingreso,diasdepermanencia,destinofinal,paissiguiente,porquepais,alojamiento,enviodinero,sustento,leenviandinero,medioenviodinero,comosecomunicafamilia,observaciones,transito,refugio,atencion,estado from formularioregistro where cfr='"+cod+"'");
+		ResultSet rs=  s.executeQuery("select distinct cfr, lugar, fecharegistro ,telefono,paisorigen,fechadesalida,transporte,razon,fechadeingreso,fronterodeingreso,documentodeingreso,diasdepermanencia,destinofinal,paissiguiente,porquepais,alojamiento,enviodinero,sustento,leenviandinero,medioenviodinero,comosecomunicafamilia,observaciones,transito,refugio,atencion,estado from formularioregistro where cfr='"+cod+"' and estado=true");
 		while (rs.next()) { 
 			ad=new FormlarioRegistro(rs.getInt(1),rs.getString(2),rs.getDate(3).toLocalDate(),rs.getString(4),rs.getString(5),rs.getDate(6).toLocalDate(),rs.getBoolean(7),rs.getString(8),rs.getDate(9).toLocalDate(),rs.getString(10),rs.getString(11),rs.getInt(12),rs.getBoolean(13),rs.getString(14),rs.getString(15),rs.getString(16),rs.getBoolean(17),rs.getBoolean(18),rs.getBoolean(19),rs.getString(20),rs.getString(21),rs.getString(22),rs.getBoolean(23),rs.getBoolean(24),rs.getBoolean(25),familiasForm(rs.getInt(1)),rs.getBoolean(26));
 			
@@ -319,7 +319,7 @@ public class Conexion {
 		Connection conexion = con.getConexionPostgres();
 		Familias fam=null;
 		java.sql.Statement s= conexion.createStatement();
-		ResultSet rs=  s.executeQuery("select a.cf,a.cantidad,a.ci_r,a.estado from familias a, formularioregbeneficiario c, beneficiario d, familia_beneficiario_voluntario e where a.cf=e.familias_cf and d.cid =e.beneficiario_cid and c.beneficiario_cid=d.cid and c.formularioregistro_cfr='"+f+"'");
+		ResultSet rs=  s.executeQuery("select a.cf,a.cantidad,a.ci_r,a.estado from familias a, formularioregbeneficiario c, beneficiario d, familia_beneficiario_voluntario e where a.cf=e.familias_cf and d.cid =e.beneficiario_cid and c.beneficiario_cid=d.cid and c.formularioregistro_cfr='"+f+"' and a.estado=true");
 		while (rs.next()) { 
 			fam=new Familias(rs.getInt(1),rs.getInt(2),obtenerBeneficiarioCi(rs.getString(3)),obtenerBeneficiarios(rs.getInt(1)),rs.getBoolean(4));
 			}
@@ -333,7 +333,7 @@ public class Conexion {
 		java.sql.Statement s= conexion.createStatement();
 		ArrayList<Beneficiarios> beneficiarios=new ArrayList<Beneficiarios>();
 
-		ResultSet rs=  s.executeQuery("select a.cid, a.nombre, a.edad ,a.sexo,a.ci,a.fechaexpedido,a.ingreso,a.educacion,a.estado from beneficiario a, familia_beneficiario_voluntario b where a.cid=b.beneficiario_cid and b.familias_cf='"+fam+"'");
+		ResultSet rs=  s.executeQuery("select a.cid, a.nombre, a.edad ,a.sexo,a.ci,a.fechaexpedido,a.ingreso,a.educacion,a.estado from beneficiario a, familia_beneficiario_voluntario b where a.cid=b.beneficiario_cid and b.familias_cf='"+fam+"' and a.estado=true");
 		while (rs.next()) {
 			auxBen=new Beneficiarios(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getDate(6).toLocalDate(),rs.getBoolean(7),rs.getString(8),obetenerPaisesBeneficiarios(rs.getInt(1)),rs.getBoolean(9));
 			beneficiarios.add(auxBen);
@@ -346,7 +346,7 @@ public class Conexion {
 		Connection conexion = con.getConexionPostgres();
 		Beneficiarios aux=null;
 		java.sql.Statement s= conexion.createStatement();
-		ResultSet rs=  s.executeQuery("select cid, nombre, edad ,sexo,ci,fechaexpedido,ingreso,educacion,estado from beneficiario where ci='"+ci+"'");
+		ResultSet rs=  s.executeQuery("select cid, nombre, edad ,sexo,ci,fechaexpedido,ingreso,educacion,estado from beneficiario where ci='"+ci+"' and estado=true");
 		while (rs.next()) {
 			aux=new Beneficiarios(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getDate(6).toLocalDate(),rs.getBoolean(7),rs.getString(8),obetenerPaisesBeneficiarios(rs.getInt(1)),rs.getBoolean(9));
 		}
@@ -360,7 +360,7 @@ public class Conexion {
 		PaisVisita auxPais=null;
 		ArrayList<PaisVisita> paises=new ArrayList<PaisVisita>();
 		java.sql.Statement s= conexion.createStatement();
-		ResultSet rs=  s.executeQuery("select a.cpo, a.pais, a.tiempo, a.estadomigratorio,a.estado from paisorigen a, formregpaisor b where a.cpo=paisorigen_cpo and beneficiario_cid='"+d+"'");
+		ResultSet rs=  s.executeQuery("select a.cpo, a.pais, a.tiempo, a.estadomigratorio,a.estado from paisorigen a, formregpaisor b where a.cpo=paisorigen_cpo and beneficiario_cid='"+d+"' and a.estado=true");
 		while (rs.next()) { 
 			auxPais=new PaisVisita(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getBoolean(5));
 			paises.add(auxPais);
@@ -374,7 +374,7 @@ public class Conexion {
 		FormlarioRegistro auxForm=null;
 		ArrayList<FormlarioRegistro> forms=new ArrayList<FormlarioRegistro>();
 		java.sql.Statement s= conexion.createStatement();
-		ResultSet rs=  s.executeQuery("select distinct cfr, lugar, fecharegistro ,telefono,paisorigen,fechadesalida,transporte,razon,fechadeingreso,fronterodeingreso,documentodeingreso,diasdepermanencia,destinofinal,paissiguiente,porquepais,alojamiento,enviodinero,sustento,leenviandinero,medioenviodinero,comosecomunicafamilia,observaciones,transito,refugio,atencion,estado from formularioregistro");
+		ResultSet rs=  s.executeQuery("select distinct cfr, lugar, fecharegistro ,telefono,paisorigen,fechadesalida,transporte,razon,fechadeingreso,fronterodeingreso,documentodeingreso,diasdepermanencia,destinofinal,paissiguiente,porquepais,alojamiento,enviodinero,sustento,leenviandinero,medioenviodinero,comosecomunicafamilia,observaciones,transito,refugio,atencion,estado from formularioregistro where estado=true");
 		while (rs.next()) { 
 			auxForm=new FormlarioRegistro(rs.getInt(1),rs.getString(2),rs.getDate(3).toLocalDate(),rs.getString(4),rs.getString(5),rs.getDate(6).toLocalDate(),rs.getBoolean(7),rs.getString(8),rs.getDate(9).toLocalDate(),rs.getString(10),rs.getString(11),rs.getInt(12),rs.getBoolean(13),rs.getString(14),rs.getString(15),rs.getString(16),rs.getBoolean(17),rs.getBoolean(18),rs.getBoolean(19),rs.getString(20),rs.getString(21),rs.getString(22),rs.getBoolean(23),rs.getBoolean(24),rs.getBoolean(25),familiasForm(rs.getInt(1)),rs.getBoolean(26));
 			forms.add(auxForm);
@@ -383,11 +383,12 @@ public class Conexion {
 		return forms;
 	}
 	public static FormlarioRegistro formularioReg(int cod) throws SQLException{
+		System.out.println("cod form:"+cod);
 		Conexion con=new Conexion();
 		Connection conexion = con.getConexionPostgres();
 		FormlarioRegistro auxForm=null;
 		java.sql.Statement s= conexion.createStatement();
-		ResultSet rs=  s.executeQuery("	select distinct a.cfr, a.lugar, a.fecharegistro ,a.telefono,a.paisorigen,a.fechadesalida,a.transporte,a.razon,a.fechadeingreso,a.fronterodeingreso,a.documentodeingreso,a.diasdepermanencia,a.destinofinal,a.paissiguiente,a.porquepais,a.alojamiento,a.enviodinero,a.sustento,a.leenviandinero,a.medioenviodinero,a.comosecomunicafamilia,a.observaciones,a.transito,a.refugio,a.atencion,a.estado from formularioregistro a,nombresbeneficiario b  where a.cfr=b.formularioregistro_cfr   and formulariohojaderuta_cfhd='"+cod+"'");
+		ResultSet rs=  s.executeQuery("	select  a.cfr, a.lugar, a.fecharegistro ,a.telefono,a.paisorigen,a.fechadesalida,a.transporte,a.razon,a.fechadeingreso,a.fronterodeingreso,a.documentodeingreso,a.diasdepermanencia,a.destinofinal,a.paissiguiente,a.porquepais,a.alojamiento,a.enviodinero,a.sustento,a.leenviandinero,a.medioenviodinero,a.comosecomunicafamilia,a.observaciones,a.transito,a.refugio,a.atencion,a.estado from formularioregistro a,nombresbeneficiario b  where a.cfr=b.formularioregistro_cfr   and formulariohojaderuta_cfhd='"+cod+"' and a.estado=true");
 		while (rs.next()) { 
 			auxForm=new FormlarioRegistro(rs.getInt(1),rs.getString(2),rs.getDate(3).toLocalDate(),rs.getString(4),rs.getString(5),rs.getDate(6).toLocalDate(),rs.getBoolean(7),rs.getString(8),rs.getDate(9).toLocalDate(),rs.getString(10),rs.getString(11),rs.getInt(12),rs.getBoolean(13),rs.getString(14),rs.getString(15),rs.getString(16),rs.getBoolean(17),rs.getBoolean(18),rs.getBoolean(19),rs.getString(20),rs.getString(21),rs.getString(22),rs.getBoolean(23),rs.getBoolean(24),rs.getBoolean(25),familiasForm(rs.getInt(1)),rs.getBoolean(26));
 		}
@@ -396,10 +397,12 @@ public class Conexion {
 	}
 	public static Hoja_de_ruta traerFormularioHoja(int cod)throws SQLException{
 		Conexion con=new Conexion();
+		
+		System.out.println("codigo hoja ruta:"+cod);
 		Connection conexion = con.getConexionPostgres();
 		Hoja_de_ruta auxForm=null;
 		java.sql.Statement s= conexion.createStatement();
-		ResultSet rs=  s.executeQuery("select a.cfhd, a.numero,a.fecha,a.cantper,a.observaciones,a.legal,a.refugio,a.atencion,a.accionalbergue,a.accionsermedico,a.accionalimentacion,a.accionayudahum,a.accionpasajes,a.accioncondonacion,a.otraaccion,a.fechaotraaccion,a.estado from formulariohojaderuta a,formulariohpmh b where a.cfhd=b.formulariohojaderuta_cfhd and b.pmh_cpmh='"+cod+"'");
+		ResultSet rs=  s.executeQuery("select a.cfhd, a.numero,a.fecha,a.cantper,a.observaciones,a.legal,a.refugio,a.atencion,a.accionalbergue,a.accionsermedico,a.accionalimentacion,a.accionayudahum,a.accionpasajes,a.accioncondonacion,a.otraaccion,a.fechaotraaccion,a.estado from formulariohojaderuta a where a.cfhd='"+cod+"' and a.estado=true");
 		while (rs.next()) { 
 			if(rs.getDate(16)!=null) {
 				auxForm=new Hoja_de_ruta(rs.getInt(1), rs.getInt(2)+"",rs.getDate(3).toLocalDate() , rs.getInt(4), rs.getString(5),rs.getBoolean(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9), rs.getBoolean(10), rs.getBoolean(11), rs.getBoolean(12), rs.getBoolean(13), rs.getBoolean(14), rs.getString(15),rs.getDate(16).toLocalDate(),formularioReg(rs.getInt(1)),rs.getBoolean(17)) ;
@@ -412,13 +415,54 @@ public class Conexion {
 		conexion.close();
 		return auxForm;
 	}
+	public static Hoja_de_ruta traerFormularioHojaParaPMH(int cod)throws SQLException{
+		Conexion con=new Conexion();
+		
+		System.out.println("codigo hoja ruta:"+cod);
+		Connection conexion = con.getConexionPostgres();
+		Hoja_de_ruta auxForm=null;
+		java.sql.Statement s= conexion.createStatement();
+		ResultSet rs=  s.executeQuery("select a.cfhd, a.numero,a.fecha,a.cantper,a.observaciones,a.legal,a.refugio,a.atencion,a.accionalbergue,a.accionsermedico,a.accionalimentacion,a.accionayudahum,a.accionpasajes,a.accioncondonacion,a.otraaccion,a.fechaotraaccion,a.estado from formulariohojaderuta a, formulariohpmh b where b.formulariohojaderuta_cfhd= a.cfhd and b.pmh_cpmh='"+cod+"' and a.estado=true");
+		while (rs.next()) { 
+			if(rs.getDate(16)!=null) {
+				auxForm=new Hoja_de_ruta(rs.getInt(1), rs.getInt(2)+"",rs.getDate(3).toLocalDate() , rs.getInt(4), rs.getString(5),rs.getBoolean(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9), rs.getBoolean(10), rs.getBoolean(11), rs.getBoolean(12), rs.getBoolean(13), rs.getBoolean(14), rs.getString(15),rs.getDate(16).toLocalDate(),formularioReg(rs.getInt(1)),rs.getBoolean(17)) ;
+
+			}else {
+				auxForm=new Hoja_de_ruta(rs.getInt(1), rs.getInt(2)+"",rs.getDate(3).toLocalDate() , rs.getInt(4), rs.getString(5),rs.getBoolean(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9), rs.getBoolean(10), rs.getBoolean(11), rs.getBoolean(12), rs.getBoolean(13), rs.getBoolean(14), rs.getString(15),null,formularioReg(rs.getInt(1)),rs.getBoolean(17)) ;
+
+			}
+		}
+		System.out.println(auxForm.toString());
+		conexion.close();
+		return auxForm;
+	}
 	public static ArrayList<Hoja_de_ruta> HojasDeRutaExistentes()throws SQLException{
 		Conexion con=new Conexion();
 		Connection conexion = con.getConexionPostgres();
 		Hoja_de_ruta auxForm=null;
 		ArrayList<Hoja_de_ruta> ahj=new ArrayList<Hoja_de_ruta>();
 		java.sql.Statement s= conexion.createStatement();
-		ResultSet rs=  s.executeQuery("select a.cfhd, a.numero,a.fecha,a.cantper,a.observaciones,a.legal,a.refugio,a.atencion,a.accionalbergue,a.accionsermedico,a.accionalimentacion,a.accionayudahum,a.accionpasajes,a.accioncondonacion,a.otraaccion,a.fechaotraaccion,a.estado from formulariohojaderuta a ");
+		ResultSet rs=  s.executeQuery("select a.cfhd, a.numero,a.fecha,a.cantper,a.observaciones,a.legal,a.refugio,a.atencion,a.accionalbergue,a.accionsermedico,a.accionalimentacion,a.accionayudahum,a.accionpasajes,a.accioncondonacion,a.otraaccion,a.fechaotraaccion,a.estado from formulariohojaderuta a where a.estado=true");
+		while (rs.next()) { 
+			if(rs.getDate(16)!=null) {
+				auxForm=new Hoja_de_ruta(rs.getInt(1), rs.getInt(2)+"",rs.getDate(3).toLocalDate() , rs.getInt(4), rs.getString(5),rs.getBoolean(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9), rs.getBoolean(10), rs.getBoolean(11), rs.getBoolean(12), rs.getBoolean(13), rs.getBoolean(14), rs.getString(15),rs.getDate(16).toLocalDate(),formularioReg(rs.getInt(1)),rs.getBoolean(17)) ;
+				ahj.add(auxForm);
+				
+			}else {
+				auxForm=new Hoja_de_ruta(rs.getInt(1), rs.getInt(2)+"",rs.getDate(3).toLocalDate() , rs.getInt(4), rs.getString(5),rs.getBoolean(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9), rs.getBoolean(10), rs.getBoolean(11), rs.getBoolean(12), rs.getBoolean(13), rs.getBoolean(14), rs.getString(15),null,formularioReg(rs.getInt(1)),rs.getBoolean(17)) ;
+				ahj.add(auxForm);
+			}
+		}
+		conexion.close();
+		return ahj;
+	}
+	public static ArrayList<Hoja_de_ruta> HojasDeRutaForms(int cod)throws SQLException{
+		Conexion con=new Conexion();
+		Connection conexion = con.getConexionPostgres();
+		Hoja_de_ruta auxForm=null;
+		ArrayList<Hoja_de_ruta> ahj=new ArrayList<Hoja_de_ruta>();
+		java.sql.Statement s= conexion.createStatement();
+		ResultSet rs=  s.executeQuery("select a.cfhd, a.numero,a.fecha,a.cantper,a.observaciones,a.legal,a.refugio,a.atencion,a.accionalbergue,a.accionsermedico,a.accionalimentacion,a.accionayudahum,a.accionpasajes,a.accioncondonacion,a.otraaccion,a.fechaotraaccion,a.estado from formulariohojaderuta a, nombresbeneficiario b where b.formulariohojaderuta_cfhd=a.cfhd and formularioregistro_cfr='"+cod+"' and a.estado=true");
 		while (rs.next()) { 
 			if(rs.getDate(16)!=null) {
 				auxForm=new Hoja_de_ruta(rs.getInt(1), rs.getInt(2)+"",rs.getDate(3).toLocalDate() , rs.getInt(4), rs.getString(5),rs.getBoolean(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9), rs.getBoolean(10), rs.getBoolean(11), rs.getBoolean(12), rs.getBoolean(13), rs.getBoolean(14), rs.getString(15),rs.getDate(16).toLocalDate(),formularioReg(rs.getInt(1)),rs.getBoolean(17)) ;
@@ -438,7 +482,7 @@ public class Conexion {
 		Hoja_de_ruta auxForm=null;
 		ArrayList<Hoja_de_ruta> formsAc=new ArrayList<Hoja_de_ruta>();
 		java.sql.Statement s= conexion.createStatement();
-		ResultSet rs=  s.executeQuery("select a.cfhd, a.numero,a.fecha,a.cantper,a.observaciones,a.legal,a.refugio,a.atencion,a.accionalbergue,a.accionsermedico,a.accionalimentacion,a.accionayudahum,a.accionpasajes,a.accioncondonacion,a.otraaccion,a.fechaotraaccion,a.estado from formulariohojaderuta a where not exists(select b.formulariohojaderuta_cfhd from formulariohpmh b where b.formulariohojaderuta_cfhd=a.cfhd) ");
+		ResultSet rs=  s.executeQuery("select a.cfhd, a.numero,a.fecha,a.cantper,a.observaciones,a.legal,a.refugio,a.atencion,a.accionalbergue,a.accionsermedico,a.accionalimentacion,a.accionayudahum,a.accionpasajes,a.accioncondonacion,a.otraaccion,a.fechaotraaccion,a.estado from formulariohojaderuta a where not exists(select b.formulariohojaderuta_cfhd from formulariohpmh b where b.formulariohojaderuta_cfhd=a.cfhd) and a.estado=true ");
 		while (rs.next()) { 
 			if(rs.getDate(16)!=null) {
 				auxForm=new Hoja_de_ruta(rs.getInt(1), rs.getInt(2)+"",rs.getDate(3).toLocalDate() , rs.getInt(4), rs.getString(5),rs.getBoolean(6), rs.getBoolean(7), rs.getBoolean(8), rs.getBoolean(9), rs.getBoolean(10), rs.getBoolean(11), rs.getBoolean(12), rs.getBoolean(13), rs.getBoolean(14), rs.getString(15),rs.getDate(16).toLocalDate(),formularioReg(rs.getInt(1)),rs.getBoolean(17)) ;
@@ -459,13 +503,13 @@ public class Conexion {
 	}
 	public static ArrayList<HojaRutaAcciones> formHojaRutaAccionesExistentes()throws SQLException{
 		Conexion con=new Conexion();
-		Connection conexion = con.getConexionPostgres();
+		Connection conexion = con.getConexionPostgres(); 
 		HojaRutaAcciones auxForm=null;
 		ArrayList<HojaRutaAcciones> formsAc=new ArrayList<HojaRutaAcciones>();
 		java.sql.Statement s= conexion.createStatement();
-		ResultSet rs=  s.executeQuery("select a.cpmh, a.accionrealizada,a.derivado,a.instruccion,a.observaciones,a.fecha,a.estado from pmh a, formulariohpmh b where a.cpmh=b.pmh_cpmh");
+		ResultSet rs=  s.executeQuery("select a.cpmh, a.accionrealizada,a.derivado,a.instruccion,a.observaciones,a.fecha,a.estado from pmh a, formulariohpmh b where a.cpmh=b.pmh_cpmh and a.estado=true");
 		while (rs.next()) { 
-				auxForm=new HojaRutaAcciones(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getDate(6).toLocalDate(), Conexion.traerFormularioHoja(rs.getInt(1)),rs.getBoolean(7));
+				auxForm=new HojaRutaAcciones(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getDate(6).toLocalDate(), Conexion.traerFormularioHojaParaPMH(rs.getInt(1)),rs.getBoolean(7));
 				formsAc.add(auxForm);
 			
 		}
@@ -478,22 +522,22 @@ public class Conexion {
 		HojaRutaAcciones auxForm=null;
 		ArrayList<HojaRutaAcciones> formsAc=new ArrayList<HojaRutaAcciones>();
 		java.sql.Statement s= conexion.createStatement();
-		ResultSet rs=  s.executeQuery("select a.cpmh, a.accionrealizada,a.derivado,a.instruccion,a.observaciones,a.fecha,a.estado from pmh a, formulariohpmh b where b.pmh_cpmh= a.cpmh and formulariohojaderuta_cfhd='"+cod+"'  ");
+		ResultSet rs=  s.executeQuery("select a.cpmh, a.accionrealizada,a.derivado,a.instruccion,a.observaciones,a.fecha,a.estado from pmh a, formulariohpmh b where b.pmh_cpmh= a.cpmh and formulariohojaderuta_cfhd='"+cod+"' and a.estado=true ");
 		while (rs.next()) { 
-				auxForm=new HojaRutaAcciones(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getDate(6).toLocalDate(), Conexion.traerFormularioHoja(rs.getInt(1)),rs.getBoolean(7));
+				auxForm=new HojaRutaAcciones(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getDate(6).toLocalDate(), Conexion.traerFormularioHojaParaPMH(rs.getInt(1)),rs.getBoolean(7));
 				formsAc.add(auxForm);
 			
 		}
 		conexion.close();
 		return formsAc;
-	}
+	} 
 	public static ArrayList<FormlarioRegistro> traerFormulariosSinHojaDeRuta()throws SQLException{
 		Conexion con=new Conexion();
 		Connection conexion = con.getConexionPostgres();
 		FormlarioRegistro auxForm=null;
 		ArrayList<FormlarioRegistro> forms=new ArrayList<FormlarioRegistro>();
 		java.sql.Statement s= conexion.createStatement();
-		ResultSet rs=  s.executeQuery("select distinct a.cfr, a.lugar, a.fecharegistro ,a.telefono,a.paisorigen,a.fechadesalida,a.transporte,a.razon,a.fechadeingreso,a.fronterodeingreso,a.documentodeingreso,a.diasdepermanencia,a.destinofinal,a.paissiguiente,a.porquepais,a.alojamiento,a.enviodinero,a.sustento,a.leenviandinero,a.medioenviodinero,a.comosecomunicafamilia,a.observaciones,a.transito,a.refugio,a.atencion,a.estado from formularioregistro a  where not exists(select b.formularioregistro_cfr from nombresbeneficiario b where a.cfr=b.formularioregistro_cfr) ");
+		ResultSet rs=  s.executeQuery("select distinct a.cfr, a.lugar, a.fecharegistro ,a.telefono,a.paisorigen,a.fechadesalida,a.transporte,a.razon,a.fechadeingreso,a.fronterodeingreso,a.documentodeingreso,a.diasdepermanencia,a.destinofinal,a.paissiguiente,a.porquepais,a.alojamiento,a.enviodinero,a.sustento,a.leenviandinero,a.medioenviodinero,a.comosecomunicafamilia,a.observaciones,a.transito,a.refugio,a.atencion,a.estado from formularioregistro a  where  a.estado=true");
 		while (rs.next()) { 
 			auxForm=new FormlarioRegistro(rs.getInt(1),rs.getString(2),rs.getDate(3).toLocalDate(),rs.getString(4),rs.getString(5),rs.getDate(6).toLocalDate(),rs.getBoolean(7),rs.getString(8),rs.getDate(9).toLocalDate(),rs.getString(10),rs.getString(11),rs.getInt(12),rs.getBoolean(13),rs.getString(14),rs.getString(15),rs.getString(16),rs.getBoolean(17),rs.getBoolean(18),rs.getBoolean(19),rs.getString(20),rs.getString(21),rs.getString(22),rs.getBoolean(23),rs.getBoolean(24),rs.getBoolean(25),familiasForm(rs.getInt(1)),rs.getBoolean(26));
 			forms.add(auxForm);
@@ -705,6 +749,8 @@ public class Conexion {
 		}
 		conexion.close();
 		System.out.println("Datos ingresados correctamente");
+		System.out.println("Datos ingresados correctamente+545555");
+
 	}
 	public static void registrarFamilia(Familias fam) throws SQLException {
 		Conexion con=new Conexion();
@@ -950,6 +996,36 @@ regAbms(Main.getCod(),fun.getCod(),"Actualizar");
 		conexion.close();
 		System.out.println("Datos ingresados correctamente");
 	}
+	public static void actualizarHojaDeRutaAcciones(HojaRutaAcciones hjrN,HojaRutaAcciones hjrV) throws SQLException{
+		// TODO Auto-generated method stub
+				// TODO Auto-generated method stub
+						Conexion con=new Conexion();
+						Connection conexion = (Connection) con.getConexionPostgres();
+						PreparedStatement s;
+						String query="update pmh set"
+								+ " accionrealizada=?,derivado=?,instruccion=?,observaciones=?,fecha=? "
+								+ "where cpmh=?";
+						
+						try {
+							s=(PreparedStatement) conexion.prepareStatement(query);
+						
+							s.setString(1, hjrN.getAccionRealizada());
+							s.setString(2,hjrN.getDerivado());
+							s.setString(3,hjrN.getInstruccion());
+							s.setString(4,hjrN.getObservaciones());
+							s.setDate(5,  java.sql.Date.valueOf(hjrN.getFechaAccion()));
+							s.setInt(6, hjrV.getCpmh());
+
+							
+							s.executeUpdate();
+							
+						} catch (SQLException e) {
+							System.out.println(e.getMessage());
+						}
+						conexion.close();
+						System.out.println("Datos ingresados correctamente");
+						
+	}
 	public static void registrarHojaDeRutaAcciones(HojaRutaAcciones hjr) throws SQLException{
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
@@ -1005,6 +1081,466 @@ regAbms(Main.getCod(),fun.getCod(),"Actualizar");
 				conexion.close();
 				System.out.println("Datos ingresados correctamente");
 	}
+	public static void eliminarHojaRuta(Hoja_de_ruta hjr)throws SQLException{
+		
+		Hoja_de_ruta f=hjr;
+		ArrayList<HojaRutaAcciones> hj=new ArrayList<HojaRutaAcciones>();
+		try {
+			
+			eliminarHojaR(f);
+			hj=traerHojaRutaAccion(f.getCfhd());
+			for(HojaRutaAcciones i:hj) {
+				eliminarHojaRA(i);
+				
+				
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+public static void eliminarAccion(ArrayList<HojaRutaAcciones> hjras)throws SQLException{
+		
+		
+		ArrayList<HojaRutaAcciones> hj=hjras;
+		try {
+			
+			
+			for(HojaRutaAcciones i:hj) {
+				eliminarHojaRA(i);
+				
+				
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static void eliminarHojaR(Hoja_de_ruta hjr) throws SQLException {
+		Conexion con=new Conexion();
+		Connection conexion = (Connection) con.getConexionPostgres();
+		PreparedStatement s;
+		String query="update formulariohojaderuta set estado=false where cfhd = ?";		
+		
+		try {
+			s=(PreparedStatement) conexion.prepareStatement(query);
+		
+			s.setInt(1, hjr.getCfhd());
+			s.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		conexion.close();
+	}
+	public static void eliminarHojaRA(HojaRutaAcciones hja) throws SQLException {
+		Conexion con=new Conexion();
+		Connection conexion = (Connection) con.getConexionPostgres();
+		PreparedStatement s;
+		String query="update pmh set estado=false where cpmh = ?";		
+		
+		try {
+			s=(PreparedStatement) conexion.prepareStatement(query);
+			s.setInt(1, hja.getCpmh());
+			s.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		conexion.close();
+	}
+	public static void eliminarForm(FormlarioRegistro form) throws SQLException{
+
+		Familias famAux= form.getFam();
+		ArrayList<Beneficiarios> fam=famAux.getFamilia();
+		ArrayList<Hoja_de_ruta> hjr=HojasDeRutaForms(form.getCfr());
+		ArrayList<PaisVisita> pf =fam.get(0).getPais();
+		FormlarioRegistro f=form;
+		
+		try {
+			eliminarFamilia(famAux);
+			for(PaisVisita i:pf) {
+				eliminarPaisVisita(i);
+			}
+			eliminarFormularioRegistro(f);
+			
+			for(Beneficiarios i:fam) {
+				eliminarBeneficiarios(i);
+				
+				
+			}
+			for(Hoja_de_ruta i: hjr) {
+				eliminarHojaRuta(i);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static void eliminarFamilia(Familias fam) throws SQLException {
+		Conexion con=new Conexion();
+		Connection conexion = (Connection) con.getConexionPostgres();
+		PreparedStatement s;
+		String query="update familias set estado=false where cf = ?";		
+		
+		try {
+			s=(PreparedStatement) conexion.prepareStatement(query);
+		
+			s.setInt(1, fam.getCodFamilia());
+			s.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		conexion.close();
+	}
+	public static void eliminarPaisVisita(PaisVisita pa) throws SQLException {
+		Conexion con=new Conexion();
+		Connection conexion = (Connection) con.getConexionPostgres();
+		PreparedStatement s;
+		String query="update paisorigen set estado=false where cpo = ?";		
+		
+		try {
+			s=(PreparedStatement) conexion.prepareStatement(query);
+		
+			s.setInt(1, pa.getCpo());
+			s.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		conexion.close();
+	}
+	public static void eliminarFormularioRegistro(FormlarioRegistro f) throws SQLException {
+		Conexion con=new Conexion();
+		Connection conexion = (Connection) con.getConexionPostgres();
+		PreparedStatement s;
+		String query="update formularioregistro set estado=false where cfr = ?";		
+		
+		try {
+			s=(PreparedStatement) conexion.prepareStatement(query);
+		
+			s.setInt(1,f.getCfr());
+			s.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		conexion.close();
+	}
+	public static void eliminarBeneficiarios(Beneficiarios be) throws SQLException {
+		Conexion con=new Conexion();
+		Connection conexion = (Connection) con.getConexionPostgres();
+		PreparedStatement s;
+		String query="update beneficiario set estado=false where cid = ?";		
+		
+		try {
+			s=(PreparedStatement) conexion.prepareStatement(query);
+		
+			s.setInt(1, be.getCodBen());
+			s.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		conexion.close();
+	}
+	public static void actualizarFormBD(FormlarioRegistro formNuevo,FormlarioRegistro formViejo) throws SQLException{
+		actualizarForm(formNuevo,formViejo);
+		Familias famNuve= formNuevo.getFam();
+		Familias famVieja= formViejo.getFam();
+		int cod1=0,cod2=0,cod3=0;
+		ArrayList<Beneficiarios> famN=famNuve.getFamilia();
+		ArrayList<Beneficiarios> famV=famVieja.getFamilia();
+
+		ArrayList<PaisVisita> pfN=famN.get(0).getPais();
+		ArrayList<PaisVisita> pfV=famV.get(0).getPais();
+		
+		ArrayList<PaisVisita> paisNuevo= new ArrayList<PaisVisita>();
+		try {
+			actualizarFamilia(famNuve,famVieja);
+			System.out.println("PAIS");
+			System.out.println("edit: "+pfN.size());
+			System.out.println("original: "+pfV.size());
+			System.out.println("BENEFICIARIO");
+			System.out.println("edit: "+famN.size());
+			System.out.println("original: "+famV.size());
+			
+			if(pfN.size()>pfV.size()) {
+				
+				for(int i=0;i<pfN.size();i++) {
+					if(i<pfV.size()) {
+						actualizarPaisVisita(pfN.get(i),pfV.get(i));
+
+					}else {
+						registrarPaisVisita(pfN.get(i));
+						paisNuevo.add(pfN.get(i));
+					}
+				}
+			}else {
+				if(pfN.size()<pfV.size()) {
+			
+				
+
+				for(int i=0;i<pfV.size();i++) {
+				if(i<pfN.size()) {
+					actualizarPaisVisita(pfN.get(i),pfV.get(i));
+
+				}else {
+					eliminarPaisVisita(pfV.get(i));
+				}
+				}
+			}else {
+				
+				for(int i=0;i<pfV.size();i++) {
+					actualizarPaisVisita(pfN.get(i),pfV.get(i));
+				}
+			}
+			}
+			
+			
+			if(famN.size()>famV.size()) {
+				cod1=ultimoFBF();
+				cod2=ultimoFB();
+				cod3=ultimoFBP();
+				for(int i=0;i<famN.size();i++) {
+					if(i<famV.size()) {
+						actualizarBeneficiario(famN.get(i), famV.get(i));
+						if(paisNuevo.size()>0) {
+							for(PaisVisita j:paisNuevo) {
+								registrarFormBenPais(cod3,formViejo,famN.get(i),j);
+								cod3++;
+							}
+						}
+						
+					}else {
+						
+							registrarBeneficiarios(famN.get(i));
+							registrarFamBenFun(cod1,famVieja,famN.get(i));
+							registrarFormBen(cod2,formViejo,famN.get(i));
+							for(PaisVisita j:pfV) {
+								registrarFormBenPais(cod3,formViejo,famN.get(i),j);
+								cod3++;
+							}
+							if(paisNuevo.size()>0) {
+								for(PaisVisita j:paisNuevo) {
+									registrarFormBenPais(cod3,formViejo,famN.get(i),j);
+									cod3++;
+								}
+							}
+							
+							cod2++;
+							cod1++;
+							
+						
+					}
+				}
+			}else {
+				if(famN.size()<famV.size()) {
+					
+
+				for(int i=0;i<famV.size();i++) {
+					if(i<famN.size()) {
+						actualizarBeneficiario(famN.get(i), famV.get(i));
+						if(paisNuevo.size()>0) {
+							for(PaisVisita j:paisNuevo) {
+								registrarFormBenPais(cod3,formViejo,famN.get(i),j);
+								cod3++;
+							}
+						}
+						
+					}else {
+						eliminarBeneficiarios(famV.get(i));
+					}
+				
+				}
+			}else {
+				for(int i=0;i<famV.size();i++) {
+				actualizarBeneficiario(famN.get(i), famV.get(i));
+				if(paisNuevo.size()>0) {
+					for(PaisVisita j:paisNuevo) {
+						registrarFormBenPais(cod3,formViejo,famN.get(i),j);
+						cod3++;
+					}
+				}
+				}
+			}
+			}
+			
+			
+			
+			
+		
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public static void actualizarBeneficiario(Beneficiarios bn,Beneficiarios bv) throws SQLException {
+		Conexion con=new Conexion();
+		Connection conexion = (Connection) con.getConexionPostgres();
+		PreparedStatement s;
+		
+		String query="update beneficiario set"
+				+ " nombre=?, edad=? ,sexo=?,ci=?,fechaexpedido=?,ingreso=?,educacion=? "
+				+ "where cid=?";
+		try {
+			s=(PreparedStatement) conexion.prepareStatement(query);
+			
+			s.setString(1, bn.getNombre());
+			s.setInt(2,bn.getEdad());
+			s.setString(3, bn.getSexo());
+			s.setString(4,bn.getCi());
+			s.setDate(5, java.sql.Date.valueOf(bn.getFechaExpedido()));
+			s.setBoolean(6,bn.isIngreso());
+			s.setString(7,bn.getEducacion());
+			s.setInt(8, bv.getCodBen());
+
+			s.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		conexion.close();
+		System.out.println("Datos ingresados correctamente");
+	}
+	public static void actualizarPaisVisita(PaisVisita pfN,PaisVisita pfV) throws SQLException {
+		Conexion con=new Conexion();
+		Connection conexion = (Connection) con.getConexionPostgres();
+		PreparedStatement s;
+		
+		String query="update paisorigen set"
+				+ " pais=?, tiempo=?,estadomigratorio=? "
+				+ "where cpo=?";
+		try {
+			s=(PreparedStatement) conexion.prepareStatement(query);
+			
+			s.setString(1,pfN.getPais());
+			s.setInt(2,pfN.getTiempoDias());
+			s.setString(3,pfN.getEstadoMigratorioString());
+			s.setInt(4, pfV.getCpo());
+			s.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		conexion.close();
+		System.out.println("Datos ingresados correctamente");
+	}
+	public static void actualizarFamilia(Familias famNue,Familias famVie) throws SQLException {
+		Conexion con=new Conexion();
+		Connection conexion = (Connection) con.getConexionPostgres();
+		PreparedStatement s;
+		
 	
+		String query="update familias set"
+				+ " cantidad=?,ci_r=? "
+				+ "where cf=?";
+		try {
+			s=(PreparedStatement) conexion.prepareStatement(query);
+			
+			s.setInt(1,famNue.getCantidad());
+			s.setString(2,famNue.getPrin().getCi());
+			s.setInt(3, famVie.getCodFamilia());
+
+			
+
+			s.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		conexion.close();
+		System.out.println("Datos ingresados correctamente");
+	}
+	public static void actualizarForm(FormlarioRegistro formNuevo, FormlarioRegistro formViejo)throws SQLException{
+		Conexion con=new Conexion();
+		Connection conexion = (Connection) con.getConexionPostgres();
+		PreparedStatement s;
+				
+
+		String query="update formularioregistro set"
+				+ " lugar=?, fecharegistro=? ,telefono=?,paisorigen=?,fechadesalida=?,transporte=?,razon=?,fechadeingreso=?,fronterodeingreso=?,documentodeingreso=?,diasdepermanencia=?,destinofinal=?,paissiguiente=?,porquepais=?,alojamiento=?,enviodinero=?,sustento=?,leenviandinero=?,medioenviodinero=?,comosecomunicafamilia=?,observaciones=?,transito=?,refugio=?,atencion=? "
+				+ "where cfr=?";
+		try {
+			s=(PreparedStatement) conexion.prepareStatement(query);
+			
+			s.setString(1, formNuevo.getLugar());
+			s.setDate(2,java.sql.Date.valueOf(formNuevo.getFechaRegistro()));
+			s.setString(3, formNuevo.getTelefono());
+			s.setString(4,formNuevo.getPaisOrigen());
+			s.setDate(5, java.sql.Date.valueOf(formNuevo.getFechaSalida()));
+			s.setBoolean(6,formNuevo.isTransporte());
+			s.setString(7,formNuevo.getRazon());
+			s.setDate(8,java.sql.Date.valueOf(formNuevo.getFechaIngreso()));
+			s.setString(9, formNuevo.getFronteraIngreso());
+			s.setString(10, formNuevo.getDocumentoIngreso());
+			s.setInt(11, Integer.parseInt(formNuevo.getDiasPermanencia()));
+			s.setBoolean(12, formNuevo.isDestinoFinal());
+			s.setString(13, formNuevo.getPaisSiguiente());
+			s.setString(14, formNuevo.getPorquePais());
+			s.setString(15,formNuevo.getAlojamiento());
+			s.setBoolean(16,formNuevo.isEnviaDinero());
+			s.setBoolean(17,formNuevo.getSustento());
+			s.setBoolean(18,formNuevo.isLeEnviaDienro() );
+			s.setString(19,formNuevo.getMedioEvniaDinero());
+			s.setString(20,formNuevo.getComunicaFamilia());
+			s.setString(21,formNuevo.getObs());
+			s.setBoolean(22, formNuevo.isTransito());
+			s.setBoolean(23, formNuevo.isRefugio());
+			s.setBoolean(24, formNuevo.isAtencion());
+			
+			s.setInt(25,formViejo.getCfr() );
+			s.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		conexion.close();
+	}
+	public static void actualizarHojaDeRuta(Hoja_de_ruta hj,Hoja_de_ruta hjv) throws SQLException{
+		// TODO Auto-generated method stub
+		Conexion con=new Conexion();
+		Connection conexion = (Connection) con.getConexionPostgres();
+		PreparedStatement s;
+		String query="update formulariohojaderuta set"
+				+ " numero=?, fecha=? ,cantPer=?,observaciones=?,legal=?,refugio=?,atencion=?,accionAlbergue=?,accionSerMedico=?,accionAlimentacion=?,accionAyudaHum=?,accionPasajes=?,accionCondonacion=?,accionOtro=?,otraAccion=?,fechaOtraAccion =?  "
+				+ "where cfhd=?";
 	
+		try {
+			s=(PreparedStatement) conexion.prepareStatement(query);
+			s.setInt(1, Integer.parseInt(hj.getNumero()) );
+			s.setDate(2, java.sql.Date.valueOf(hj.getFechaReg()));
+			s.setInt(3,hj.getCantPer());
+			s.setString(4,hj.getObs());
+			s.setBoolean(5, hj.isLegal());
+			s.setBoolean(6, hj.isRefugio());
+			s.setBoolean(7, hj.isAtencion());
+			s.setBoolean(8, hj.isAccionAlbergue());
+			s.setBoolean(9, hj.isAccionSerMedico());
+			s.setBoolean(10, hj.isAccionAlimentacion());
+			s.setBoolean(11, hj.isAccionAyudaHum());
+			s.setBoolean(12, hj.isAccionPasajes());
+			s.setBoolean(13, hj.isAccionCondonacion());
+			s.setBoolean(14, !hj.getAsignacion().equals(""));
+			s.setString(15, hj.getAsignacion());
+			if(!hj.getAsignacion().equals("")) {
+				s.setDate(16, java.sql.Date.valueOf(hj.getFechaAsig()));
+
+			}else {
+				s.setDate(16, null);
+
+			}
+			s.setInt(17, hjv.getCfhd());
+
+			s.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		conexion.close();
+		System.out.println("Datos ingresados correctamente");
+	}
 }

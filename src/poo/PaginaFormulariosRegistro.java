@@ -164,7 +164,15 @@ public class PaginaFormulariosRegistro extends JFrame {
         boton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            
+            	try {
+					Conexion.eliminarForm(f);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            	forms.remove(f);
+            	tabla();
+      
             }
         });
 

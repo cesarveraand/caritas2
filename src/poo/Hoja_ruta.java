@@ -456,21 +456,21 @@ public class Hoja_ruta extends JFrame {
         scrollObservaciones.setBounds(23, 316, 1025, 71);
         panelAsesoramientos.add(scrollObservaciones);
 
-        JButton btnRegistrar = new JButton("REGISTRAR");
+        JButton btnRegistrar = new JButton("ACTUALIZAR");
         btnRegistrar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Hoja_de_ruta hj=null;
+        		Hoja_de_ruta hjn=null;
         		if(!txtNombresBenef.getText().equals("")&&!txtObservaciones.getText().equals("")) {
         			if(!txtAsignacion.getText().equals("") ||!textFieldFechaAsigacion.getText().equals("") ) {
         				if(!textFieldFechaAsigacion.getText().equals("")&&!txtAsignacion.getText().equals("")) {
-                    		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(), txtAsignacion.getText(),Extras.fechas(textFieldFechaAsigacion.getText()),Main.getUltimoForm(),true);
+                    		hjn=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(), txtAsignacion.getText(),Extras.fechas(textFieldFechaAsigacion.getText()),Main.getUltimoForm(),true);
 
         				}else {
                 			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos de asignacion");
 
         				}
         			}else {
-                		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm(),true);
+                		hjn=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm(),true);
 
         			}
 
@@ -478,60 +478,64 @@ public class Hoja_ruta extends JFrame {
         			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
         		}
         		try {
-					Conexion.registrarHojaDeRuta(hj);
+					Conexion.actualizarHojaDeRuta(hjn,hj);
 	        		isRegistrado=true;
 
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-        		Main.setUltimaHojar(hj);
+        		dispose();
         	}
         });
         btnRegistrar.setBounds(1390, 460, 117, 29);
         panelLlenado.add(btnRegistrar);
-
-        JButton btnImprimir = new JButton("IMPRIMIR");
-        btnImprimir.setBounds(1136, 460, 117, 29);
-        panelLlenado.add(btnImprimir);
-        
         JButton btnAcciones = new JButton("ACCIONES");
         btnAcciones.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(!isRegistrado) {
-        			Hoja_de_ruta hj=null;
+        		
+        			Hoja_de_ruta hjn=null;
             		if(!txtNombresBenef.getText().equals("")&&!txtObservaciones.getText().equals("")) {
             			if(!txtAsignacion.getText().equals("") ||!textFieldFechaAsigacion.getText().equals("") ) {
             				if(!textFieldFechaAsigacion.getText().equals("")&&!txtAsignacion.getText().equals("")) {
-                        		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(), txtAsignacion.getText(),Extras.fechas(textFieldFechaAsigacion.getText()),Main.getUltimoForm(),true);
+                        		hjn=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(), txtAsignacion.getText(),Extras.fechas(textFieldFechaAsigacion.getText()),Main.getUltimoForm(),true);
 
             				}else {
                     			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos de asignacion");
 
             				}
             			}else {
-                    		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm(),true);
+                    		hjn=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm(),true);
 
             			}
 
             		}else {
             			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
             		}
+            		hjn.setCfhd(hj.getCfhd());
+            		Main.setUltimaHojar(hjn);
             		try {
-    					Conexion.registrarHojaDeRuta(hj);
+    					Conexion.actualizarHojaDeRuta(hjn,hj);
+    	        		isRegistrado=true;
+
     				} catch (SQLException e1) {
     					// TODO Auto-generated catch block
     					e1.printStackTrace();
     				}
-            		Main.setUltimaHojar(hj);
-        		}
-        		Hoja_ruta_acciones jhr=new Hoja_ruta_acciones();
-        		jhr.setVisible(true);
-        		dispose();
+            		Hoja_ruta_acciones jhr=new Hoja_ruta_acciones();
+            		jhr.setVisible(true);
+            		dispose();
+        	
+        		
         	}
         });
         btnAcciones.setBounds(1263, 460, 117, 29);
         panelLlenado.add(btnAcciones);
+        JButton btnImprimir = new JButton("IMPRIMIR");
+        btnImprimir.setBounds(1136, 460, 117, 29);
+        panelLlenado.add(btnImprimir);
+        
+    
         txtNumero.setText(hj.getNumero());
         txtFecha.setText(hj.getFechaReg()+"");
         chckbxAseLegal.setSelected(hj.isLegal());

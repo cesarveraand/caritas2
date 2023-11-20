@@ -15,8 +15,20 @@ public class Extras {
 
 
 public static LocalDate fechas(String  d) {
-	String [] fecha = d.split("/");
-return LocalDate.of(Integer.parseInt(fecha[2]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[0]));
+	for(int i=0;i<d.length();i++) {
+		if(d.charAt(i)=='/'){
+			String [] fecha = d.split("/");
+			return LocalDate.of(Integer.parseInt(fecha[2]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[0]));
+		}else {
+			if(d.charAt(i)=='-'){
+				String [] fecha = d.split("-");
+				return LocalDate.of(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[2]));
+			}
+			
+			
+		}
+	}
+	return null;
 }
 
 }

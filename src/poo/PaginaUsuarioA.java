@@ -84,7 +84,7 @@ public class PaginaUsuarioA extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<FormlarioRegistro> f=new ArrayList<>();
 				try {
-					f=Conexion.traerFormulariosSinHojaDeRuta();
+					f=Conexion.traerFormulariosSinHojaDeRuta(); 
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

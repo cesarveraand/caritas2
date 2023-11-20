@@ -74,7 +74,7 @@ public class PaginaHojaRutaAcciones extends JFrame {
 				PaginaHojaRutaAccionesE pg=new PaginaHojaRutaAccionesE(f);
 				pg.setVisible(true);
 				dispose();
-				
+				 
 			}
 		});
 		btnAgregar.setBounds(629, 506, 85, 21);

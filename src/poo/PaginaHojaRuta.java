@@ -99,7 +99,7 @@ public class PaginaHojaRuta extends JFrame {
 	}
 	/*
 	public static void agregarFun(Funcionario fun) {
-		admins.add(fun);
+		admins.add(fun); 
 	}
 	public static void removerFun(Funcionario fun) {
 		admins.remove(fun);
@@ -150,6 +150,7 @@ public class PaginaHojaRuta extends JFrame {
                             } catch (SQLException e1) {
                                 e1.printStackTrace();
                             }
+                            
                             Registro reg= new Registro(f);
                             reg.setVisible(true);
                         	 ventanaAbierta = true; // Marcar la ventana como abierta

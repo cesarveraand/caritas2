@@ -38,7 +38,7 @@ public class Beneficiarios {
 		}
 		this.nombre = nombre;
 		this.edad = edad;
-		this.sexo = sexo;
+		this.sexo = sexo;  
 		this.ci = ci;
 		this.fechaExpedido = fechaExpedido;
 		this.ingreso = ingreso;

@@ -36,7 +36,8 @@ public class PaginaBeneficiario extends JFrame {
 	private static boolean ventanaAbierta = false;
 
 	public PaginaBeneficiario(ArrayList<FormlarioRegistro> forms) {
-		
+		bens.clear();
+		this.forms.clear();
 		this.forms=forms;
 		for( FormlarioRegistro i:forms) {
 			for(Beneficiarios j: i.getFam().getFamilia()) {
@@ -176,7 +177,17 @@ public class PaginaBeneficiario extends JFrame {
         boton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            
+            	try {
+					Conexion.eliminarForm(f);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            	for(Beneficiarios i:f.getFam().getFamilia()) {
+            		bens.remove(i);
+            	}
+            	tabla();
+      
             }
         });
 
