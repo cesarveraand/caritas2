@@ -20,7 +20,7 @@ public class Registro extends JFrame {
     private JPanel panelDatosPersonas; 
     private JTextField txtNombre;
     private JTextField txtEdad;
-    private static boolean panel1=false,isReg=true;
+    private static boolean panel1=false;
     private JTextField txtDocIdentidad;
     private JTextField txtExpedido;
     private JTextField txtMedioEnvio;
@@ -56,7 +56,7 @@ public class Registro extends JFrame {
 		panelCabecera.setLayout(new BorderLayout(0, 0));
 		
 		JLabel imagenCaritas = new JLabel("");
-		//imagenCaritas.setIcon(new ImageIcon(Registro.class.getResource("/imagenes_help/caritas-bolivia.png")));
+		imagenCaritas.setIcon(new ImageIcon(Registro.class.getResource("/imagenes_help/caritas-bolivia.png")));
 		panelCabecera.add(imagenCaritas, BorderLayout.WEST);
 		
 		JPanel panelBotonesCabecera = new JPanel();
@@ -69,13 +69,13 @@ public class Registro extends JFrame {
 	
 
 		JButton btnPerfil = new JButton("");
-		//ImageIcon iconOriginal = new ImageIcon(Registro.class.getResource("/imagenes_help/perfilpersona.png"));
-		//Image imagenOriginal = iconOriginal.getImage();
+		ImageIcon iconOriginal = new ImageIcon(Registro.class.getResource("/imagenes_help/perfilpersona.png"));
+		Image imagenOriginal = iconOriginal.getImage();
 		int nuevoAncho = 100; 
 		int nuevoAlto = 100; 
-		//Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
-		///ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
-		//btnPerfil.setIcon(iconRedimensionadoPerfil);
+		Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
+		ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
+		btnPerfil.setIcon(iconRedimensionadoPerfil);
 		panelBotonesCabecera.add(btnPerfil);
 		
 		JSeparator separator = new JSeparator();
@@ -591,8 +591,10 @@ btnQuitarEstatus.setBounds(0, 0, 251, 23);
 								auxPais= new PaisVisita(uP,(String) paisesPaso.get(i).getSelectedItem(),Integer.parseInt(permanencia.get(i).getText()) ,estatus.get(i).getText(),true);
 								paises.add(auxPais);
 								uP++;
+								System.out.println("entro");
 
 							}
+							System.out.println("entro");
 						}
 						System.out.println(auxPais.toString());
 						for (int i=0;i<nombres.size();i++) {
@@ -685,6 +687,8 @@ btnQuitarEstatus.setBounds(0, 0, 251, 23);
 		});
 		btnHojaRuta.setBounds(723, 70, 139, 23);
 		panelDatosIniciales.add(btnHojaRuta);
+        // Hacer que la ventana se abra en pantalla completa
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 	}
 	public Registro(FormlarioRegistro reg) {
@@ -701,7 +705,7 @@ btnQuitarEstatus.setBounds(0, 0, 251, 23);
 		panelCabecera.setLayout(new BorderLayout(0, 0));
 		
 		JLabel imagenCaritas = new JLabel("");
-		//imagenCaritas.setIcon(new ImageIcon(Registro.class.getResource("/imagenes_help/caritas-bolivia.png")));
+		imagenCaritas.setIcon(new ImageIcon(Registro.class.getResource("/imagenes_help/caritas-bolivia.png")));
 		panelCabecera.add(imagenCaritas, BorderLayout.WEST);
 		
 		JPanel panelBotonesCabecera = new JPanel();
@@ -714,13 +718,13 @@ btnQuitarEstatus.setBounds(0, 0, 251, 23);
 	
 
 		JButton btnPerfil = new JButton("");
-		//ImageIcon iconOriginal = new ImageIcon(Registro.class.getResource("/imagenes_help/perfilpersona.png"));
-		//Image imagenOriginal = iconOriginal.getImage();
+		ImageIcon iconOriginal = new ImageIcon(Registro.class.getResource("/imagenes_help/perfilpersona.png"));
+		Image imagenOriginal = iconOriginal.getImage();
 		int nuevoAncho = 100; 
 		int nuevoAlto = 100; 
-		//Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
-		///ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
-		//btnPerfil.setIcon(iconRedimensionadoPerfil);
+		Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
+		ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
+		btnPerfil.setIcon(iconRedimensionadoPerfil);
 		panelBotonesCabecera.add(btnPerfil);
 		
 		JSeparator separator = new JSeparator();
@@ -1377,35 +1381,33 @@ btnQuitarEstatus.setBounds(0, 0, 251, 23);
 		txtMedioEnvio.setText(reg.getMedioEvniaDinero());
 		txtComunicacion.setText(reg.getComunicaFamilia());
 		txtObservaciones.setText(reg.getObs());
-		if(isReg) {
-			for(PaisVisita i: reg.getFam().getFamilia().get(0).getPais()) {
-				masEstatusMigratorio(panelEstatusMigra,i);
-				
-			}
-			for(Beneficiarios i: reg.getFam().getFamilia()) {
-				masPersona(lblCantidadContador,i);
-			}
-			isReg=false;
+		for(PaisVisita i: reg.getFam().getFamilia().get(0).getPais()) {
+			masEstatusMigratorio(panelEstatusMigra,i);
+			
 		}
-		
+		for(Beneficiarios i: reg.getFam().getFamilia()) {
+			masPersona(lblCantidadContador,i);
+		}
+        // Hacer que la ventana se abra en pantalla completa
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 	}
 	public void menosPersona(JLabel lblCantidadContador) {
 		if(panelesPersonas.size()>1) {
-			panelDatosPersonas.remove(panelesPersonas.size()-1);
+			panelDatosPersonas.remove(panelesPersonas.get(0));
 
-		panelesPersonas.remove(panelesPersonas.size()-1);
+		panelesPersonas.remove(panelesPersonas.get(0));
 
-	    nombres.remove(nombres.size()-1);
-	    edades.remove(edades.size()-1);
-	    docIdentidad.remove(docIdentidad.size()-1);
-	    expedidos.remove(expedidos.size()-1);
-	    educaciones.remove(educaciones.size()-1);
-sexos.remove(sexos.size()-1);
+	    nombres.remove(nombres.get(0));
+	    edades.remove(edades.get(0));
+	    docIdentidad.remove(docIdentidad.get(0));
+	    expedidos.remove(expedidos.get(0));
+	    educaciones.remove(educaciones.get(0));
+sexos.remove(sexos.get(0));
 	    
 	    
 	    
-	    ingresos.remove(ingresos.size()-1);
+	    ingresos.remove(ingresos.get(0));
 
 		contadorPersonas-=1;
 		lblCantidadContador.setText(Integer.toString(contadorPersonas));
@@ -1672,11 +1674,11 @@ public void masPersona(JLabel lblCantidadContador,Beneficiarios ben) {
 	public void menosEstatusMigratorio(JPanel panelEstatusMigra) {
 		if(panelesPaises.size()>1) {
 			
-				panelEstatusMigra.remove(panelesPaises.size()-1);
-				panelesPaises.remove(panelesPaises.size()-1);
-				paisesPaso.remove(paisesPaso.size()-1);
-				permanencia.remove(permanencia.size()-1);
-				estatus.remove(estatus.size()-1);
+				panelEstatusMigra.remove(panelesPaises.get(0));
+				panelesPaises.remove(panelesPaises.get(0));
+				paisesPaso.remove(paisesPaso.get(0));
+				permanencia.remove(permanencia.get(0));
+				estatus.remove(estatus.get(0));
 
 			
 			

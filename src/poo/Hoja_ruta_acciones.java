@@ -30,7 +30,7 @@ public class Hoja_ruta_acciones extends JFrame {
         panelCabecera.setLayout(new BorderLayout(0, 0));
 
         JLabel imagenCaritas = new JLabel("");
-        //imagenCaritas.setIcon(new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/caritas-bolivia.png")));
+        imagenCaritas.setIcon(new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/caritas-bolivia.png")));
         panelCabecera.add(imagenCaritas, BorderLayout.WEST);
 
         JPanel panelBotonesCabecera = new JPanel();
@@ -41,13 +41,13 @@ public class Hoja_ruta_acciones extends JFrame {
         panelBotonesCabecera.add(btnAtras);
 
         JButton btnPerfil = new JButton("");
-       // ImageIcon iconOriginal = new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/perfilpersona.png"));
-       // Image imagenOriginal = iconOriginal.getImage();
+        ImageIcon iconOriginal = new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/perfilpersona.png"));
+        Image imagenOriginal = iconOriginal.getImage();
         int nuevoAncho = 100;
         int nuevoAlto = 100;
-        //Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
-       // ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
-       // btnPerfil.setIcon(iconRedimensionadoPerfil);
+        Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
+        ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
+        btnPerfil.setIcon(iconRedimensionadoPerfil);
         panelBotonesCabecera.add(btnPerfil);
 
         JSeparator separator = new JSeparator();
@@ -482,6 +482,8 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
                 }
             }
         });
+        // Hacer que la ventana se abra en pantalla completa
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     public Hoja_ruta_acciones() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -497,7 +499,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         panelCabecera.setLayout(new BorderLayout(0, 0));
 
         JLabel imagenCaritas = new JLabel("");
-        //imagenCaritas.setIcon(new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/caritas-bolivia.png")));
+        imagenCaritas.setIcon(new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/caritas-bolivia.png")));
         panelCabecera.add(imagenCaritas, BorderLayout.WEST);
 
         JPanel panelBotonesCabecera = new JPanel();
@@ -508,13 +510,13 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         panelBotonesCabecera.add(btnAtras);
 
         JButton btnPerfil = new JButton("");
-       // ImageIcon iconOriginal = new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/perfilpersona.png"));
-       // Image imagenOriginal = iconOriginal.getImage();
+        ImageIcon iconOriginal = new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/perfilpersona.png"));
+        Image imagenOriginal = iconOriginal.getImage();
         int nuevoAncho = 100;
         int nuevoAlto = 100;
-        //Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
-       // ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
-       // btnPerfil.setIcon(iconRedimensionadoPerfil);
+        Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
+        ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
+        btnPerfil.setIcon(iconRedimensionadoPerfil);
         panelBotonesCabecera.add(btnPerfil);
 
         JSeparator separator = new JSeparator();
@@ -949,6 +951,8 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
                 }
             }
         });
+        // Hacer que la ventana se abra en pantalla completa
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     public Hoja_ruta_acciones(HojaRutaAcciones hhhd,HojaRutaAcciones hhhd_1) {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -964,7 +968,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         panelCabecera.setLayout(new BorderLayout(0, 0));
 
         JLabel imagenCaritas = new JLabel("");
-        //imagenCaritas.setIcon(new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/caritas-bolivia.png")));
+        imagenCaritas.setIcon(new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/caritas-bolivia.png")));
         panelCabecera.add(imagenCaritas, BorderLayout.WEST);
 
         JPanel panelBotonesCabecera = new JPanel();
@@ -975,13 +979,13 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         panelBotonesCabecera.add(btnAtras);
 
         JButton btnPerfil = new JButton("");
-       // ImageIcon iconOriginal = new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/perfilpersona.png"));
-       // Image imagenOriginal = iconOriginal.getImage();
+        ImageIcon iconOriginal = new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/perfilpersona.png"));
+        Image imagenOriginal = iconOriginal.getImage();
         int nuevoAncho = 100;
         int nuevoAlto = 100;
-        //Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
-       // ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
-       // btnPerfil.setIcon(iconRedimensionadoPerfil);
+        Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
+        ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
+        btnPerfil.setIcon(iconRedimensionadoPerfil);
         panelBotonesCabecera.add(btnPerfil);
 
         JSeparator separator = new JSeparator();
@@ -1435,6 +1439,8 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
                 }
             }
         });
+        // Hacer que la ventana se abra en pantalla completa
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     public Hoja_ruta_acciones(HojaRutaAcciones hhhd) {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -1450,7 +1456,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         panelCabecera.setLayout(new BorderLayout(0, 0));
 
         JLabel imagenCaritas = new JLabel("");
-        //imagenCaritas.setIcon(new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/caritas-bolivia.png")));
+        imagenCaritas.setIcon(new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/caritas-bolivia.png")));
         panelCabecera.add(imagenCaritas, BorderLayout.WEST);
 
         JPanel panelBotonesCabecera = new JPanel();
@@ -1461,13 +1467,13 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         panelBotonesCabecera.add(btnAtras);
 
         JButton btnPerfil = new JButton("");
-       // ImageIcon iconOriginal = new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/perfilpersona.png"));
-       // Image imagenOriginal = iconOriginal.getImage();
+       ImageIcon iconOriginal = new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/perfilpersona.png"));
+        Image imagenOriginal = iconOriginal.getImage();
         int nuevoAncho = 100;
         int nuevoAlto = 100;
-        //Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
-       // ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
-       // btnPerfil.setIcon(iconRedimensionadoPerfil);
+        Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
+        ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
+        btnPerfil.setIcon(iconRedimensionadoPerfil);
         panelBotonesCabecera.add(btnPerfil);
 
         JSeparator separator = new JSeparator();
@@ -1803,5 +1809,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
                 } 
             }
         });
+        // Hacer que la ventana se abra en pantalla completa
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 }
