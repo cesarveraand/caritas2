@@ -64,14 +64,7 @@ public class PaginaHojaRutaE extends JFrame {
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<FormlarioRegistro> f=new ArrayList<>();
-				try {
-					f=Conexion.traerFormulariosSinHojaDeRuta();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				PaginaHojaRuta pag=new PaginaHojaRuta(f);
+				PaginaHojaRuta pag=new PaginaHojaRuta();
 				pag.setVisible(true);
 				dispose();
 			}

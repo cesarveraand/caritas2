@@ -6,10 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -33,12 +36,13 @@ import javax.swing.table.TableColumn;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.DefaultComboBoxModel;
 
 public class PaginaHojaRuta extends JFrame {
 
 	private JPanel contentPane;
-	private static ArrayList<FormlarioRegistro> forms = new ArrayList<FormlarioRegistro>();
+
 	private static JTable table_1 = new JTable();
 	private static boolean ventanaAbierta = false;
 	private JTextField txtBuscar;
@@ -46,9 +50,10 @@ public class PaginaHojaRuta extends JFrame {
 	private JTextField txtFechaFinal;
 	static JComboBox comboBoxBuqueda = new JComboBox();
 
-	public PaginaHojaRuta(ArrayList<FormlarioRegistro> forms) {
-
-		this.forms = forms;
+	public PaginaHojaRuta() {
+		
+		JPopupMenu jPopupMenu1 = new javax.swing.JPopupMenu();
+		JMenuItem mnactualizar = new javax.swing.JMenuItem();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 816, 574);
 		contentPane = new JPanel();
@@ -168,6 +173,28 @@ public class PaginaHojaRuta extends JFrame {
 				buscar("");
 			}
 		});
+		txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+		    public void keyTyped(java.awt.event.KeyEvent evt) {
+		        // Obtén el tipo de búsqueda seleccionado en el comboBoxBuqueda
+		        String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
+
+		        // Si el tipo de búsqueda es "Edad", solo permite ingresar números
+		        if ("Codigo Formulario".equals(tipoBusqueda)) {
+		            char c = evt.getKeyChar();
+		            if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+		                evt.consume();
+		            }
+		        }
+		    }
+		});
+		mnactualizar.setText("Modificar");
+		mnactualizar.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				mnactualizarActionPerformed(evt);
+			}
+		});
+		jPopupMenu1.add(mnactualizar);
+
 		txtBuscar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				txtbuscarActionPerformed(evt);
@@ -178,8 +205,9 @@ public class PaginaHojaRuta extends JFrame {
 				txtbuscarKeyReleased(evt);
 			}
 		});
+		table_1.setComponentPopupMenu(jPopupMenu1);
 		buscar("");
-		tabla();
+
 	}
 
 	/*
@@ -209,49 +237,92 @@ public class PaginaHojaRuta extends JFrame {
 	}
 
 	private void filtrarPorFechas(LocalDate fechaInicio, LocalDate fechaFinal, String valor) {
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+
+		// Obtener el tipo de búsqueda seleccionado en el comboBoxBuqueda
+		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
 		// Nombres de columna
 		String[] columnNames = { "Codigo registro", "fecha", "CI representante" };
-		// Crear el modelo de la tabla con los datos de las columnas
+		String[] registros = new String[7];
 		DefaultTableModel model = new DefaultTableModel(null, columnNames);
-		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		// Filtrar los funcionarios que coinciden con el valor de búsqueda
+		String cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+				+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
+				+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
+				+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
+				+ "and e.cf = d.familias_cf\n" + " and b.ci = e.ci_r\n" + "and a.estado = true\n"
+				+ "and b.estado = true\n" + " group by a.cfr, b.ci";
+		try {
+			Conexion cn = new Conexion();
+			Connection conexion = cn.getConexionPostgres();
+			java.sql.Statement s = conexion.createStatement();
 
-		for (FormlarioRegistro i : forms) {
-			LocalDate fechaRegsitro = i.getFechaRegistro();
+			// Filtrar los funcionarios que coinciden con el valor de búsqueda
+			if (valor.isEmpty()) {
+				cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+						+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
+						+ "Familia_beneficiario_voluntario d, familias e\n"
+						+ "where b.cid = c.beneficiario_cid\n"
+						+ "and a.cfr = c.formularioregistro_cfr\n"
+						+ "and b.cid = d.beneficiario_cid\n"
+						+ "and e.cf = d.familias_cf\n"
+						+ "and b.ci = e.ci_r\n"
+						+ "and a.estado = true\n"
+						+ "and b.estado = true\n"
+						+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
+						+ "group by a.cfr, b.ci";
 
-			// Verificar si la fecha de contratación está dentro del rango especificado
-			if (fechaRegsitro.isAfter(fechaInicio) && fechaRegsitro.isBefore(fechaFinal)) {
+			} else {
+				switch (tipoBusqueda) {
+				case "Codigo Formulario":
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
+							+ "Familia_beneficiario_voluntario d, familias e\n"
+							+ "where b.cid = c.beneficiario_cid\n"
+							+ "and a.cfr = c.formularioregistro_cfr\n"
+							+ "and b.cid = d.beneficiario_cid\n"
+							+ "and e.cf = d.familias_cf\n"
+							+ "and b.ci = e.ci_r\n"
+							+ "and a.estado = true\n"
+							+ "and b.estado = true\n"
+							+ "and a.cfr = " + Integer.parseInt(valor) +"\n"
+							+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
+							+ "group by a.cfr, b.ci";
+					break;
+				case "CI Representante":
 
-				if (valor.isEmpty()) {
-					model.addRow(new String[] { i.getCfr() + "", i.getFechaRegistro().format(dateFormatter),
-							i.getFam().getPrin().getCi() });
-
-				} else {
-					switch (tipoBusqueda) {
-					case "Codigo Formulario":
-
-						if (String.valueOf(i.getCfr()).contains(valor)) {
-							model.addRow(new String[] { i.getCfr() + "", i.getFechaRegistro().format(dateFormatter),
-									i.getFam().getPrin().getCi() });
-						}
-						break;
-					case "CI Representante":
-
-						if (i.getFam().getPrin().getCi().contains(valor)) {
-							model.addRow(new String[] { i.getCfr() + "", i.getFechaRegistro().format(dateFormatter),
-									i.getFam().getPrin().getCi() });
-						}
-						break;
-					}
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
+							+ "Familia_beneficiario_voluntario d, familias e\n"
+							+ "where b.cid = c.beneficiario_cid\n"
+							+ "and a.cfr = c.formularioregistro_cfr\n"
+							+ "and b.cid = d.beneficiario_cid\n"
+							+ "and e.cf = d.familias_cf\n"
+							+ "and b.ci = e.ci_r\n"
+							+ "and a.estado = true\n"
+							+ "and b.estado = true\n"
+							+ "and b.ci = '" + valor + "'\n"
+							+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
+							+ "group by a.cfr, b.ci";
+					break;
 				}
 			}
+
+			ResultSet rs = s.executeQuery(cons);
+			while (rs.next()) {
+				registros[0] = rs.getString(1);
+				registros[1] = rs.getString(2);
+				registros[2] = rs.getString(3);
+
+				model.addRow(registros);
+			}
+			table_1.setModel(model);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 
-		// Asignar el modelo a la instancia existente de JTable
-		table_1.setModel(model);
 		// Ajustar el ancho de las columnas
-		int[] columnWidths = { 120, 120, 120 }; // Puedes ajustar estos valores según tus necesidades
+		int[] columnWidths = { 130, 130, 130 }; // Puedes ajustar estos valores según tus necesidades
 
 		for (int i = 0; i < columnWidths.length; i++) {
 			TableColumn column = table_1.getColumnModel().getColumn(i);
@@ -265,84 +336,121 @@ public class PaginaHojaRuta extends JFrame {
 	}
 
 	public static void buscar(String valor) {
-		// Nombres de columna
-		String[] columnNames = { "Codigo registro", "fecha", "CI representante" };
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+
 		// Obtener el tipo de búsqueda seleccionado en el comboBoxBuqueda
 		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
-		// Crear el modelo de la tabla con los datos de las columnas
+		// Nombres de columna
+		String[] columnNames = { "Codigo registro", "fecha", "CI representante" };
+		String[] registros = new String[7];
 		DefaultTableModel model = new DefaultTableModel(null, columnNames);
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		// Filtrar los funcionarios que coinciden con el valor de búsqueda
+		String cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+				+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
+				+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
+				+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
+				+ "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n" + "and a.estado = true\n"
+				+ "and b.estado = true\n" + " group by a.cfr, b.ci";
+		try {
+			Conexion cn = new Conexion();
+			Connection conexion = cn.getConexionPostgres();
+			java.sql.Statement s = conexion.createStatement();
 
-		for (FormlarioRegistro i : forms) {
-
-			if (valor == "") {
-				model.addRow(new String[] { i.getCfr() + "", i.getFechaRegistro().format(dateFormatter),
-						i.getFam().getPrin().getCi() });
+			// Filtrar los funcionarios que coinciden con el valor de búsqueda
+			if (valor.isEmpty()) {
+				cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+						+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
+						+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
+						+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
+						+ "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n" + "and a.estado = true\n"
+						+ "and b.estado = true\n" + " group by a.cfr, b.ci";
 
 			} else {
 				switch (tipoBusqueda) {
 				case "Codigo Formulario":
-
-					if (String.valueOf(i.getCfr()).contains(valor)) {
-						model.addRow(new String[] { i.getCfr() + "", i.getFechaRegistro().format(dateFormatter),
-								i.getFam().getPrin().getCi() });
-					}
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
+							+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
+							+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
+							+ "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n" + "and a.estado = true\n"
+							+ "and b.estado = true\n" + " and a.cfr = " + Integer.parseInt(valor) + " group by a.cfr, b.ci";
 					break;
 				case "CI Representante":
-
-					if (i.getFam().getPrin().getCi().contains(valor)) {
-						model.addRow(new String[] { i.getCfr() + "", i.getFechaRegistro().format(dateFormatter),
-								i.getFam().getPrin().getCi() });
-					}
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
+							+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
+							+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
+							+ "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n" + "and a.estado = true\n"
+							+ "and b.estado = true\n" + " and b.ci = '" + valor + "' group by a.cfr, b.ci";
 					break;
 				}
 			}
 
-		}
+			ResultSet rs = s.executeQuery(cons);
+			while (rs.next()) {
+				registros[0] = rs.getString(1);
+				registros[1] = rs.getString(2);
+				registros[2] = rs.getString(3);
 
-		// Asignar el modelo a la instancia existente de JTable
-		table_1.setModel(model);
+				model.addRow(registros);
+			}
+			table_1.setModel(model);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		// Ajustar el ancho de las columnas
-		int[] columnWidths = { 120, 120, 120 }; // Puedes ajustar estos valores según tus necesidades
+		int[] columnWidths = { 130, 130, 130 }; // Puedes ajustar estos valores según tus necesidades
 
 		for (int i = 0; i < columnWidths.length; i++) {
 			TableColumn column = table_1.getColumnModel().getColumn(i);
 			column.setPreferredWidth(columnWidths[i]);
 		}
+
 	}
 
-	public static void tabla() {
+	private void mneliminarActionPerformed(java.awt.event.ActionEvent evt) {
+		int selectedRow = table_1.getSelectedRow();
+		try {
+			if (selectedRow != -1) {
 
-		table_1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				if (!e.getValueIsAdjusting()) {
-					if (!ventanaAbierta) { // Verificar si la ventana no está abierta
-						int selectedRow = table_1.getSelectedRow();
-						if (selectedRow != -1) {
-
-							FormlarioRegistro f = null;
-							int cod = Integer.parseInt((String) table_1.getValueAt(selectedRow, 0));
-							try {
-								f = Conexion.traerFormulario(cod);
-							} catch (SQLException e1) {
-								e1.printStackTrace();
-							}
-							Registro reg = new Registro(f);
-							reg.setVisible(true);
-							ventanaAbierta = true; // Marcar la ventana como abierta
-							reg.addWindowListener(new WindowAdapter() {
-								@Override
-								public void windowClosed(WindowEvent e) {
-									ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
-								}
-							});
-
-						}
-					}
-				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Seleccione una fila");
 			}
-		});
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	private void mnactualizarActionPerformed(java.awt.event.ActionEvent evt) {
+		int selectedRow = table_1.getSelectedRow();
+		try {
+			if (selectedRow != -1) {
+
+				FormlarioRegistro f = null;
+				int cod = Integer.parseInt((String) table_1.getValueAt(selectedRow, 0));
+				try {
+					f = Conexion.traerFormulario(cod);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				// Registro reg= new Registro(f);
+				// reg.setVisible(true);
+				Registro reg = new Registro(f);
+				reg.setVisible(true);
+				ventanaAbierta = true; // Marcar la ventana como abierta
+				reg.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosed(WindowEvent e) {
+						ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
+					}
+				});
+
+			} else {
+				JOptionPane.showMessageDialog(null, "Seleccione una fila");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 	}
 

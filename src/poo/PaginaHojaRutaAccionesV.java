@@ -6,8 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -30,13 +33,13 @@ import javax.swing.table.TableColumn;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultComboBoxModel;
 
 public class PaginaHojaRutaAccionesV extends JFrame {
 
 	private JPanel contentPane;
-	private static ArrayList<Hoja_de_ruta> forms=new ArrayList<Hoja_de_ruta>();
 	private static JTable table_1 = new JTable();
 	private static boolean ventanaAbierta = false;
 	private JTextField txtBuscar;
@@ -44,9 +47,12 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 	private JTextField txtFechaFinal;
 	static JComboBox comboBoxBuqueda = new JComboBox();
 	
-	public PaginaHojaRutaAccionesV(ArrayList<Hoja_de_ruta> forms) {
+	public PaginaHojaRutaAccionesV() {
 		
-		this.forms=forms;
+		JPopupMenu jPopupMenu1 = new javax.swing.JPopupMenu();
+		JMenuItem mnactualizar = new javax.swing.JMenuItem();
+		JMenuItem mneliminar = new javax.swing.JMenuItem();
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 816, 574);
 		contentPane = new JPanel();
@@ -72,7 +78,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 		btnVolver.setBounds(29, 491, 85, 21);
 		contentPane.add(btnVolver);
 		
-		JButton btnAgregar = new JButton("Editar");
+		JButton btnAgregar = new JButton("Editar Acciones");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<HojaRutaAcciones> f= new ArrayList<HojaRutaAcciones>();
@@ -85,7 +91,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 				PaginaHojaRutaAccionesE pg=new PaginaHojaRutaAccionesE(f);
 				pg.setVisible(true);
 				dispose();
-				
+				 
 			}
 		});
 		btnAgregar.setBounds(672, 491, 85, 21);
@@ -152,6 +158,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 		JButton btnBuscar = new JButton("Mostrar Todo");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				txtBuscar.setText("");
 				buscar("");
 			}
 		});
@@ -169,6 +176,43 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 				buscar("");
 			}
 		});
+		txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+		    public void keyTyped(java.awt.event.KeyEvent evt) {
+		        // Obtén el tipo de búsqueda seleccionado en el comboBoxBuqueda
+		        String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
+
+		        // Si el tipo de búsqueda es "Edad", solo permite ingresar números
+		        if ("Codigo Formulario".equals(tipoBusqueda)) {
+		            char c = evt.getKeyChar();
+		            if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+		                evt.consume();
+		            }
+		        }
+		    }
+		});
+		txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+		    public void keyTyped(java.awt.event.KeyEvent evt) {
+		        // Obtén el tipo de búsqueda seleccionado en el comboBoxBuqueda
+		        String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
+
+		        // Si el tipo de búsqueda es "Edad", solo permite ingresar números
+		        if ("Codigo Formulario".equals(tipoBusqueda)) {
+		            char c = evt.getKeyChar();
+		            if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+		                evt.consume();
+		            }
+		        }
+		    }
+		});
+		mnactualizar.setText("Agregar Acción");
+		mnactualizar.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				mnactualizarActionPerformed(evt);
+			}
+		});
+		jPopupMenu1.add(mnactualizar);
+
+
 		txtBuscar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				txtbuscarActionPerformed(evt);
@@ -179,25 +223,18 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 				txtbuscarKeyReleased(evt);
 			}
 		});
+		table_1.setComponentPopupMenu(jPopupMenu1);
 		buscar("");
-		tabla();
+
 	}
+
 	/*
-	public static void agregarFun(Funcionario fun) {
-		admins.add(fun);
-	}
-	public static void removerFun(Funcionario fun) {
-		admins.remove(fun);
-	}
-	public static void cambiar() {
-		admins.clear();
-		try {
-			admins =Conexion.adminsRegistrados();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
+	 * public static void agregarFun(Funcionario fun) { admins.add(fun); } public
+	 * static void removerFun(Funcionario fun) { admins.remove(fun); } public static
+	 * void cambiar() { admins.clear(); try { admins =Conexion.adminsRegistrados();
+	 * } catch (SQLException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); } }
+	 */
 	private void txtbuscarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtbuscarActionPerformed
 		// TODO add your handling code here:
 	}// GEN-LAST:event_txtbuscarActionPerformed
@@ -218,49 +255,112 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 	}
 
 	private void filtrarPorFechas(LocalDate fechaInicio, LocalDate fechaFinal, String valor) {
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+
+		// Obtener el tipo de búsqueda seleccionado en el comboBoxBuqueda
+		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
 		// Nombres de columna
 		String[] columnNames = { "Codigo registro", "fecha", "CI representante" };
-		// Crear el modelo de la tabla con los datos de las columnas
+		String[] registros = new String[7];
 		DefaultTableModel model = new DefaultTableModel(null, columnNames);
-		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		// Filtrar los funcionarios que coinciden con el valor de búsqueda
+		String cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+				+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
+				+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
+				+ "where b.cid = c.beneficiario_cid\n"
+				+ "and a.cfr = c.formularioregistro_cfr\n"
+				+ "and b.cid = d.beneficiario_cid\n"
+				+ "and e.cf = d.familias_cf\n"
+				+ "and b.ci = e.ci_r\n"
+				+ "and a.cfr = f.formularioregistro_cfr\n"
+				+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
+				+ "and g.estado = true\n"
+				+ "and not exists (select * from FormularioHPMH i, PMH j\n"
+				+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
+				+ "				and j.cpmh = i.pmh_cpmh)\n"
+				+ "group by g.cfhd, b.ci, a.fecharegistro";
+		try {
+			Conexion cn = new Conexion();
+			Connection conexion = cn.getConexionPostgres();
+			java.sql.Statement s = conexion.createStatement();
 
-		for (Hoja_de_ruta i : forms) {
-			LocalDate fechaRegsitro = i.getFechaReg();
+			// Filtrar los funcionarios que coinciden con el valor de búsqueda
+			if (valor.isEmpty()) {
+				cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+						+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
+						+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
+						+ "where b.cid = c.beneficiario_cid\n"
+						+ "and a.cfr = c.formularioregistro_cfr\n"
+						+ "and b.cid = d.beneficiario_cid\n"
+						+ "and e.cf = d.familias_cf\n"
+						+ "and b.ci = e.ci_r\n"
+						+ "and a.cfr = f.formularioregistro_cfr\n"
+						+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
+						+ "and g.estado = true\n"
+						+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
+						+ "and not exists (select * from FormularioHPMH i, PMH j\n"
+						+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
+						+ "				and j.cpmh = i.pmh_cpmh)\n"
+						+ "group by g.cfhd, b.ci, a.fecharegistro";
 
-			// Verificar si la fecha de contratación está dentro del rango especificado
-			if (fechaRegsitro.isAfter(fechaInicio) && fechaRegsitro.isBefore(fechaFinal)) {
-
-				if (valor == "") {
-					model.addRow(new String[] { i.getCfhd()+"", i.getFechaReg().format(dateFormatter),
-							i.getForm().getFam().getPrin().getCi() });
-
-				} else {
-					switch (tipoBusqueda) {
-					case "Codigo Formulario":
-
-						if (String.valueOf(i.getCfhd()).contains(valor)) {
-							model.addRow(new String[] { i.getCfhd()+"", i.getFechaReg().format(dateFormatter),
-									i.getForm().getFam().getPrin().getCi() });
-						}
-						break;
-					case "CI Representante":
-
-						if (i.getForm().getFam().getPrin().getCi().contains(valor)) {
-							model.addRow(new String[] { i.getCfhd()+"", i.getFechaReg().format(dateFormatter),
-									i.getForm().getFam().getPrin().getCi() });
-						}
-						break;
-					}
+			} else {
+				switch (tipoBusqueda) {
+				case "Codigo Formulario":
+					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+							+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
+							+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
+							+ "where b.cid = c.beneficiario_cid\n"
+							+ "and a.cfr = c.formularioregistro_cfr\n"
+							+ "and b.cid = d.beneficiario_cid\n"
+							+ "and e.cf = d.familias_cf\n"
+							+ "and b.ci = e.ci_r\n"
+							+ "and a.cfr = f.formularioregistro_cfr\n"
+							+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
+							+ "and g.estado = true\n"
+							+ "and g.cfhd = " + Integer.parseInt(valor) +"\n"
+							+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
+							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
+							+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
+							+ "				and j.cpmh = i.pmh_cpmh)\n"
+							+ "group by g.cfhd, b.ci, a.fecharegistro";
+					break;
+				case "CI Representante":
+					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+							+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
+							+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
+							+ "where b.cid = c.beneficiario_cid\n"
+							+ "and a.cfr = c.formularioregistro_cfr\n"
+							+ "and b.cid = d.beneficiario_cid\n"
+							+ "and e.cf = d.familias_cf\n"
+							+ "and b.ci = e.ci_r\n"
+							+ "and a.cfr = f.formularioregistro_cfr\n"
+							+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
+							+ "and g.estado = true\n"
+							+ "and b.ci = '" + valor + "'\n"
+							+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
+							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
+							+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
+							+ "				and j.cpmh = i.pmh_cpmh)\n"
+							+ "group by g.cfhd, b.ci, a.fecharegistro";
+					break;
 				}
 			}
+
+			ResultSet rs = s.executeQuery(cons);
+			while (rs.next()) {
+				registros[0] = rs.getString(1);
+				registros[1] = rs.getString(2);
+				registros[2] = rs.getString(3);
+
+				model.addRow(registros);
+			}
+			table_1.setModel(model);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 
-		// Asignar el modelo a la instancia existente de JTable
-		table_1.setModel(model);
 		// Ajustar el ancho de las columnas
-		int[] columnWidths = { 120, 120, 120 }; // Puedes ajustar estos valores según tus necesidades
+		int[] columnWidths = { 130, 130, 130 }; // Puedes ajustar estos valores según tus necesidades
 
 		for (int i = 0; i < columnWidths.length; i++) {
 			TableColumn column = table_1.getColumnModel().getColumn(i);
@@ -274,83 +374,146 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 	}
 
 	public static void buscar(String valor) {
-		// Nombres de columna
-		String[] columnNames = { "Codigo registro", "fecha", "CI representante" };
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+
 		// Obtener el tipo de búsqueda seleccionado en el comboBoxBuqueda
 		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
-		// Crear el modelo de la tabla con los datos de las columnas
+		// Nombres de columna
+		String[] columnNames = { "Codigo registro", "fecha", "CI representante" };
+		String[] registros = new String[7];
 		DefaultTableModel model = new DefaultTableModel(null, columnNames);
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		// Filtrar los funcionarios que coinciden con el valor de búsqueda
+		String cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+				+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
+				+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
+				+ "where b.cid = c.beneficiario_cid\n"
+				+ "and a.cfr = c.formularioregistro_cfr\n"
+				+ "and b.cid = d.beneficiario_cid\n"
+				+ "and e.cf = d.familias_cf\n"
+				+ "and b.ci = e.ci_r\n"
+				+ "and a.cfr = f.formularioregistro_cfr\n"
+				+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
+				+ "and g.estado = true\n"
+				+ "and not exists (select * from FormularioHPMH i, PMH j\n"
+				+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
+				+ "				and j.cpmh = i.pmh_cpmh)\n"
+				+ "group by g.cfhd, b.ci, a.fecharegistro";
+		try {
+			Conexion cn = new Conexion();
+			Connection conexion = cn.getConexionPostgres();
+			java.sql.Statement s = conexion.createStatement();
 
-		for (Hoja_de_ruta i : forms) {
-
-			if (valor == "") {
-				model.addRow(new String[] { i.getCfhd()+"", i.getFechaReg().format(dateFormatter),
-						i.getForm().getFam().getPrin().getCi() });
+			// Filtrar los funcionarios que coinciden con el valor de búsqueda
+			if (valor.isEmpty()) {
+				cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+						+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
+						+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
+						+ "where b.cid = c.beneficiario_cid\n"
+						+ "and a.cfr = c.formularioregistro_cfr\n"
+						+ "and b.cid = d.beneficiario_cid\n"
+						+ "and e.cf = d.familias_cf\n"
+						+ "and b.ci = e.ci_r\n"
+						+ "and a.cfr = f.formularioregistro_cfr\n"
+						+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
+						+ "and g.estado = true\n"
+						+ "and not exists (select * from FormularioHPMH i, PMH j\n"
+						+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
+						+ "				and j.cpmh = i.pmh_cpmh)\n"
+						+ "group by g.cfhd, b.ci, a.fecharegistro";
 
 			} else {
 				switch (tipoBusqueda) {
 				case "Codigo Formulario":
-
-					if (String.valueOf(i.getCfhd()).contains(valor)) {
-						model.addRow(new String[] { i.getCfhd()+"", i.getFechaReg().format(dateFormatter),
-								i.getForm().getFam().getPrin().getCi() });
-					}
+					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+							+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
+							+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
+							+ "where b.cid = c.beneficiario_cid\n"
+							+ "and a.cfr = c.formularioregistro_cfr\n"
+							+ "and b.cid = d.beneficiario_cid\n"
+							+ "and e.cf = d.familias_cf\n"
+							+ "and b.ci = e.ci_r\n"
+							+ "and a.cfr = f.formularioregistro_cfr\n"
+							+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
+							+ "and g.cfhd = " + Integer.parseInt(valor) + "\n"
+							+ "and g.estado = true\n"
+							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
+							+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
+							+ "				and j.cpmh = i.pmh_cpmh)\n"
+							+ "group by g.cfhd, b.ci, a.fecharegistro";
 					break;
 				case "CI Representante":
-
-					if (i.getForm().getFam().getPrin().getCi().contains(valor)) {
-						model.addRow(new String[] { i.getCfhd()+"", i.getFechaReg().format(dateFormatter),
-								i.getForm().getFam().getPrin().getCi() });
-					}
+					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+							+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
+							+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
+							+ "where b.cid = c.beneficiario_cid\n"
+							+ "and a.cfr = c.formularioregistro_cfr\n"
+							+ "and b.cid = d.beneficiario_cid\n"
+							+ "and e.cf = d.familias_cf\n"
+							+ "and b.ci = e.ci_r\n"
+							+ "and a.cfr = f.formularioregistro_cfr\n"
+							+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
+							+ "and g.estado = true\n"
+							+ "and b.ci = '" + valor + "'\n"
+							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
+							+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
+							+ "				and j.cpmh = i.pmh_cpmh)\n"
+							+ "group by g.cfhd, b.ci, a.fecharegistro";
 					break;
 				}
 			}
 
-		}
+			ResultSet rs = s.executeQuery(cons);
+			while (rs.next()) {
+				registros[0] = rs.getString(1);
+				registros[1] = rs.getString(2);
+				registros[2] = rs.getString(3);
 
-		// Asignar el modelo a la instancia existente de JTable
-		table_1.setModel(model);
+				model.addRow(registros);
+			}
+			table_1.setModel(model);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		// Ajustar el ancho de las columnas
-		int[] columnWidths = { 120, 120, 120 }; // Puedes ajustar estos valores según tus necesidades
+		int[] columnWidths = { 130, 130, 130 }; // Puedes ajustar estos valores según tus necesidades
 
 		for (int i = 0; i < columnWidths.length; i++) {
 			TableColumn column = table_1.getColumnModel().getColumn(i);
 			column.setPreferredWidth(columnWidths[i]);
 		}
-	}
-	public static void tabla() {
 
-        table_1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    if (!ventanaAbierta) { // Verificar si la ventana no está abierta
-                        int selectedRow = table_1.getSelectedRow();
-                        if (selectedRow != -1) {
-                        	
-                        	Hoja_de_ruta f = null;
-                            int cod = Integer.parseInt((String) table_1.getValueAt(selectedRow, 0));
-                            try {
-                                f = Conexion.traerFormularioHoja(cod);
-                            } catch (SQLException e1) {
-                                e1.printStackTrace();
-                            }
-                            Hoja_ruta_acciones reg= new Hoja_ruta_acciones(f);
-                            reg.setVisible(true);
-                        	 ventanaAbierta = true; // Marcar la ventana como abierta
-                             reg.addWindowListener(new WindowAdapter() {
-                                 @Override
-                                 public void windowClosed(WindowEvent e) {
-                                   ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
-                                }
-                             });
-                        
-                        }
-                    }
+	}
+
+
+
+	private void mnactualizarActionPerformed(java.awt.event.ActionEvent evt) {
+		int selectedRow = table_1.getSelectedRow();
+		try {
+            if (selectedRow != -1) {
+            	
+            	Hoja_de_ruta f = null;
+                int cod = Integer.parseInt((String) table_1.getValueAt(selectedRow, 0));
+                try {
+                    f = Conexion.traerFormularioHoja(cod);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
                 }
-            }
-        });
+                Hoja_ruta_acciones reg= new Hoja_ruta_acciones(f);
+                reg.setVisible(true);
+            	 ventanaAbierta = true; // Marcar la ventana como abierta
+                 reg.addWindowListener(new WindowAdapter() {
+                     @Override
+                     public void windowClosed(WindowEvent e) {
+                       ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
+                    }
+                 });
+
+			} else {
+				JOptionPane.showMessageDialog(null, "Seleccione una fila");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 	}
 	

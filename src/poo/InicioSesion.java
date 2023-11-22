@@ -1,41 +1,60 @@
 package poo;
 
-import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import poo.InicioSesion;
+import poo.Main;
+import poo.PaginaUsuarioA;
+import poo.PaginaUsuarioV;
+
+import javax.swing.JCheckBox;
+import javax.swing.JTextField;
 import javax.swing.JToggleButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
-public class InicioSesion extends JFrame {
 
-    private JPanel contentPane;
-    private JTextField textFieldCI;
-    private JPasswordField passwordField;
-    private JToggleButton toggleButtonMostrarContrasena;
+public class InicioSesion extends JFrame{
+	private JPanel contentPane;
+	private JTextField textFieldCI;
+	private JPasswordField passwordField;
 
-    public InicioSesion() {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 571, 354);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+	public InicioSesion() {
 
-        textFieldCI = new JTextField();
-        textFieldCI.setBounds(160, 145, 220, 19);
-        contentPane.add(textFieldCI);
-        textFieldCI.setColumns(10);
+	    JToggleButton toggleButtonMostrarContrasena;
+		
+		//icono de ventana :)
+		ImageIcon icono = new ImageIcon("C:\\Users\\HP\\eclipse-workspace\\Ventanas\\src\\imagenes\\iconCaritas.png");
+		setIconImage(icono.getImage());
 
-        passwordField = new JPasswordField();
-        passwordField.setBounds(163, 197, 160, 19);
-        contentPane.add(passwordField);
-
+		setTitle("Cáritas Bolivia");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
+		contentPane=new JPanel();
+		contentPane.setBorder(new EmptyBorder(5,5,5,5));
+		setContentPane(contentPane);
+		setBounds(0, 0, 1920, 1000);
+		setSize(1920, 1000);
+		setLocationRelativeTo(null);
+		contentPane.setLayout(null);
+		
         toggleButtonMostrarContrasena = new JToggleButton("Mostrar");
         toggleButtonMostrarContrasena.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -48,14 +67,51 @@ public class InicioSesion extends JFrame {
                 }
             }
         });
-        toggleButtonMostrarContrasena.setBounds(333, 196, 89, 21);
+        toggleButtonMostrarContrasena.setBounds(1149, 588, 89, 21);
         contentPane.add(toggleButtonMostrarContrasena);
-
-        setContentPane(contentPane);
-        contentPane.setLayout(null);
-
-        JButton btnIngresar = new JButton("Ingresar");
-        btnIngresar.addActionListener(new ActionListener() {
+		
+		//Inicio de sesion cuadros
+		passwordField = new JPasswordField();
+		passwordField.setBounds(789, 573, 350, 50);
+		contentPane.add(passwordField);
+		
+		
+		textFieldCI = new JTextField();
+		textFieldCI.setBounds(789, 492, 350, 50);
+		contentPane.add(textFieldCI);
+		textFieldCI.setColumns(10);
+		
+		JLabel TextoUsuario = new JLabel("Usuario:");
+		TextoUsuario.setForeground(Color.WHITE);
+		TextoUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		TextoUsuario.setBounds(657, 504, 94, 18);
+		contentPane.add(TextoUsuario);
+		
+		JLabel TextoContraseña = new JLabel("Contraseña:");
+		TextoContraseña.setForeground(Color.WHITE);
+		TextoContraseña.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		TextoContraseña.setBounds(657, 582, 137, 25);
+		contentPane.add(TextoContraseña);
+		
+		JLabel cuadro = new JLabel("");
+		cuadro.setIcon(new ImageIcon(InicioSesion.class.getResource("/imagenes_help/fondo rojo.jpeg")));
+		cuadro.setBounds(617, 379, 628, 370);
+		contentPane.add(cuadro);
+		
+		
+		
+		
+		// Botones
+		JButton btnIngresar = new JButton("Iniciar sesión");
+		btnIngresar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnIngresar.setBounds(803, 787, 250, 65);
+		getContentPane().add(btnIngresar);
+		btnIngresar.setIcon(new ImageIcon(""));
+		btnIngresar.setHorizontalTextPosition(SwingConstants.CENTER);
+				
+				
+		//Acciones de los botones
+		btnIngresar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (textFieldCI.getText() != null && passwordField.getPassword() != null) {
                     String password = new String(passwordField.getPassword());
@@ -77,15 +133,29 @@ public class InicioSesion extends JFrame {
                 }
             }
         });
-        btnIngresar.setBounds(424, 270, 85, 21);
-        contentPane.add(btnIngresar);
+		
+		
+		//fondos principales
+		JLabel caritasLogo = new JLabel("");
+		caritasLogo.setBounds(829, 48, 272, 100);
+		caritasLogo.setIcon(new ImageIcon(InicioSesion.class.getResource("/imagenes_help/logoCaritas.jpg")));
+		contentPane.add(caritasLogo);
+		
+		JLabel fundacion = new JLabel("");
+		fundacion.setBackground(Color.WHITE);
+		fundacion.setForeground(Color.WHITE);
+		fundacion.setBounds(0, 0, 1920, 180);
+		fundacion.setIcon(new ImageIcon(InicioSesion.class.getResource("/imagenes_help/fondoblanco.jpg")));
+		contentPane.add(fundacion);
+		
+        // Hacer que la ventana se abra en pantalla completa
+        //setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
 
-        JLabel lblCI = new JLabel("CI");
-        lblCI.setBounds(85, 148, 45, 13);
-        contentPane.add(lblCI);
-
-        JLabel lblContrasena = new JLabel("Contraseña");
-        lblContrasena.setBounds(85, 200, 69, 13);
-        contentPane.add(lblContrasena);
-    }
+		JLabel imagenprincipal = new JLabel(new ImageIcon(InicioSesion.class.getResource("/imagenes_help/Fundacion.jpg")));
+		imagenprincipal.setBounds(0, 180, 1920, 900);
+		getContentPane().add(imagenprincipal);
+		setVisible(true);
+	}
 }
+
