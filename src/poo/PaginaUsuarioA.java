@@ -64,14 +64,8 @@ public class PaginaUsuarioA extends JFrame {
 		JButton btnFormReg = new JButton("Formulario registro");
 		btnFormReg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<FormlarioRegistro> forms=new ArrayList<FormlarioRegistro>();
-				try {
-					forms = Conexion.formulariosRegistrado();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				PaginaFormulariosRegistro pg=new PaginaFormulariosRegistro(forms);
+
+				PaginaFormulariosRegistro pg=new PaginaFormulariosRegistro();
 				pg.setVisible(true);
 				
 			}
@@ -82,14 +76,8 @@ public class PaginaUsuarioA extends JFrame {
 		JButton btnRegFormHoja = new JButton("Formulario hoja de ruta");
 		btnRegFormHoja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<FormlarioRegistro> f=new ArrayList<>();
-				try {
-					f=Conexion.traerFormulariosSinHojaDeRuta(); 
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				PaginaHojaRuta pag=new PaginaHojaRuta(f);
+
+				PaginaHojaRuta pag=new PaginaHojaRuta();
 				pag.setVisible(true);
 			}
 		});
@@ -106,14 +94,8 @@ public class PaginaUsuarioA extends JFrame {
 		btnRefugiados.setBounds(298, 236, 198, 21);
 		btnRefugiados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<FormlarioRegistro> forms=new ArrayList<FormlarioRegistro>();
-				try {
-					forms = Conexion.formulariosRegistrado();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				PaginaBeneficiario pg=new PaginaBeneficiario(forms);
+
+				PaginaBeneficiario pg=new PaginaBeneficiario();
 				pg.setVisible(true);
 				
 			}
@@ -123,14 +105,8 @@ public class PaginaUsuarioA extends JFrame {
 		JButton btnRegAcciones = new JButton("Agregar acciones hoja de ruta");
 		btnRegAcciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Hoja_de_ruta> f=new ArrayList<Hoja_de_ruta>();
-				try {
-					f = Conexion.formHojaRutaAccions();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				PaginaHojaRutaAcciones hjr =new PaginaHojaRutaAcciones(f);
+
+				PaginaHojaRutaAcciones hjr =new PaginaHojaRutaAcciones();
 				hjr.setVisible(true);
 			}
 		});

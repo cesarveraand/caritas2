@@ -43,14 +43,8 @@ public class PaginaUsuarioV extends JFrame {
 		JButton btnRegFormHoja = new JButton("Formulario hoja de ruta");
 		btnRegFormHoja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<FormlarioRegistro> f=new ArrayList<>();
-				try {
-					f=Conexion.traerFormulariosSinHojaDeRuta();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				PaginaHojaRutaV pag=new PaginaHojaRutaV(f);
+
+				PaginaHojaRutaV pag=new PaginaHojaRutaV();
 				pag.setVisible(true);
 			}
 		});
@@ -66,14 +60,8 @@ public class PaginaUsuarioV extends JFrame {
 		JButton btnRegAcciones = new JButton("Agregar acciones hoja de ruta");
 		btnRegAcciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Hoja_de_ruta> f=new ArrayList<Hoja_de_ruta>();
-				try {
-					f = Conexion.formHojaRutaAccions();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				PaginaHojaRutaAccionesV hjr =new PaginaHojaRutaAccionesV(f);
+
+				PaginaHojaRutaAccionesV hjr =new PaginaHojaRutaAccionesV();
 				hjr.setVisible(true); 
 			}
 		});
@@ -83,14 +71,8 @@ public class PaginaUsuarioV extends JFrame {
 		JButton btnBene = new JButton("Beneficiarios");
 		btnBene.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<FormlarioRegistro> forms=new ArrayList<FormlarioRegistro>();
-				try {
-					forms = Conexion.formulariosRegistrado();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				PaginaBeneficiarioV pg=new PaginaBeneficiarioV(forms);
+
+				PaginaBeneficiarioV pg=new PaginaBeneficiarioV();
 				pg.setVisible(true);
 				
 			}

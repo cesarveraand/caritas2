@@ -255,7 +255,8 @@ public class PaginaAdministradores extends JFrame {
 	}
 	private void filtrarPorFechas(LocalDate fechaInicio, LocalDate fechaFinal, String valor) {
 		// Nombres de columna
-		String[] columnNames = { "Codigo", "Nombre", "CI", "Fecha Contratación", "Correo" };
+		String[] columnNames = { "Codigo", "Nombre", "CI", "Fecha Contratación", "Correo", "Teléfono", "Ciudad" };
+
 		// Crear el modelo de la tabla con los datos de las columnas
 		DefaultTableModel model = new DefaultTableModel(null, columnNames);
 		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
@@ -272,19 +273,19 @@ public class PaginaAdministradores extends JFrame {
 				case "Nombre":
 					if (i.getNombre().toLowerCase().contains(valor.toLowerCase())) {
 						model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-								i.getLFechaCon().format(dateFormatter), i.getCorreo() });
+						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
 					}
 					break;
 				case "C.I.":
 					if (i.getCi().toLowerCase().contains(valor)) {
 						model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-								i.getLFechaCon().format(dateFormatter), i.getCorreo() });
+						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
 					}
 					break;
 				case "Correo":
 					if (i.getCorreo().toLowerCase().contains(valor)) {
 						model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-								i.getLFechaCon().format(dateFormatter), i.getCorreo() });
+						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
 					}
 					break;
 				case "Telefono":
@@ -344,19 +345,19 @@ public class PaginaAdministradores extends JFrame {
 				case "Nombre":
 					if (i.getNombre().toLowerCase().contains(valor.toLowerCase())) {
 						model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-								i.getLFechaCon().format(dateFormatter), i.getCorreo() });
+						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
 					}
 					break;
 				case "C.I.":
 					if (i.getCi().toLowerCase().contains(valor)) {
 						model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-								i.getLFechaCon().format(dateFormatter), i.getCorreo() });
+						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
 					}
 					break;
 				case "Correo":
 					if (i.getCorreo().toLowerCase().contains(valor)) {
 						model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-								i.getLFechaCon().format(dateFormatter), i.getCorreo() });
+						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
 					}
 					break;
 				case "Telefono":
