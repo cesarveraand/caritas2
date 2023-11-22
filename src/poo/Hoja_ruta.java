@@ -235,6 +235,11 @@ public class Hoja_ruta extends JFrame {
 
         JButton btnImprimir = new JButton("IMPRIMIR");
         btnImprimir.setBounds(1136, 460, 117, 29);
+        btnImprimir.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        	}
+        });
         panelLlenado.add(btnImprimir);
         
         JButton btnAcciones = new JButton("ACCIONES");
