@@ -4,6 +4,7 @@ package poo;
 import java.awt.BorderLayout;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
@@ -37,6 +38,7 @@ public class InicioSesion extends JFrame{
 	private JPasswordField passwordField;
 
 	public InicioSesion() {
+		
 
 	    JToggleButton toggleButtonMostrarContrasena;
 		
@@ -155,7 +157,10 @@ public class InicioSesion extends JFrame{
 		JLabel imagenprincipal = new JLabel(new ImageIcon(InicioSesion.class.getResource("/imagenes_help/Fundacion.jpg")));
 		imagenprincipal.setBounds(0, 180, 1920, 900);
 		getContentPane().add(imagenprincipal);
+		 
+		
 		setVisible(true);
+		
 	}
 }
 
