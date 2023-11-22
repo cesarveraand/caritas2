@@ -11,24 +11,20 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Conexion {
-<<<<<<< HEAD
-	static final String DB_URl="jdbc:postgresql://localhost/caritas";
-	static final String USER ="postgres";
-	static final String PASS= "D4l3mb3rt";
+
+
 	
-/*	static final String DB_URl = "jdbc:postgresql://172.18.9.74:5432/caritas";
+	/*static final String DB_URl = "jdbc:postgresql://192.168.56.1:5432/caritas";
 
-	static final String USER ="postgres";
-	static final String PASS= "D4l3mb3rt";*/
+	static final String USER ="chris";
+	static final String PASS= "1234";*/
 
-=======
 
 
 	static final String DB_URl = "jdbc:postgresql://localhost/Caritas";
 	static final String USER = "postgres";
 	static final String PASS = "3211";
-	
->>>>>>> 7c616ae938726608c26f24fdffb72b6887f6d1ce
+
 
 	public Connection getConexionPostgres() throws SQLException {
 		Connection conn = null;
