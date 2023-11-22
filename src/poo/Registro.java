@@ -20,7 +20,7 @@ public class Registro extends JFrame {
     private JPanel panelDatosPersonas; 
     private JTextField txtNombre;
     private JTextField txtEdad;
-    private static boolean panel1=false;
+    private static boolean panel1=false,isReg=true;
     private JTextField txtDocIdentidad;
     private JTextField txtExpedido;
     private JTextField txtMedioEnvio;
@@ -591,10 +591,8 @@ btnQuitarEstatus.setBounds(0, 0, 251, 23);
 								auxPais= new PaisVisita(uP,(String) paisesPaso.get(i).getSelectedItem(),Integer.parseInt(permanencia.get(i).getText()) ,estatus.get(i).getText(),true);
 								paises.add(auxPais);
 								uP++;
-								System.out.println("entro");
 
 							}
-							System.out.println("entro");
 						}
 						System.out.println(auxPais.toString());
 						for (int i=0;i<nombres.size();i++) {
@@ -1379,31 +1377,35 @@ btnQuitarEstatus.setBounds(0, 0, 251, 23);
 		txtMedioEnvio.setText(reg.getMedioEvniaDinero());
 		txtComunicacion.setText(reg.getComunicaFamilia());
 		txtObservaciones.setText(reg.getObs());
-		for(PaisVisita i: reg.getFam().getFamilia().get(0).getPais()) {
-			masEstatusMigratorio(panelEstatusMigra,i);
-			
+		if(isReg) {
+			for(PaisVisita i: reg.getFam().getFamilia().get(0).getPais()) {
+				masEstatusMigratorio(panelEstatusMigra,i);
+				
+			}
+			for(Beneficiarios i: reg.getFam().getFamilia()) {
+				masPersona(lblCantidadContador,i);
+			}
+			isReg=false;
 		}
-		for(Beneficiarios i: reg.getFam().getFamilia()) {
-			masPersona(lblCantidadContador,i);
-		}
+		
 		
 	}
 	public void menosPersona(JLabel lblCantidadContador) {
 		if(panelesPersonas.size()>1) {
-			panelDatosPersonas.remove(panelesPersonas.get(0));
+			panelDatosPersonas.remove(panelesPersonas.size()-1);
 
-		panelesPersonas.remove(panelesPersonas.get(0));
+		panelesPersonas.remove(panelesPersonas.size()-1);
 
-	    nombres.remove(nombres.get(0));
-	    edades.remove(edades.get(0));
-	    docIdentidad.remove(docIdentidad.get(0));
-	    expedidos.remove(expedidos.get(0));
-	    educaciones.remove(educaciones.get(0));
-sexos.remove(sexos.get(0));
+	    nombres.remove(nombres.size()-1);
+	    edades.remove(edades.size()-1);
+	    docIdentidad.remove(docIdentidad.size()-1);
+	    expedidos.remove(expedidos.size()-1);
+	    educaciones.remove(educaciones.size()-1);
+sexos.remove(sexos.size()-1);
 	    
 	    
 	    
-	    ingresos.remove(ingresos.get(0));
+	    ingresos.remove(ingresos.size()-1);
 
 		contadorPersonas-=1;
 		lblCantidadContador.setText(Integer.toString(contadorPersonas));
@@ -1670,11 +1672,11 @@ public void masPersona(JLabel lblCantidadContador,Beneficiarios ben) {
 	public void menosEstatusMigratorio(JPanel panelEstatusMigra) {
 		if(panelesPaises.size()>1) {
 			
-				panelEstatusMigra.remove(panelesPaises.get(0));
-				panelesPaises.remove(panelesPaises.get(0));
-				paisesPaso.remove(paisesPaso.get(0));
-				permanencia.remove(permanencia.get(0));
-				estatus.remove(estatus.get(0));
+				panelEstatusMigra.remove(panelesPaises.size()-1);
+				panelesPaises.remove(panelesPaises.size()-1);
+				paisesPaso.remove(paisesPaso.size()-1);
+				permanencia.remove(permanencia.size()-1);
+				estatus.remove(estatus.size()-1);
 
 			
 			
