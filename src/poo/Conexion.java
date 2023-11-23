@@ -12,14 +12,14 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
 
-	static final String DB_URl="jdbc:postgresql://localhost/Caritas";
+	static final String DB_URl="jdbc:postgresql://localhost/caritas2";
 	static final String USER ="postgres";
 	static final String PASS= "3211";
 	
-	/*static final String DB_URl = "jdbc:postgresql://192.168.56.1:5432/caritas";
-
-	static final String USER ="chris";
-	static final String PASS= "1234";*/
+//	static final String DB_URl = "jdbc:postgresql://192.168.1.7:5432/caritas";
+//
+//	static final String USER ="chris";
+//	static final String PASS= "1234";
 
 
 
@@ -30,6 +30,7 @@ public class Conexion {
 
 		} catch (SQLException e) {
 			// JOptionPane.showMessageDialog(null,"No se puede conectar");
+	        e.printStackTrace();
 			return null;
 		}
 		// JOptionPane.showMessageDialog(null,"Conexion exitosa");
@@ -958,6 +959,22 @@ public class Conexion {
 		Connection conexion = con.getConexionPostgres();
 		java.sql.Statement s = conexion.createStatement();
 		ResultSet rs = s.executeQuery("select count(cv) from funcionario where ci='" + ci + "'");
+
+		if (rs.next()) {
+			int count = rs.getInt(1);
+			return count == 0;
+		} else {
+
+			return false;
+		}
+
+	}
+	
+	public static boolean confirmarB(String ci) throws SQLException {
+		Conexion con = new Conexion();
+		Connection conexion = con.getConexionPostgres();
+		java.sql.Statement s = conexion.createStatement();
+		ResultSet rs = s.executeQuery("select count(cid) from beneficiario where cid='" + ci + "'");
 
 		if (rs.next()) {
 			int count = rs.getInt(1);

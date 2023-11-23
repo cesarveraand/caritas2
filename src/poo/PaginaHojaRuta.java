@@ -81,14 +81,7 @@ public class PaginaHojaRuta extends JFrame {
 		JButton btnVerHojasDeRutaExistentes = new JButton("Editar");
 		btnVerHojasDeRutaExistentes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Hoja_de_ruta> f = new ArrayList<Hoja_de_ruta>();
-				try {
-					f = Conexion.HojasDeRutaExistentes();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				PaginaHojaRutaE pg = new PaginaHojaRutaE(f);
+				PaginaHojaRutaE pg = new PaginaHojaRutaE();
 				pg.setVisible(true);
 				dispose();
 			}

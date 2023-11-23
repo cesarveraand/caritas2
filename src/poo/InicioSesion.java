@@ -151,7 +151,7 @@ public class InicioSesion extends JFrame{
 		contentPane.add(fundacion);
 		
         // Hacer que la ventana se abra en pantalla completa
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 
 		JLabel imagenprincipal = new JLabel(new ImageIcon(InicioSesion.class.getResource("/imagenes_help/Fundacion.jpg")));

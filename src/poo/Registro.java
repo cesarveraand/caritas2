@@ -8,7 +8,10 @@ import javax.swing.border.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 
@@ -20,7 +23,7 @@ public class Registro extends JFrame {
 	private JPanel panelDatosPersonas;
 	private JTextField txtNombre;
 	private JTextField txtEdad;
-	private static boolean panel1 = false, isReg = true;
+	private static boolean panel1 = false;
 	private JTextField txtDocIdentidad;
 	private JTextField txtExpedido;
 	private JTextField txtMedioEnvio;
@@ -569,71 +572,78 @@ public class Registro extends JFrame {
 					if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 							&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
 							&& !txtComunicacion.getText().equals("") && !txtObservaciones.getText().equals("")) {
-						ArrayList<Beneficiarios> beneficiarios = new ArrayList<>();
-						Beneficiarios aux = null;
-						ArrayList<PaisVisita> paises = new ArrayList<>();
-						PaisVisita auxPais = null;
-						int uB = 0, uP = 0, uR = 0, uF = 0;
-						try {
-							uP = Conexion.ultimoPaisVisita();
-							uB = Conexion.ultimoBeneficiario();
-							uR = Conexion.ultimoFormularioRegistro();
-							uF = Conexion.ultimaFamilia();
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						for (int i = 0; i < estatus.size(); i++) {
-							if (!permanencia.get(i).getText().equals("") && !estatus.get(i).getText().equals("")) {
+						if (validarFecha(txtFechaSalida.getText()) && validarFecha(txtFechaIngreso.getText())) {
+							ArrayList<Beneficiarios> beneficiarios = new ArrayList<>();
+							Beneficiarios aux = null;
+							ArrayList<PaisVisita> paises = new ArrayList<>();
+							PaisVisita auxPais = null;
+							int uB = 0, uP = 0, uR = 0, uF = 0;
+							try {
+								uP = Conexion.ultimoPaisVisita();
+								uB = Conexion.ultimoBeneficiario();
+								uR = Conexion.ultimoFormularioRegistro();
+								uF = Conexion.ultimaFamilia();
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							for (int i = 0; i < estatus.size(); i++) {
+								if (!permanencia.get(i).getText().equals("") && !estatus.get(i).getText().equals("")) {
 
-								auxPais = new PaisVisita(uP, (String) paisesPaso.get(i).getSelectedItem(),
-										Integer.parseInt(permanencia.get(i).getText()), estatus.get(i).getText(), true);
-								paises.add(auxPais);
-								uP++;
+									auxPais = new PaisVisita(uP, (String) paisesPaso.get(i).getSelectedItem(),
+											Integer.parseInt(permanencia.get(i).getText()), estatus.get(i).getText(),
+											true);
+									paises.add(auxPais);
+									uP++;
+
+								}
+							}
+							System.out.println(auxPais.toString());
+							for (int i = 0; i < nombres.size(); i++) {
+								if (!nombres.get(i).getText().equals("") && !edades.get(i).getText().equals("")
+										&& !docIdentidad.get(i).getText().equals("")
+										&& !expedidos.get(i).getText().equals("")) {
+									aux = new Beneficiarios(uB, nombres.get(i).getText(),
+											Integer.parseInt(edades.get(i).getText()),
+											sexos.get(i).getSelection().getActionCommand(),
+											docIdentidad.get(i).getText(), Extras.fechas(expedidos.get(i).getText()),
+											ingresos.get(i).getSelection().getActionCommand() == "IRREGULAR",
+											(String) educaciones.get(i).getSelectedItem(), paises, true);
+									beneficiarios.add(aux);
+									uB++;
+								}
 
 							}
-						}
-						System.out.println(auxPais.toString());
-						for (int i = 0; i < nombres.size(); i++) {
-							if (!nombres.get(i).getText().equals("") && !edades.get(i).getText().equals("")
-									&& !docIdentidad.get(i).getText().equals("")
-									&& !expedidos.get(i).getText().equals("")) {
-								aux = new Beneficiarios(uB, nombres.get(i).getText(),
-										Integer.parseInt(edades.get(i).getText()),
-										sexos.get(i).getSelection().getActionCommand(), docIdentidad.get(i).getText(),
-										Extras.fechas(expedidos.get(i).getText()),
-										ingresos.get(i).getSelection().getActionCommand() == "IRREGULAR",
-										(String) educaciones.get(i).getSelectedItem(), paises, true);
-								beneficiarios.add(aux);
-								uB++;
-							}
 
+							System.out.println(aux.toString());
+							Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0), beneficiarios,
+									true);
+							FormlarioRegistro form = new FormlarioRegistro(uR,
+									(String) comboBoxLugares.getSelectedItem(), txtTelefono.getText(),
+									(String) comboBoxPaisesOrigen.getSelectedItem(),
+									Extras.fechas(txtFechaSalida.getText()),
+									buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
+									txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
+									(String) comboBoxFronterasIngreso.getSelectedItem(),
+									(String) comboBoxDocumentosIngreso.getSelectedItem(),
+									buttonGroupPermanenciaMigracion.getSelection().getActionCommand(),
+									buttonGroupBoliviaFinal.getSelection().getActionCommand() == "SI",
+									(String) comboBoxPaisesSiguientes.getSelectedItem(), txtPqBolivia.getText(),
+									(String) comboBoxAlojamiento.getSelectedItem(),
+									buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
+									buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
+									buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
+									txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
+									chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
+									chckbxSolAsistencia.isSelected(), fam, true);
+							Main.setUltimoForm(form);
+							System.out.println(form);
+							Conexion.registrarFormBD(form);
+							isRegistro = true;
+							JOptionPane.showMessageDialog(null, "Registro exitoso.");
+						} else {
+							JOptionPane.showMessageDialog(null, "Ingrese fechas en formato dd/MM/yyyy.");
 						}
-
-						System.out.println(aux.toString());
-						Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0), beneficiarios,
-								true);
-						FormlarioRegistro form = new FormlarioRegistro(uR, (String) comboBoxLugares.getSelectedItem(),
-								txtTelefono.getText(), (String) comboBoxPaisesOrigen.getSelectedItem(),
-								Extras.fechas(txtFechaSalida.getText()),
-								buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
-								txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
-								(String) comboBoxFronterasIngreso.getSelectedItem(),
-								(String) comboBoxDocumentosIngreso.getSelectedItem(),
-								buttonGroupPermanenciaMigracion.getSelection().getActionCommand(),
-								buttonGroupBoliviaFinal.getSelection().getActionCommand() == "SI",
-								(String) comboBoxPaisesSiguientes.getSelectedItem(), txtPqBolivia.getText(),
-								(String) comboBoxAlojamiento.getSelectedItem(),
-								buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
-								buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
-								buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
-								txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
-								chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
-								chckbxSolAsistencia.isSelected(), fam, true);
-						Main.setUltimoForm(form);
-						System.out.println(form);
-						Conexion.registrarFormBD(form);
-						isRegistro = true;
 					} else {
 						JOptionPane.showMessageDialog(null,
 								"Debe llenar todos losa datos del formulario para poder registrarlo");
@@ -744,6 +754,18 @@ public class Registro extends JFrame {
 		// Hacer que la ventana se abra en pantalla completa
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 
+	}
+
+	// Método para validar fechas
+	private boolean validarFecha(String fecha) {
+		try {
+			SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+			formatoFecha.setLenient(false);
+			formatoFecha.parse(fecha);
+			return true;
+		} catch (ParseException e) {
+			return false;
+		}
 	}
 
 	public Registro(FormlarioRegistro reg) {
@@ -1370,6 +1392,7 @@ public class Registro extends JFrame {
 					if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 							&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
 							&& !txtComunicacion.getText().equals("") && !txtObservaciones.getText().equals("")) {
+
 						ArrayList<Beneficiarios> beneficiarios = new ArrayList<>();
 						Beneficiarios aux = null;
 						ArrayList<PaisVisita> paises = new ArrayList<>();
@@ -1444,6 +1467,8 @@ public class Registro extends JFrame {
 						dispose();
 
 						isRegistro = true;
+						JOptionPane.showMessageDialog(null, "Registro exitoso.");
+
 					} else {
 						JOptionPane.showMessageDialog(null,
 								"Debe llenar todos losa datos del formulario para poder registrarlo");
@@ -1491,15 +1516,12 @@ public class Registro extends JFrame {
 		txtMedioEnvio.setText(reg.getMedioEvniaDinero());
 		txtComunicacion.setText(reg.getComunicaFamilia());
 		txtObservaciones.setText(reg.getObs());
-		if (isReg) {
-			for (PaisVisita i : reg.getFam().getFamilia().get(0).getPais()) {
-				masEstatusMigratorio(panelEstatusMigra, i);
+		for (PaisVisita i : reg.getFam().getFamilia().get(0).getPais()) {
+			masEstatusMigratorio(panelEstatusMigra, i);
 
-			}
-			for (Beneficiarios i : reg.getFam().getFamilia()) {
-				masPersona(lblCantidadContador, i);
-			}
-			isReg = false;
+		}
+		for (Beneficiarios i : reg.getFam().getFamilia()) {
+			masPersona(lblCantidadContador, i);
 		}
 
 		// Hacer que la ventana se abra en pantalla completa
@@ -1633,6 +1655,15 @@ public class Registro extends JFrame {
 		panelDatosPersonas.revalidate();
 		panelDatosPersonas.repaint();
 
+		txtEdad.addKeyListener(new java.awt.event.KeyAdapter() {
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+				char c = evt.getKeyChar();
+				if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+					evt.consume();
+				}
+			}
+		});
+
 	}
 
 	public void masPersona(JLabel lblCantidadContador, Beneficiarios ben) {
@@ -1742,26 +1773,38 @@ public class Registro extends JFrame {
 		lblCantidadContador.setText(Integer.toString(contadorPersonas));
 		panelDatosPersonas.revalidate();
 		panelDatosPersonas.repaint();
+		txtEdad.addKeyListener(new java.awt.event.KeyAdapter() {
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+				char c = evt.getKeyChar();
+				if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+					evt.consume();
+				}
+			}
+		});
 
 	}
 
 	public void masEstatusMigratorio(JPanel panelEstatusMigra) {
-
+		
+		
+        
 		JPanel panelPorEstatus = new JPanel();
-
+		
 		panelEstatusMigra.add(panelPorEstatus);
 		panelesPaises.add(panelPorEstatus);
 		panelPorEstatus.setLayout(new FlowLayout());
-
+		
 		JLabel lblPaisPaso = new JLabel("PAÍS:");
 		panelPorEstatus.add(lblPaisPaso);
 		JComboBox comboBoxPaisesPaso = new JComboBox();
-		comboBoxPaisesPaso.setModel(new DefaultComboBoxModel(new String[] { "pais 1" })); // paises
+		comboBoxPaisesPaso.setModel(new DefaultComboBoxModel(new String[] {"pais 1"})); //paises 
 		panelPorEstatus.add(comboBoxPaisesPaso);
 		paisesPaso.add(comboBoxPaisesPaso);
 		JLabel lblPermanencia = new JLabel("PERMANENCIA:");
 		panelPorEstatus.add(lblPermanencia);
-
+		
+		
+		
 		JTextField txtPermanencia = new JTextField();
 		txtPermanencia.setText("");
 		panelPorEstatus.add(txtPermanencia);
@@ -1769,14 +1812,22 @@ public class Registro extends JFrame {
 		permanencia.add(txtPermanencia);
 		JLabel lblEstatus = new JLabel("ESTATUS:");
 		panelPorEstatus.add(lblEstatus);
-
+		
 		JTextField txtEstatus = new JTextField();
 		panelPorEstatus.add(txtEstatus);
 		txtEstatus.setColumns(10);
 		estatus.add(txtEstatus);
-
-		panelEstatusMigra.revalidate();
-		panelEstatusMigra.repaint();
+	
+    panelEstatusMigra.revalidate();
+    panelEstatusMigra.repaint();
+		txtPermanencia.addKeyListener(new java.awt.event.KeyAdapter() {
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+				char c = evt.getKeyChar();
+				if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+					evt.consume();
+				}
+			}
+		});
 	}
 
 	public void menosEstatusMigratorio(JPanel panelEstatusMigra) {
@@ -1827,6 +1878,14 @@ public class Registro extends JFrame {
 		comboBoxPaisesPaso.setSelectedItem(pv.getPais());
 		txtPermanencia.setText(pv.getTiempoDias() + "");
 		txtEstatus.setText(pv.getEstadoMigratorioString());
+		txtPermanencia.addKeyListener(new java.awt.event.KeyAdapter() {
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+				char c = evt.getKeyChar();
+				if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+					evt.consume();
+				}
+			}
+		});
 
 	}
 

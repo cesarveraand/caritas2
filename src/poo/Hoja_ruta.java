@@ -33,7 +33,7 @@ public class Hoja_ruta extends JFrame {
         panelCabecera.setLayout(new BorderLayout(0, 0));
 
         JLabel imagenCaritas = new JLabel("");
-        //imagenCaritas.setIcon(new ImageIcon(Hoja_ruta.class.getResource("/imagenes_help/caritas-bolivia.png")));
+        imagenCaritas.setIcon(new ImageIcon(Hoja_ruta.class.getResource("/imagenes_help/caritas-bolivia.png")));
         panelCabecera.add(imagenCaritas, BorderLayout.WEST);
 
         JPanel panelBotonesCabecera = new JPanel();
@@ -44,13 +44,13 @@ public class Hoja_ruta extends JFrame {
         panelBotonesCabecera.add(btnAtras);
 
         JButton btnPerfil = new JButton("");
-      //  ImageIcon iconOriginal = new ImageIcon(Hoja_ruta.class.getResource("/imagenes_help/perfilpersona.png"));
-      //  Image imagenOriginal = iconOriginal.getImage();
+        ImageIcon iconOriginal = new ImageIcon(Hoja_ruta.class.getResource("/imagenes_help/perfilpersona.png"));
+        Image imagenOriginal = iconOriginal.getImage();
         int nuevoAncho = 100;
         int nuevoAlto = 100;
-      //  Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
-   //     ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
-     //   btnPerfil.setIcon(iconRedimensionadoPerfil);
+        Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
+        ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
+        btnPerfil.setIcon(iconRedimensionadoPerfil);
         panelBotonesCabecera.add(btnPerfil);
 
         JSeparator separator = new JSeparator();
@@ -279,6 +279,8 @@ public class Hoja_ruta extends JFrame {
         });
         btnAcciones.setBounds(1263, 460, 117, 29);
         panelLlenado.add(btnAcciones);
+        // Hacer que la ventana se abra en pantalla completa
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     public Hoja_ruta(Hoja_de_ruta hj) {
 		
@@ -296,7 +298,7 @@ public class Hoja_ruta extends JFrame {
         panelCabecera.setLayout(new BorderLayout(0, 0));
 
         JLabel imagenCaritas = new JLabel("");
-        //imagenCaritas.setIcon(new ImageIcon(Hoja_ruta.class.getResource("/imagenes_help/caritas-bolivia.png")));
+        imagenCaritas.setIcon(new ImageIcon(Hoja_ruta.class.getResource("/imagenes_help/caritas-bolivia.png")));
         panelCabecera.add(imagenCaritas, BorderLayout.WEST);
 
         JPanel panelBotonesCabecera = new JPanel();
@@ -307,13 +309,13 @@ public class Hoja_ruta extends JFrame {
         panelBotonesCabecera.add(btnAtras);
 
         JButton btnPerfil = new JButton("");
-      //  ImageIcon iconOriginal = new ImageIcon(Hoja_ruta.class.getResource("/imagenes_help/perfilpersona.png"));
-      //  Image imagenOriginal = iconOriginal.getImage();
+        ImageIcon iconOriginal = new ImageIcon(Hoja_ruta.class.getResource("/imagenes_help/perfilpersona.png"));
+        Image imagenOriginal = iconOriginal.getImage();
         int nuevoAncho = 100;
         int nuevoAlto = 100;
-      //  Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
-   //     ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
-     //   btnPerfil.setIcon(iconRedimensionadoPerfil);
+        Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
+        ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
+        btnPerfil.setIcon(iconRedimensionadoPerfil);
         panelBotonesCabecera.add(btnPerfil);
 
         JSeparator separator = new JSeparator();
@@ -555,5 +557,7 @@ public class Hoja_ruta extends JFrame {
         txtAsignacion.setText(hj.getAsignacion());
         textFieldFechaAsigacion.setText(hj.getFechaAsig()+"");
         txtObservaciones.setText(hj.getObs());
+        // Hacer que la ventana se abra en pantalla completa
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 }
