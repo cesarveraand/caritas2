@@ -83,6 +83,8 @@ public class PaginaFormulariosRegistro extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Registro reg = new Registro();
 				reg.setVisible(true);
+				
+				buscar("");
 
 			}
 		});

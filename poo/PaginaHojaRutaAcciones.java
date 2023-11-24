@@ -85,6 +85,7 @@ public class PaginaHojaRutaAcciones extends JFrame {
 				PaginaHojaRutaAccionesE pg=new PaginaHojaRutaAccionesE();
 				pg.setVisible(true);
 				dispose();
+				buscar("");
 				 
 			}
 		});

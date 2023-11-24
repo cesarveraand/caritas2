@@ -90,6 +90,7 @@ public class PaginaAdministradores extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				AgregarFuncionario addmin = new AgregarFuncionario(true);
 				addmin.setVisible(true);
+				tabla("");
 
 			}
 		});

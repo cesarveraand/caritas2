@@ -90,7 +90,7 @@ public class PaginaVoluntarios extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				AgregarFuncionario addmin = new AgregarFuncionario(false);
 				addmin.setVisible(true);
-
+				tabla("");
 			}
 		});
 		btnAgregar.setBounds(806, 506, 85, 21);

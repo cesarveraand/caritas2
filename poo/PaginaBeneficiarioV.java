@@ -86,7 +86,7 @@ public class PaginaBeneficiarioV extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Registro reg = new Registro();
 				reg.setVisible(true);
-
+				buscar("");
 			}
 		});
 		btnAgregar.setBounds(680, 488, 85, 21);

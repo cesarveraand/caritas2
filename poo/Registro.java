@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 
 public class Registro extends JFrame {
@@ -60,7 +61,7 @@ public class Registro extends JFrame {
 		paisesPaso.clear();
 		panelesPaises.clear();
 		panelesPersonas.clear();
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1920, 1000);
 		contentPane = new JPanel();
@@ -586,7 +587,8 @@ public class Registro extends JFrame {
 					if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 							&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
 							&& !txtComunicacion.getText().equals("") && !txtObservaciones.getText().equals("")) {
-						if (validarFecha(txtFechaSalida.getText()) && validarFecha(txtFechaIngreso.getText())) {
+						if (validarFecha(txtFechaSalida.getText()) && validarFecha(txtFechaIngreso.getText())
+								&& validarFecha(txtExpedido.getText()) && validarFecha(txtFecha.getText())) {
 							ArrayList<Beneficiarios> beneficiarios = new ArrayList<>();
 							Beneficiarios aux = null;
 							ArrayList<PaisVisita> paises = new ArrayList<>();
@@ -764,7 +766,10 @@ public class Registro extends JFrame {
 		});
 		btnHojaRuta.setBounds(723, 70, 139, 23);
 		panelDatosIniciales.add(btnHojaRuta);
-
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String fechaFormateada = LocalDate.now().format(dateFormatter);
+		txtFecha.setText(fechaFormateada);
+		txtFecha.setEditable(false);
 		// Hacer que la ventana se abra en pantalla completa
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 
@@ -783,7 +788,7 @@ public class Registro extends JFrame {
 	}
 
 	public Registro(FormlarioRegistro reg) {
-		
+
 		nombres.clear();
 		edades.clear();
 		docIdentidad.clear();
@@ -796,7 +801,7 @@ public class Registro extends JFrame {
 		paisesPaso.clear();
 		panelesPaises.clear();
 		panelesPersonas.clear();
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1920, 1000);
 		contentPane = new JPanel();
@@ -1420,82 +1425,89 @@ public class Registro extends JFrame {
 					if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 							&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
 							&& !txtComunicacion.getText().equals("") && !txtObservaciones.getText().equals("")) {
+						if (validarFecha(txtFechaSalida.getText()) && validarFecha(txtFechaIngreso.getText())
+								&& validarFecha(txtExpedido.getText()) && validarFecha(txtFecha.getText())) {
 
-						ArrayList<Beneficiarios> beneficiarios = new ArrayList<>();
-						Beneficiarios aux = null;
-						ArrayList<PaisVisita> paises = new ArrayList<>();
-						PaisVisita auxPais = null;
-						int uB = 0, uP = 0, uR = 0, uF = 0;
-						try {
-							uP = Conexion.ultimoPaisVisita();
-							uB = Conexion.ultimoBeneficiario();
-							uR = Conexion.ultimoFormularioRegistro();
-							uF = Conexion.ultimaFamilia();
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						for (int i = 0; i < estatus.size(); i++) {
-							if (!permanencia.get(i).getText().equals("") && !estatus.get(i).getText().equals("")) {
+							ArrayList<Beneficiarios> beneficiarios = new ArrayList<>();
+							Beneficiarios aux = null;
+							ArrayList<PaisVisita> paises = new ArrayList<>();
+							PaisVisita auxPais = null;
+							int uB = 0, uP = 0, uR = 0, uF = 0;
+							try {
+								uP = Conexion.ultimoPaisVisita();
+								uB = Conexion.ultimoBeneficiario();
+								uR = Conexion.ultimoFormularioRegistro();
+								uF = Conexion.ultimaFamilia();
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							for (int i = 0; i < estatus.size(); i++) {
+								if (!permanencia.get(i).getText().equals("") && !estatus.get(i).getText().equals("")) {
 
-								auxPais = new PaisVisita(uP, (String) paisesPaso.get(i).getSelectedItem(),
-										Integer.parseInt(permanencia.get(i).getText()), estatus.get(i).getText(), true);
-								paises.add(auxPais);
-								uP++;
+									auxPais = new PaisVisita(uP, (String) paisesPaso.get(i).getSelectedItem(),
+											Integer.parseInt(permanencia.get(i).getText()), estatus.get(i).getText(),
+											true);
+									paises.add(auxPais);
+									uP++;
+								}
+
 							}
 
-						}
+							for (int i = 0; i < nombres.size(); i++) {
+								if (!nombres.get(i).getText().equals("") && !edades.get(i).getText().equals("")
+										&& !docIdentidad.get(i).getText().equals("")
+										&& !expedidos.get(i).getText().equals("")) {
+									aux = new Beneficiarios(uB, nombres.get(i).getText(),
+											Integer.parseInt(edades.get(i).getText()),
+											sexos.get(i).getSelection().getActionCommand(),
+											docIdentidad.get(i).getText(), Extras.fechas(expedidos.get(i).getText()),
+											ingresos.get(i).getSelection().getActionCommand() == "IRREGULAR",
+											(String) educaciones.get(i).getSelectedItem(), paises, true);
+									beneficiarios.add(aux);
+									uB++;
+								}
 
-						for (int i = 0; i < nombres.size(); i++) {
-							if (!nombres.get(i).getText().equals("") && !edades.get(i).getText().equals("")
-									&& !docIdentidad.get(i).getText().equals("")
-									&& !expedidos.get(i).getText().equals("")) {
-								aux = new Beneficiarios(uB, nombres.get(i).getText(),
-										Integer.parseInt(edades.get(i).getText()),
-										sexos.get(i).getSelection().getActionCommand(), docIdentidad.get(i).getText(),
-										Extras.fechas(expedidos.get(i).getText()),
-										ingresos.get(i).getSelection().getActionCommand() == "IRREGULAR",
-										(String) educaciones.get(i).getSelectedItem(), paises, true);
-								beneficiarios.add(aux);
-								uB++;
 							}
 
+							System.out.println(aux.toString());
+							Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0), beneficiarios,
+									true);
+							FormlarioRegistro form = new FormlarioRegistro(uR,
+									(String) comboBoxLugares.getSelectedItem(), txtTelefono.getText(),
+									(String) comboBoxPaisesOrigen.getSelectedItem(),
+									Extras.fechas(txtFechaSalida.getText()),
+									buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
+									txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
+									(String) comboBoxFronterasIngreso.getSelectedItem(),
+									(String) comboBoxDocumentosIngreso.getSelectedItem(),
+									buttonGroupPermanenciaMigracion.getSelection().getActionCommand(),
+									buttonGroupBoliviaFinal.getSelection().getActionCommand() == "SI",
+									(String) comboBoxPaisesSiguientes.getSelectedItem(), txtPqBolivia.getText(),
+									(String) comboBoxAlojamiento.getSelectedItem(),
+									buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
+									buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
+									buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
+									txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
+									chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
+									chckbxSolAsistencia.isSelected(), fam, true);
+
+							// Main.setUltimoForm(form);
+							// System.out.println(form);
+
+							try {
+								Conexion.actualizarFormBD(form, reg);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							dispose();
+
+							isRegistro = true;
+							JOptionPane.showMessageDialog(null, "Registro exitoso.");
+						} else {
+							JOptionPane.showMessageDialog(null, "Ingrese fechas en formato dd/MM/yyyy.");
 						}
-
-						System.out.println(aux.toString());
-						Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0), beneficiarios,
-								true);
-						FormlarioRegistro form = new FormlarioRegistro(uR, (String) comboBoxLugares.getSelectedItem(),
-								txtTelefono.getText(), (String) comboBoxPaisesOrigen.getSelectedItem(),
-								Extras.fechas(txtFechaSalida.getText()),
-								buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
-								txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
-								(String) comboBoxFronterasIngreso.getSelectedItem(),
-								(String) comboBoxDocumentosIngreso.getSelectedItem(),
-								buttonGroupPermanenciaMigracion.getSelection().getActionCommand(),
-								buttonGroupBoliviaFinal.getSelection().getActionCommand() == "SI",
-								(String) comboBoxPaisesSiguientes.getSelectedItem(), txtPqBolivia.getText(),
-								(String) comboBoxAlojamiento.getSelectedItem(),
-								buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
-								buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
-								buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
-								txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
-								chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
-								chckbxSolAsistencia.isSelected(), fam, true);
-
-						// Main.setUltimoForm(form);
-						// System.out.println(form);
-
-						try {
-							Conexion.actualizarFormBD(form, reg);
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						dispose();
-
-						isRegistro = true;
-						JOptionPane.showMessageDialog(null, "Registro exitoso.");
 
 					} else {
 						JOptionPane.showMessageDialog(null,
@@ -1512,18 +1524,20 @@ public class Registro extends JFrame {
 		btnRegistrar.setBounds(723, 20, 139, 23);
 		panelDatosIniciales.add(btnRegistrar);
 
-		txtFecha.setText(reg.getFechaRegistro() + "");
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+		txtFecha.setText(reg.getFechaRegistro().format(dateFormatter) + "");
 		comboBoxLugares.setSelectedItem(reg.getLugar());
 		txtTelefono.setText(reg.getTelefono());
 		chckbxSolAsistencia.setSelected(reg.isAtencion());
 		chckbxSolRefugio.setSelected(reg.isRefugio());
 		chckbxTransito.setSelected(reg.isTransito());
 		comboBoxPaisesOrigen.setSelectedItem(reg.getPaisOrigen());
-		txtFechaSalida.setText(reg.getFechaSalida() + "");
+		txtFechaSalida.setText(reg.getFechaSalida().format(dateFormatter) + "");
 		rdbtnTransporteAereo.setSelected(!reg.isTransporte());
 		rdbtnTransporteTerrestre.setSelected(reg.isTransporte());
 		txtRazones.setText(reg.getRazon());
-		txtFechaIngreso.setText(reg.getFechaIngreso() + "");
+		txtFechaIngreso.setText(reg.getFechaIngreso().format(dateFormatter) + "");
 		comboBoxFronterasIngreso.setSelectedItem(reg.getFronteraIngreso());
 		comboBoxDocumentosIngreso.setSelectedItem(reg.getDocumentoIngreso());
 		rdbtn30dias.setSelected(reg.getDiasPermanencia().equals("30"));
@@ -1695,6 +1709,7 @@ public class Registro extends JFrame {
 	}
 
 	public void masPersona(JLabel lblCantidadContador, Beneficiarios ben) {
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 		JPanel panelPorPersona = new JPanel();
 		panelPorPersona.setLayout(new FlowLayout());
@@ -1734,7 +1749,7 @@ public class Registro extends JFrame {
 		txtExpedido = new JTextField();
 		txtExpedido.setColumns(10);
 		panelPorPersona.add(txtExpedido);
-		txtExpedido.setText(ben.getFechaExpedido() + "");
+		txtExpedido.setText(ben.getFechaExpedido().format(dateFormatter) + "");
 		JLabel lblEducacion = new JLabel("NIVEL DE EDUCACION:");
 		panelPorPersona.add(lblEducacion);
 
@@ -1813,26 +1828,22 @@ public class Registro extends JFrame {
 	}
 
 	public void masEstatusMigratorio(JPanel panelEstatusMigra) {
-		
-		
-        
+
 		JPanel panelPorEstatus = new JPanel();
-		
+
 		panelEstatusMigra.add(panelPorEstatus);
 		panelesPaises.add(panelPorEstatus);
 		panelPorEstatus.setLayout(new FlowLayout());
-		
+
 		JLabel lblPaisPaso = new JLabel("PAÍS:");
 		panelPorEstatus.add(lblPaisPaso);
 		JComboBox comboBoxPaisesPaso = new JComboBox();
-		comboBoxPaisesPaso.setModel(new DefaultComboBoxModel(new String[] {"pais 1"})); //paises 
+		comboBoxPaisesPaso.setModel(new DefaultComboBoxModel(new String[] { "pais 1" })); // paises
 		panelPorEstatus.add(comboBoxPaisesPaso);
 		paisesPaso.add(comboBoxPaisesPaso);
 		JLabel lblPermanencia = new JLabel("PERMANENCIA:");
 		panelPorEstatus.add(lblPermanencia);
-		
-		
-		
+
 		JTextField txtPermanencia = new JTextField();
 		txtPermanencia.setText("");
 		panelPorEstatus.add(txtPermanencia);
@@ -1840,14 +1851,14 @@ public class Registro extends JFrame {
 		permanencia.add(txtPermanencia);
 		JLabel lblEstatus = new JLabel("ESTATUS:");
 		panelPorEstatus.add(lblEstatus);
-		
+
 		JTextField txtEstatus = new JTextField();
 		panelPorEstatus.add(txtEstatus);
 		txtEstatus.setColumns(10);
 		estatus.add(txtEstatus);
-	
-    panelEstatusMigra.revalidate();
-    panelEstatusMigra.repaint();
+
+		panelEstatusMigra.revalidate();
+		panelEstatusMigra.repaint();
 		txtPermanencia.addKeyListener(new java.awt.event.KeyAdapter() {
 			public void keyTyped(java.awt.event.KeyEvent evt) {
 				char c = evt.getKeyChar();

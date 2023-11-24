@@ -87,6 +87,7 @@ public class PaginaHojaRutaAccionesEV extends JFrame {
 				PaginaHojaRutaAcciones hjr =new PaginaHojaRutaAcciones();
 				hjr.setVisible(true);
 				dispose();
+				buscar("");
 			}
 		});
 		btnVerHojasDeRutaExistentes.setBounds(681, 488, 85, 21);

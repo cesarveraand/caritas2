@@ -14,7 +14,7 @@ public class Conexion {
 
 	static final String DB_URl="jdbc:postgresql://localhost/caritas";
 	static final String USER ="postgres";
-	static final String PASS= "D4l3mb3rt";
+	static final String PASS= "3211";
 
 
 
@@ -56,13 +56,13 @@ public class Conexion {
 					return false;
 				}
 				System.out.println(count);
-				// return count > 0; // Devuelve true si el CI está registrado, false si no lo
+				// return count > 0; // Devuelve false si el CI está registrado, true si no lo
 				// está
 			}
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			// Manejar la excepción según tus necesidades
+
 		}
 		return true;
 	}

@@ -86,6 +86,8 @@ public class PaginaBeneficiario extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Registro reg = new Registro();
 				reg.setVisible(true);
+				
+				buscar("");
 
 			}
 		});
@@ -272,7 +274,7 @@ public class PaginaBeneficiario extends JFrame {
 	}
 
 	private void filtrarPorFechas(LocalDate fechaInicio, LocalDate fechaFinal, String valor) {
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+
 
 		// Obtener el tipo de búsqueda seleccionado en el comboBoxBuqueda
 		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();

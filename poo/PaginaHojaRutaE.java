@@ -84,6 +84,7 @@ public class PaginaHojaRutaE extends JFrame {
 				PaginaHojaRuta pag = new PaginaHojaRuta();
 				pag.setVisible(true);
 				dispose();
+				buscar("");
 			}
 		});
 		btnAgregar.setBounds(674, 486, 85, 21);
