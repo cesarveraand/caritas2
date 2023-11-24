@@ -630,6 +630,7 @@ public class Registro extends JFrame {
 											(String) educaciones.get(i).getSelectedItem(), paises, true);
 									beneficiarios.add(aux);
 									uB++;
+									
 									band = band && Conexion.isCIRegistrado(docIdentidad.get(i).getText());
 								}
 
@@ -661,6 +662,7 @@ public class Registro extends JFrame {
 								System.out.println(form);
 								Conexion.registrarFormBD(form);
 								isRegistro = true;
+								
 								band = true;
 								JOptionPane.showMessageDialog(null, "Registro exitoso.");
 							
@@ -1442,12 +1444,15 @@ public class Registro extends JFrame {
 				dispose();
 			}
 		});
+		
+		
 		btnHojaRuta.setBounds(723, 70, 139, 23);
 		panelDatosIniciales.add(btnHojaRuta);
 		JButton btnRegistrar = new JButton("ACTUALIZAR");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean band = true;
+				
 				if (Integer.parseInt(lblCantidadContador.getText()) > 0) {
 					if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 							&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
