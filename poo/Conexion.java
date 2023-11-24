@@ -14,7 +14,7 @@ public class Conexion {
 
 	static final String DB_URl="jdbc:postgresql://localhost/caritas";
 	static final String USER ="postgres";
-	static final String PASS= "D4l3mb3rt";
+	static final String PASS= "3211";
 
 
 
