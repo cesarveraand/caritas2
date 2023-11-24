@@ -200,6 +200,7 @@ public class PaginaAdministradores extends JFrame {
 		btnBuscar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tabla("");
+				txtBuscar.setText("");
 			}
 		});
 		btnBuscar_1.setBounds(590, 31, 106, 21);

@@ -54,12 +54,12 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 		JMenuItem mneliminar = new javax.swing.JMenuItem();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 816, 574);
+		setBounds(100, 100, 966, 646);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(29, 99, 728, 365);
+		scrollPane.setBounds(29, 99, 897, 453);
 		contentPane.add(scrollPane);
 
 		
@@ -75,7 +75,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(29, 491, 85, 21);
+		btnVolver.setBounds(29, 563, 85, 21);
 		contentPane.add(btnVolver);
 		
 		JButton btnAgregar = new JButton("Editar Acciones");
@@ -89,7 +89,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 				 
 			}
 		});
-		btnAgregar.setBounds(672, 491, 85, 21);
+		btnAgregar.setBounds(792, 563, 134, 21);
 		contentPane.add(btnAgregar);
 		
 		JLabel lblNewLabel = new JLabel("Buscar por:");
@@ -157,7 +157,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 				buscar("");
 			}
 		});
-		btnBuscar.setBounds(623, 37, 134, 21);
+		btnBuscar.setBounds(721, 36, 134, 21);
 		contentPane.add(btnBuscar);
 		/*comboBoxBuqueda.addItem("Nombre");
 		comboBoxBuqueda.addItem("CI");
@@ -219,6 +219,16 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 			}
 		});
 		table_1.setComponentPopupMenu(jPopupMenu1);
+		
+		JButton btnBuscar_1 = new JButton("Actualizar");
+		btnBuscar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buscar("");
+				txtBuscar.setText("");
+			}
+		});
+		btnBuscar_1.setBounds(605, 35, 106, 21);
+		contentPane.add(btnBuscar_1);
 		buscar("");
 
 	}
@@ -255,7 +265,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 		// Obtener el tipo de búsqueda seleccionado en el comboBoxBuqueda
 		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
 		// Nombres de columna
-		String[] columnNames = { "Codigo registro", "fecha", "CI representante" };
+		String[] columnNames = { "Codigo registro", "fecha", "CI representante", "Nombre Representante" };
 		String[] registros = new String[7];
 		DefaultTableModel model = new DefaultTableModel(null, columnNames);
 		String cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
@@ -337,6 +347,25 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 							+ "				and j.cpmh = i.pmh_cpmh)\n"
 							+ "group by g.cfhd, b.ci, a.fecharegistro";
 					break;
+				case "Nombre Representante":
+					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
+							+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
+							+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
+							+ "where b.cid = c.beneficiario_cid\n"
+							+ "and a.cfr = c.formularioregistro_cfr\n"
+							+ "and b.cid = d.beneficiario_cid\n"
+							+ "and e.cf = d.familias_cf\n"
+							+ "and b.ci = e.ci_r\n"
+							+ "and a.cfr = f.formularioregistro_cfr\n"
+							+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
+							+ "and g.estado = true\n"
+							+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
+							+ "and LOWER(b.nombre) like '%" + valor.toLowerCase() + "%'\n"
+							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
+							+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
+							+ "				and j.cpmh = i.pmh_cpmh)\n"
+							+ "group by g.cfhd, b.ci, a.fecharegistro, b.nombre";
+					break;
 				}
 			}
 
@@ -345,6 +374,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 				registros[0] = rs.getString(1);
 				registros[1] = rs.getString(2);
 				registros[2] = rs.getString(3);
+				registros[3] = rs.getString(4);
 
 				model.addRow(registros);
 			}
@@ -355,8 +385,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 		}
 
 		// Ajustar el ancho de las columnas
-		int[] columnWidths = { 130, 130, 130 }; // Puedes ajustar estos valores según tus necesidades
-
+		int[] columnWidths = { 80, 130, 130, 130 }; 
 		for (int i = 0; i < columnWidths.length; i++) {
 			TableColumn column = table_1.getColumnModel().getColumn(i);
 			column.setPreferredWidth(columnWidths[i]);
@@ -374,10 +403,10 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 		// Obtener el tipo de búsqueda seleccionado en el comboBoxBuqueda
 		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
 		// Nombres de columna
-		String[] columnNames = { "Codigo registro", "fecha", "CI representante" };
+		String[] columnNames = { "Codigo registro", "fecha", "CI representante", "Nombre Representante" };
 		String[] registros = new String[7];
 		DefaultTableModel model = new DefaultTableModel(null, columnNames);
-		String cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+		String cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 				+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
 				+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
 				+ "where b.cid = c.beneficiario_cid\n"
@@ -391,7 +420,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 				+ "and not exists (select * from FormularioHPMH i, PMH j\n"
 				+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
 				+ "				and j.cpmh = i.pmh_cpmh)\n"
-				+ "group by g.cfhd, b.ci, a.fecharegistro";
+				+ "group by g.cfhd, b.ci, a.fecharegistro, b.nombre";
 		try {
 			Conexion cn = new Conexion();
 			Connection conexion = cn.getConexionPostgres();
@@ -399,7 +428,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 
 			// Filtrar los funcionarios que coinciden con el valor de búsqueda
 			if (valor.isEmpty()) {
-				cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+				cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 						+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
 						+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
 						+ "where b.cid = c.beneficiario_cid\n"
@@ -413,12 +442,12 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 						+ "and not exists (select * from FormularioHPMH i, PMH j\n"
 						+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
 						+ "				and j.cpmh = i.pmh_cpmh)\n"
-						+ "group by g.cfhd, b.ci, a.fecharegistro";
+						+ "group by g.cfhd, b.ci, a.fecharegistro, b.nombre";
 
 			} else {
 				switch (tipoBusqueda) {
 				case "Codigo Formulario":
-					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
 							+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
 							+ "where b.cid = c.beneficiario_cid\n"
@@ -433,10 +462,10 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
 							+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
 							+ "				and j.cpmh = i.pmh_cpmh)\n"
-							+ "group by g.cfhd, b.ci, a.fecharegistro";
+							+ "group by g.cfhd, b.ci, a.fecharegistro, b.nombre";
 					break;
 				case "CI Representante":
-					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
 							+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
 							+ "where b.cid = c.beneficiario_cid\n"
@@ -451,7 +480,25 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
 							+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
 							+ "				and j.cpmh = i.pmh_cpmh)\n"
-							+ "group by g.cfhd, b.ci, a.fecharegistro";
+							+ "group by g.cfhd, b.ci, a.fecharegistro, b.nombre";
+					break;
+				case "Nombre Representante":
+					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
+							+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
+							+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
+							+ "where b.cid = c.beneficiario_cid\n"
+							+ "and a.cfr = c.formularioregistro_cfr\n"
+							+ "and b.cid = d.beneficiario_cid\n"
+							+ "and e.cf = d.familias_cf\n"
+							+ "and b.ci = e.ci_r\n"
+							+ "and a.cfr = f.formularioregistro_cfr\n"
+							+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
+							+ "and g.estado = true\n"
+							+ "and LOWER(b.nombre) like '%" + valor.toLowerCase() + "%'\n"
+							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
+							+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
+							+ "				and j.cpmh = i.pmh_cpmh)\n"
+							+ "group by g.cfhd, b.ci, a.fecharegistro, b.nombre";
 					break;
 				}
 			}
@@ -461,6 +508,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 				registros[0] = rs.getString(1);
 				registros[1] = rs.getString(2);
 				registros[2] = rs.getString(3);
+				registros[3] = rs.getString(4);
 
 				model.addRow(registros);
 			}
@@ -470,7 +518,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 			System.out.println(e.getMessage());
 		}
 		// Ajustar el ancho de las columnas
-		int[] columnWidths = { 130, 130, 130 }; // Puedes ajustar estos valores según tus necesidades
+		int[] columnWidths = { 80, 130, 130,130 }; // Puedes ajustar estos valores según tus necesidades
 
 		for (int i = 0; i < columnWidths.length; i++) {
 			TableColumn column = table_1.getColumnModel().getColumn(i);
