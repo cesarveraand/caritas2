@@ -227,6 +227,7 @@ public class Hoja_ruta extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+    			JOptionPane.showMessageDialog(null, "Registro Exitoso");
         		Main.setUltimaHojar(hj);
         	}
         });

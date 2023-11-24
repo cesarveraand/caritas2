@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
 
-	static final String DB_URl="jdbc:postgresql://localhost/caritas2";
+	static final String DB_URl="jdbc:postgresql://localhost/caritas";
 	static final String USER ="postgres";
 	static final String PASS= "3211";
 	
@@ -35,6 +35,40 @@ public class Conexion {
 		}
 		// JOptionPane.showMessageDialog(null,"Conexion exitosa");
 		return conn;
+	}
+	
+	// Método para verificar si el CI ya está registrado
+	public static boolean isCIRegistrado(String ci) {
+		int count = 0;
+		try {
+			Conexion cn = new Conexion();
+			Connection conexion = cn.getConexionPostgres();
+			java.sql.Statement s = conexion.createStatement();
+
+			// Realiza una consulta a la base de datos para verificar si el CI ya existe
+			// Utiliza tu lógica de consulta a la base de datos aquí
+			// Puedes usar un PreparedStatement para evitar la inyección SQL
+
+			// Ejemplo (asumiendo que hay una conexión a la base de datos llamada
+			// 'conexion'):
+			String query = "SELECT COUNT(*) FROM beneficiario WHERE ci = '" + ci + "'";
+
+			ResultSet resultSet = s.executeQuery(query);
+			while (resultSet.next()) {
+				count = resultSet.getInt(1);
+				if (count > 0) {
+					return false;
+				}
+				System.out.println(count);
+				// return count > 0; // Devuelve true si el CI está registrado, false si no lo
+				// está
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			// Manejar la excepción según tus necesidades
+		}
+		return true;
 	}
 
 	public static Funcionario traerFuncionario(int cod) throws SQLException {

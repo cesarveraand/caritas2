@@ -299,7 +299,7 @@ public class PaginaFormulariosRegistro extends JFrame {
 							+ "and b.ci = e.ci_r\n"
 							+ "and a.estado = true\n"
 							+ "and b.estado = true\n"
-							+ "and b.ci = '" + valor + "'\n"
+							+ "and b.ci like '%" + valor + "%'\n"
 							+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
 							+ "group by a.cfr, b.ci";
 					break;
@@ -379,7 +379,7 @@ public class PaginaFormulariosRegistro extends JFrame {
 							+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
 							+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
 							+ "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n" + "and a.estado = true\n"
-							+ "and b.estado = true\n" + " and b.ci = '" + valor + "' group by a.cfr, b.ci";
+							+ "and b.estado = true\n" + " and b.ci like '%" + valor + "%' group by a.cfr, b.ci";
 					break;
 				}
 			}

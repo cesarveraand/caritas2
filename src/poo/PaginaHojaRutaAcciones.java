@@ -81,14 +81,8 @@ public class PaginaHojaRutaAcciones extends JFrame {
 		JButton btnAgregar = new JButton("Editar Acciones");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<HojaRutaAcciones> f= new ArrayList<HojaRutaAcciones>();
-				try {
-					f=Conexion.formHojaRutaAccionesExistentes();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				PaginaHojaRutaAccionesE pg=new PaginaHojaRutaAccionesE(f);
+
+				PaginaHojaRutaAccionesE pg=new PaginaHojaRutaAccionesE();
 				pg.setVisible(true);
 				dispose();
 				 
@@ -327,7 +321,7 @@ public class PaginaHojaRutaAcciones extends JFrame {
 							+ "and a.cfr = f.formularioregistro_cfr\n"
 							+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 							+ "and g.estado = true\n"
-							+ "and b.ci = '" + valor + "'\n"
+							+ "and b.ci like '%" + valor + "%'\n"
 							+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
 							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
 							+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
@@ -444,7 +438,7 @@ public class PaginaHojaRutaAcciones extends JFrame {
 							+ "and a.cfr = f.formularioregistro_cfr\n"
 							+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 							+ "and g.estado = true\n"
-							+ "and b.ci = '" + valor + "'\n"
+							+ "and b.ci like '%" + valor + "%'\n"
 							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
 							+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
 							+ "				and j.cpmh = i.pmh_cpmh)\n"

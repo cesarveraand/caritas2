@@ -283,7 +283,7 @@ public class PaginaHojaRutaE extends JFrame {
 							+ "where b.cid = c.beneficiario_cid\n" + "and a.cfr = c.formularioregistro_cfr\n"
 							+ "and b.cid = d.beneficiario_cid\n" + "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n"
 							+ "and a.cfr = f.formularioregistro_cfr\n" + "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
-							+ "and b.ci like '" + valor + "'\n" + "and g.estado = true\n"
+							+ "and b.ci like '%" + valor + "%'\n" + "and g.estado = true\n"
 							+ "and a.fechaRegistro between '" + fechaInicio + "' and '" + fechaFinal + "'\n"
 							+ "group by g.cfhd, b.ci, a.fecharegistro";
 					break;
@@ -368,7 +368,7 @@ public class PaginaHojaRutaE extends JFrame {
 							+ "where b.cid = c.beneficiario_cid\n" + "and a.cfr = c.formularioregistro_cfr\n"
 							+ "and b.cid = d.beneficiario_cid\n" + "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n"
 							+ "and a.cfr = f.formularioregistro_cfr\n" + "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
-							+ "and b.ci like '" + valor + "'\n" + "and g.estado = true\n"
+							+ "and b.ci like '%" + valor + "%'\n" + "and g.estado = true\n"
 							+ "group by g.cfhd, b.ci, a.fecharegistro";
 					break;
 				}

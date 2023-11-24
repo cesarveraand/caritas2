@@ -295,13 +295,14 @@ public class Hoja_ruta_acciones extends JFrame {
 					e1.printStackTrace();
 				}
         		if(!txtAcciones.getText().equals("")&& !txtInstrucciones.getText().equals("")&& !txtObservacionAccion.getText().equals("")&&!txtFechaAtencion.getText().equals("")) {
-        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar(),true);
+        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),hhh,true);
         			try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+        			JOptionPane.showMessageDialog(null, "Registro Exitoso");
         		}else {
         			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
         		}
