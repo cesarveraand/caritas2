@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.ObjectInputFilter.Status;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,6 +48,19 @@ public class Registro extends JFrame {
 	private static boolean isRegistro = false;
 
 	public Registro() {
+		nombres.clear();
+		edades.clear();
+		docIdentidad.clear();
+		expedidos.clear();
+		educaciones.clear();
+		sexos.clear();
+		ingresos.clear();
+		permanencia.clear();
+		estatus.clear();
+		paisesPaso.clear();
+		panelesPaises.clear();
+		panelesPersonas.clear();
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1920, 1000);
 		contentPane = new JPanel();
@@ -769,6 +783,20 @@ public class Registro extends JFrame {
 	}
 
 	public Registro(FormlarioRegistro reg) {
+		
+		nombres.clear();
+		edades.clear();
+		docIdentidad.clear();
+		expedidos.clear();
+		educaciones.clear();
+		sexos.clear();
+		ingresos.clear();
+		permanencia.clear();
+		estatus.clear();
+		paisesPaso.clear();
+		panelesPaises.clear();
+		panelesPersonas.clear();
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1920, 1000);
 		contentPane = new JPanel();
