@@ -55,12 +55,12 @@ public class PaginaFormulariosRegistro extends JFrame {
 		JMenuItem mneliminar = new javax.swing.JMenuItem();
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 816, 574);
+		setBounds(100, 100, 964, 646);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(33, 99, 723, 365);
+		scrollPane.setBounds(33, 99, 885, 448);
 		contentPane.add(scrollPane);
 
 		table_1.setFillsViewportHeight(true);
@@ -75,7 +75,7 @@ public class PaginaFormulariosRegistro extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(33, 489, 85, 21);
+		btnVolver.setBounds(32, 561, 85, 21);
 		contentPane.add(btnVolver);
 
 		JButton btnAgregar = new JButton("Agregar");
@@ -88,7 +88,7 @@ public class PaginaFormulariosRegistro extends JFrame {
 
 			}
 		});
-		btnAgregar.setBounds(671, 489, 85, 21);
+		btnAgregar.setBounds(833, 561, 85, 21);
 		contentPane.add(btnAgregar);
 
 		JLabel lblNewLabel = new JLabel("Buscar por:");
@@ -137,7 +137,7 @@ public class PaginaFormulariosRegistro extends JFrame {
 		});
 		btnBuscarFechas.setBounds(611, 63, 150, 20);
 		contentPane.add(btnBuscarFechas);
-		comboBoxBuqueda.setModel(new DefaultComboBoxModel(new String[] { "Codigo Formulario", "CI Representante" }));
+		comboBoxBuqueda.setModel(new DefaultComboBoxModel(new String[] {"Codigo Formulario", "CI Representante", "Nombre Representante"}));
 
 		comboBoxBuqueda.setBounds(32, 36, 140, 21);
 		contentPane.add(comboBoxBuqueda);
@@ -161,7 +161,7 @@ public class PaginaFormulariosRegistro extends JFrame {
 				buscar("");
 			}
 		});
-		btnBuscar.setBounds(627, 37, 134, 21);
+		btnBuscar.setBounds(719, 36, 134, 21);
 		contentPane.add(btnBuscar);
 		/*
 		 * comboBoxBuqueda.addItem("Nombre"); comboBoxBuqueda.addItem("CI");
@@ -207,6 +207,15 @@ public class PaginaFormulariosRegistro extends JFrame {
 			}
 		});
 		table_1.setComponentPopupMenu(jPopupMenu1);
+		
+		JButton btnBuscar_1 = new JButton("Actualizar");
+		btnBuscar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buscar("");
+			}
+		});
+		btnBuscar_1.setBounds(603, 35, 106, 21);
+		contentPane.add(btnBuscar_1);
 		buscar("");
 
 	}
@@ -243,15 +252,15 @@ public class PaginaFormulariosRegistro extends JFrame {
 		// Obtener el tipo de búsqueda seleccionado en el comboBoxBuqueda
 		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
 		// Nombres de columna
-		String[] columnNames = { "Codigo registro", "fecha", "CI representante" };
+		String[] columnNames = { "Codigo registro", "fecha", "CI representante", "Nombre Representante" };
 		String[] registros = new String[7];
 		DefaultTableModel model = new DefaultTableModel(null, columnNames);
-		String cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+		String cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 				+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 				+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
 				+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
 				+ "and e.cf = d.familias_cf\n" + " and b.ci = e.ci_r\n" + "and a.estado = true\n"
-				+ "and b.estado = true\n" + " group by a.cfr, b.ci";
+				+ "and b.estado = true\n" + " group by a.cfr, b.ci, b.nombre";
 		try {
 			Conexion cn = new Conexion();
 			Connection conexion = cn.getConexionPostgres();
@@ -259,7 +268,7 @@ public class PaginaFormulariosRegistro extends JFrame {
 
 			// Filtrar los funcionarios que coinciden con el valor de búsqueda
 			if (valor.isEmpty()) {
-				cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+				cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 						+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 						+ "Familia_beneficiario_voluntario d, familias e\n"
 						+ "where b.cid = c.beneficiario_cid\n"
@@ -270,12 +279,12 @@ public class PaginaFormulariosRegistro extends JFrame {
 						+ "and a.estado = true\n"
 						+ "and b.estado = true\n"
 						+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
-						+ "group by a.cfr, b.ci";
+						+ "group by a.cfr, b.ci, b.nombre";
 
 			} else {
 				switch (tipoBusqueda) {
 				case "Codigo Formulario":
-					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 							+ "Familia_beneficiario_voluntario d, familias e\n"
 							+ "where b.cid = c.beneficiario_cid\n"
@@ -287,11 +296,11 @@ public class PaginaFormulariosRegistro extends JFrame {
 							+ "and b.estado = true\n"
 							+ "and a.cfr = " + Integer.parseInt(valor) +"\n"
 							+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
-							+ "group by a.cfr, b.ci";
+							+ "group by a.cfr, b.ci, b.nombre";
 					break;
 				case "CI Representante":
 
-					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 							+ "Familia_beneficiario_voluntario d, familias e\n"
 							+ "where b.cid = c.beneficiario_cid\n"
@@ -303,7 +312,18 @@ public class PaginaFormulariosRegistro extends JFrame {
 							+ "and b.estado = true\n"
 							+ "and b.ci like '%" + valor + "%'\n"
 							+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
-							+ "group by a.cfr, b.ci";
+							+ "group by a.cfr, b.ci, b.nombre";
+					break;
+				case "Nombre Representante":
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
+							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
+							+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
+							+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
+							+ "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n" + "and a.estado = true\n"
+							+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
+							+ " and lower(b.nombre) like '%" + valor.toLowerCase() + "%' "
+							+ " and b.estado = true"
+							+ " group by a.cfr, b.ci, b.nombre";
 					break;
 				}
 			}
@@ -313,6 +333,7 @@ public class PaginaFormulariosRegistro extends JFrame {
 				registros[0] = rs.getString(1);
 				registros[1] = rs.getString(2);
 				registros[2] = rs.getString(3);
+				registros[3] = rs.getString(4);
 
 				model.addRow(registros);
 			}
@@ -323,7 +344,7 @@ public class PaginaFormulariosRegistro extends JFrame {
 		}
 
 		// Ajustar el ancho de las columnas
-		int[] columnWidths = { 130, 130, 130 }; // Puedes ajustar estos valores según tus necesidades
+		int[] columnWidths = { 80, 130, 130,130 };
 
 		for (int i = 0; i < columnWidths.length; i++) {
 			TableColumn column = table_1.getColumnModel().getColumn(i);
@@ -342,15 +363,15 @@ public class PaginaFormulariosRegistro extends JFrame {
 		// Obtener el tipo de búsqueda seleccionado en el comboBoxBuqueda
 		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
 		// Nombres de columna
-		String[] columnNames = { "Codigo registro", "fecha", "CI representante" };
+		String[] columnNames = { "Codigo registro", "fecha", "CI representante", "Nombre Representante" };
 		String[] registros = new String[7];
 		DefaultTableModel model = new DefaultTableModel(null, columnNames);
-		String cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+		String cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 				+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 				+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
 				+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
 				+ "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n" + "and a.estado = true\n"
-				+ "and b.estado = true\n" + " group by a.cfr, b.ci";
+				+ "and b.estado = true\n" + " group by a.cfr, b.ci, b.nombre";
 		try {
 			Conexion cn = new Conexion();
 			Connection conexion = cn.getConexionPostgres();
@@ -358,30 +379,40 @@ public class PaginaFormulariosRegistro extends JFrame {
 
 			// Filtrar los funcionarios que coinciden con el valor de búsqueda
 			if (valor.isEmpty()) {
-				cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+				cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 						+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 						+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
 						+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
 						+ "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n" + "and a.estado = true\n"
-						+ "and b.estado = true\n" + " group by a.cfr, b.ci";
+						+ "and b.estado = true\n" + " group by a.cfr, b.ci, b.nombre";
 
 			} else {
 				switch (tipoBusqueda) {
 				case "Codigo Formulario":
-					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 							+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
 							+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
 							+ "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n" + "and a.estado = true\n"
-							+ "and b.estado = true\n" + " and a.cfr = " + Integer.parseInt(valor) + " group by a.cfr, b.ci";
+							+ "and b.estado = true\n" + " and a.cfr = " + Integer.parseInt(valor) + " group by a.cfr, b.ci, b.nombre";
 					break;
 				case "CI Representante":
-					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 							+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
 							+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
 							+ "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n" + "and a.estado = true\n"
-							+ "and b.estado = true\n" + " and b.ci like '%" + valor + "%' group by a.cfr, b.ci";
+							+ "and b.estado = true\n" + " and b.ci like '%" + valor + "%' group by a.cfr, b.ci, b.nombre";
+					break;
+				case "Nombre Representante":
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
+							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
+							+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
+							+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
+							+ "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n" + "and a.estado = true\n"
+							+ " and lower(b.nombre) like '%" + valor.toLowerCase() + "%' "
+							+ " and b.estado = true"
+							+ " group by a.cfr, b.ci, b.nombre";
 					break;
 				}
 			}
@@ -391,6 +422,7 @@ public class PaginaFormulariosRegistro extends JFrame {
 				registros[0] = rs.getString(1);
 				registros[1] = rs.getString(2);
 				registros[2] = rs.getString(3);
+				registros[3] = rs.getString(4);
 
 				model.addRow(registros);
 			}
@@ -400,7 +432,7 @@ public class PaginaFormulariosRegistro extends JFrame {
 			System.out.println(e.getMessage());
 		}
 		// Ajustar el ancho de las columnas
-		int[] columnWidths = { 130, 130, 130 }; // Puedes ajustar estos valores según tus necesidades
+		int[] columnWidths = { 80, 130, 130,130 }; 
 
 		for (int i = 0; i < columnWidths.length; i++) {
 			TableColumn column = table_1.getColumnModel().getColumn(i);
@@ -463,5 +495,4 @@ public class PaginaFormulariosRegistro extends JFrame {
 		}
 
 	}
-
 }
