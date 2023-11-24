@@ -693,76 +693,95 @@ public class Registro extends JFrame {
 		btnHojaRuta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!isRegistro) {
+					boolean band = true;
 					if (Integer.parseInt(lblCantidadContador.getText()) > 0) {
 						if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 								&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
-								&& !txtComunicacion.getText().equals("") && !txtObservaciones.getText().equals("")) {
-							ArrayList<Beneficiarios> beneficiarios = new ArrayList<>();
-							Beneficiarios aux = null;
-							ArrayList<PaisVisita> paises = new ArrayList<>();
-							PaisVisita auxPais = null;
-							int uB = 0, uP = 0, uR = 0, uF = 0;
-							try {
-								uP = Conexion.ultimoPaisVisita();
-								uB = Conexion.ultimoBeneficiario();
-								uR = Conexion.ultimoFormularioRegistro();
-								uF = Conexion.ultimaFamilia();
-							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-							for (int i = 0; i < estatus.size(); i++) {
-								if (!permanencia.get(i).getText().equals("") && !estatus.get(i).getText().equals("")) {
+								&& !txtComunicacion.getText().equals("") && !txtObservaciones.getText().equals("")
+								&& alMenosUnCheckBoxSeleccionado(chckbxTransito, chckbxSolRefugio, chckbxSolAsistencia)) {
+							if (validarFecha(txtFechaSalida.getText()) && validarFecha(txtFechaIngreso.getText())
+									&& validarFecha(txtExpedido.getText()) && validarFecha(txtFecha.getText())) {
+								ArrayList<Beneficiarios> beneficiarios = new ArrayList<>();
+								Beneficiarios aux = null;
+								ArrayList<PaisVisita> paises = new ArrayList<>();
+								PaisVisita auxPais = null;
+								int uB = 0, uP = 0, uR = 0, uF = 0;
+								try {
+									uP = Conexion.ultimoPaisVisita();
+									uB = Conexion.ultimoBeneficiario();
+									uR = Conexion.ultimoFormularioRegistro();
+									uF = Conexion.ultimaFamilia();
+								} catch (SQLException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								for (int i = 0; i < estatus.size(); i++) {
+									if (!permanencia.get(i).getText().equals("") && !estatus.get(i).getText().equals("")) {
 
-									auxPais = new PaisVisita(uP, (String) paisesPaso.get(i).getSelectedItem(),
-											Integer.parseInt(permanencia.get(i).getText()), estatus.get(i).getText(),
-											true);
-									paises.add(auxPais);
-									uP++;
+										auxPais = new PaisVisita(uP, (String) paisesPaso.get(i).getSelectedItem(),
+												Integer.parseInt(permanencia.get(i).getText()), estatus.get(i).getText(),
+												true);
+										paises.add(auxPais);
+										uP++;
+
+									}
+								}
+								System.out.println(auxPais.toString());
+								for (int i = 0; i < nombres.size(); i++) {
+									if (!nombres.get(i).getText().equals("") && !edades.get(i).getText().equals("")
+											&& !docIdentidad.get(i).getText().equals("")
+											&& !expedidos.get(i).getText().equals("")) {
+										aux = new Beneficiarios(uB, nombres.get(i).getText(),
+												Integer.parseInt(edades.get(i).getText()),
+												sexos.get(i).getSelection().getActionCommand(),
+												docIdentidad.get(i).getText(), Extras.fechas(expedidos.get(i).getText()),
+												ingresos.get(i).getSelection().getActionCommand() == "IRREGULAR",
+												(String) educaciones.get(i).getSelectedItem(), paises, true);
+										beneficiarios.add(aux);
+										uB++;
+										
+										band = band && Conexion.isCIRegistrado(docIdentidad.get(i).getText());
+									}
+
 								}
 
-							}
+								System.out.println(aux.toString());
+								if (band) {
+									Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0),
+											beneficiarios, true);
+									FormlarioRegistro form = new FormlarioRegistro(uR,
+											(String) comboBoxLugares.getSelectedItem(), txtTelefono.getText(),
+											(String) comboBoxPaisesOrigen.getSelectedItem(),
+											Extras.fechas(txtFechaSalida.getText()),
+											buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
+											txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
+											(String) comboBoxFronterasIngreso.getSelectedItem(),
+											(String) comboBoxDocumentosIngreso.getSelectedItem(),
+											buttonGroupPermanenciaMigracion.getSelection().getActionCommand(),
+											buttonGroupBoliviaFinal.getSelection().getActionCommand() == "SI",
+											(String) comboBoxPaisesSiguientes.getSelectedItem(), txtPqBolivia.getText(),
+											(String) comboBoxAlojamiento.getSelectedItem(),
+											buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
+											buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
+											buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
+											txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
+											chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
+											chckbxSolAsistencia.isSelected(), fam, true);
+									Main.setUltimoForm(form);
+									System.out.println(form);
+									Conexion.registrarFormBD(form);
+									isRegistro = true;
+									
+									band = true;
+									JOptionPane.showMessageDialog(null, "Registro exitoso.");
+								
 
-							for (int i = 0; i < nombres.size(); i++) {
-								if (!nombres.get(i).getText().equals("") && !edades.get(i).getText().equals("")
-										&& !docIdentidad.get(i).getText().equals("")
-										&& !expedidos.get(i).getText().equals("")) {
-									aux = new Beneficiarios(uB, nombres.get(i).getText(),
-											Integer.parseInt(edades.get(i).getText()),
-											sexos.get(i).getSelection().getActionCommand(),
-											docIdentidad.get(i).getText(), Extras.fechas(expedidos.get(i).getText()),
-											ingresos.get(i).getSelection().getActionCommand() == "IRREGULAR",
-											(String) educaciones.get(i).getSelectedItem(), paises, true);
-									beneficiarios.add(aux);
-									uB++;
+								} else {
+									JOptionPane.showMessageDialog(null, "Documento de identidad ya fue registrado.");
 								}
-
+							} else {
+								JOptionPane.showMessageDialog(null, "Ingrese fechas en formato dd/MM/yyyy.");
 							}
-
-							System.out.println(aux.toString());
-							Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0), beneficiarios,
-									true);
-							FormlarioRegistro form = new FormlarioRegistro(uR,
-									(String) comboBoxLugares.getSelectedItem(), txtTelefono.getText(),
-									(String) comboBoxPaisesOrigen.getSelectedItem(),
-									Extras.fechas(txtFechaSalida.getText()),
-									buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
-									txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
-									(String) comboBoxFronterasIngreso.getSelectedItem(),
-									(String) comboBoxDocumentosIngreso.getSelectedItem(),
-									buttonGroupPermanenciaMigracion.getSelection().getActionCommand(),
-									buttonGroupBoliviaFinal.getSelection().getActionCommand() == "SI",
-									(String) comboBoxPaisesSiguientes.getSelectedItem(), txtPqBolivia.getText(),
-									(String) comboBoxAlojamiento.getSelectedItem(),
-									buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
-									buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
-									buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
-									txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
-									chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
-									chckbxSolAsistencia.isSelected(), fam, true);
-							Main.setUltimoForm(form);
-							System.out.println(form);
-							Conexion.registrarFormBD(form);
 						} else {
 							JOptionPane.showMessageDialog(null,
 									"Debe llenar todos losa datos del formulario para poder registrarlo");

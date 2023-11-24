@@ -481,18 +481,18 @@ public class Hoja_ruta extends JFrame {
                 		hjn=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm(),true);
 
         			}
+        			try {
+    					Conexion.actualizarHojaDeRuta(hjn,hj);
+    	        		isRegistrado=true;
 
+    				} catch (SQLException e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				}
         		}else {
         			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
         		}
-        		try {
-					Conexion.actualizarHojaDeRuta(hjn,hj);
-	        		isRegistrado=true;
-
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+        		
         		dispose();
         	}
         });

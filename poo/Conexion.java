@@ -14,7 +14,7 @@ public class Conexion {
 
 	static final String DB_URl="jdbc:postgresql://localhost/caritas";
 	static final String USER ="postgres";
-	static final String PASS= "3211";
+	static final String PASS= "D4l3mb3rt";
 
 
 
@@ -1534,7 +1534,7 @@ public class Conexion {
 						actualizarBeneficiario(famN.get(i), famV.get(i));
 						if (paisNuevo.size() > 0) {
 							for (PaisVisita j : paisNuevo) {
-								registrarFormBenPais(cod3, formViejo, famN.get(i), j);
+								registrarFormBenPais(cod3, formViejo, famV.get(i), j);
 								cod3++;
 							}
 						}
@@ -1568,7 +1568,7 @@ public class Conexion {
 							actualizarBeneficiario(famN.get(i), famV.get(i));
 							if (paisNuevo.size() > 0) {
 								for (PaisVisita j : paisNuevo) {
-									registrarFormBenPais(cod3, formViejo, famN.get(i), j);
+									registrarFormBenPais(cod3, formViejo, famV.get(i), j);
 									cod3++;
 								}
 							}
@@ -1583,7 +1583,7 @@ public class Conexion {
 						actualizarBeneficiario(famN.get(i), famV.get(i));
 						if (paisNuevo.size() > 0) {
 							for (PaisVisita j : paisNuevo) {
-								registrarFormBenPais(cod3, formViejo, famN.get(i), j);
+								registrarFormBenPais(cod3, formViejo, famV.get(i), j);
 								cod3++;
 							}
 						}
