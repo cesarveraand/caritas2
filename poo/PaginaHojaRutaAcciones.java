@@ -216,6 +216,7 @@ public class PaginaHojaRutaAcciones extends JFrame {
 		btnBuscar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buscar("");
+				txtBuscar.setText("");
 			}
 		});
 		btnBuscar_1.setBounds(605, 35, 106, 21);

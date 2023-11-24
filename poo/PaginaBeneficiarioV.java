@@ -58,12 +58,12 @@ public class PaginaBeneficiarioV extends JFrame {
 		JMenuItem mneliminar = new javax.swing.JMenuItem();
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 816, 574);
+		setBounds(100, 100, 1242, 646);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(36, 99, 729, 365);
+		scrollPane.setBounds(36, 99, 1152, 452);
 		contentPane.add(scrollPane);
 
 		table_1.setFillsViewportHeight(true);
@@ -78,7 +78,7 @@ public class PaginaBeneficiarioV extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(36, 488, 85, 21);
+		btnVolver.setBounds(36, 562, 85, 21);
 		contentPane.add(btnVolver);
 
 		JButton btnAgregar = new JButton("Agregar");
@@ -89,11 +89,11 @@ public class PaginaBeneficiarioV extends JFrame {
 				buscar("");
 			}
 		});
-		btnAgregar.setBounds(680, 488, 85, 21);
+		btnAgregar.setBounds(1103, 562, 85, 21);
 		contentPane.add(btnAgregar);
 
 		JButton btnBuscar = new JButton("Mostrar Todo");
-		btnBuscar.setBounds(631, 42, 134, 21);
+		btnBuscar.setBounds(729, 42, 134, 21);
 		contentPane.add(btnBuscar);
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -222,6 +222,16 @@ public class PaginaBeneficiarioV extends JFrame {
 			}
 		});
 		table_1.setComponentPopupMenu(jPopupMenu1);
+		
+		JButton btnBuscar_1 = new JButton("Actualizar");
+		btnBuscar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buscar("");
+				txtBuscar.setText("");
+			}
+		});
+		btnBuscar_1.setBounds(613, 41, 106, 21);
+		contentPane.add(btnBuscar_1);
 		buscar("");
 		// tabla();
 	}
@@ -480,5 +490,4 @@ public class PaginaBeneficiarioV extends JFrame {
 		}
 
 	}
-
 }

@@ -202,6 +202,12 @@ public class PaginaHojaRuta extends JFrame {
 		table_1.setComponentPopupMenu(jPopupMenu1);
 		
 		JButton btnBuscar_1 = new JButton("Actualizar");
+		btnBuscar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buscar("");
+				txtBuscar.setText("");
+			}
+		});
 		btnBuscar_1.setBounds(604, 40, 106, 21);
 		contentPane.add(btnBuscar_1);
 		buscar("");

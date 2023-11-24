@@ -58,7 +58,7 @@ public class PaginaBeneficiario extends JFrame {
 		JMenuItem mneliminar = new javax.swing.JMenuItem();
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1240, 646);
+		setBounds(100, 100, 1242, 646);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
@@ -232,6 +232,12 @@ public class PaginaBeneficiario extends JFrame {
 		table_1.setComponentPopupMenu(jPopupMenu1);
 		
 		JButton btnBuscar_1 = new JButton("Actualizar");
+		btnBuscar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buscar("");
+				txtBuscar.setText("");
+			}
+		});
 		btnBuscar_1.setBounds(608, 41, 106, 21);
 		contentPane.add(btnBuscar_1);
 		buscar("");
