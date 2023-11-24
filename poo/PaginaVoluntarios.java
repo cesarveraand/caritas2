@@ -56,18 +56,18 @@ public class PaginaVoluntarios extends JFrame {
 	private static JButton btnBuscarFechas;
 
 	public PaginaVoluntarios(ArrayList<Funcionario> volun) {
-		setTitle("Administradores");
+		setTitle("Voluntarios");
 
 		this.volun = volun;
 
 		tabla("");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 936, 599);
+		setBounds(100, 100, 1240, 676);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(27, 100, 864, 364);
+		scrollPane.setBounds(27, 102, 1170, 468);
 		contentPane.add(scrollPane);
 
 		table_1.setFillsViewportHeight(true);
@@ -82,7 +82,7 @@ public class PaginaVoluntarios extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(27, 506, 85, 21);
+		btnVolver.setBounds(27, 581, 85, 21);
 		contentPane.add(btnVolver);
 
 		JButton btnAgregar = new JButton("Agregar");
@@ -91,9 +91,10 @@ public class PaginaVoluntarios extends JFrame {
 				AgregarFuncionario addmin = new AgregarFuncionario(false);
 				addmin.setVisible(true);
 				tabla("");
+
 			}
 		});
-		btnAgregar.setBounds(806, 506, 85, 21);
+		btnAgregar.setBounds(1112, 581, 85, 21);
 		contentPane.add(btnAgregar);
 
 		JButton btnBuscar = new JButton("Mostrar Todo");
@@ -103,7 +104,7 @@ public class PaginaVoluntarios extends JFrame {
 				txtBuscar.setText("");
 			}
 		});
-		btnBuscar.setBounds(618, 31, 122, 21);
+		btnBuscar.setBounds(706, 31, 122, 21);
 		contentPane.add(btnBuscar);
 
 		comboBoxBuqueda.setModel(new DefaultComboBoxModel(new String[] {"Nombre", "C.I.", "Correo", "Telefono", "Ciudad"}));
@@ -187,13 +188,22 @@ public class PaginaVoluntarios extends JFrame {
 		        }
 		    }
 		});
-		btnBuscarFechas.setBounds(590, 63, 150, 20);
+		btnBuscarFechas.setBounds(570, 61, 150, 20);
 		contentPane.add(btnBuscarFechas);
 		// btnBuscarFechas.setEnabled(false);
 
 		JLabel lblNewLabel = new JLabel("Buscar por:");
 		lblNewLabel.setBounds(28, 11, 84, 14);
 		contentPane.add(lblNewLabel);
+		
+		JButton btnBuscar_1 = new JButton("Actualizar");
+		btnBuscar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tabla("");
+			}
+		});
+		btnBuscar_1.setBounds(590, 31, 106, 21);
+		contentPane.add(btnBuscar_1);
 		table_1.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				// Verifica si el evento es un clic derecho (BUTTON3)
@@ -255,7 +265,7 @@ public class PaginaVoluntarios extends JFrame {
 	}
 	private void filtrarPorFechas(LocalDate fechaInicio, LocalDate fechaFinal, String valor) {
 		// Nombres de columna
-		String[] columnNames = { "Codigo", "Nombre", "CI", "Fecha Contratación", "Correo", "Teléfono", "Ciudad" };
+		String[] columnNames = { "Codigo", "Nombre", "CI", "Fecha Contratación", "Correo", "Teléfono", "Ciudad", "Dirección" };
 
 		// Crear el modelo de la tabla con los datos de las columnas
 		DefaultTableModel model = new DefaultTableModel(null, columnNames);
@@ -273,31 +283,31 @@ public class PaginaVoluntarios extends JFrame {
 				case "Nombre":
 					if (i.getNombre().toLowerCase().contains(valor.toLowerCase())) {
 						model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
+						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad(), i.getDireccion() });
 					}
 					break;
 				case "C.I.":
 					if (i.getCi().toLowerCase().contains(valor)) {
 						model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
+						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad(), i.getDireccion() });
 					}
 					break;
 				case "Correo":
 					if (i.getCorreo().toLowerCase().contains(valor)) {
 						model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
+						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad(), i.getDireccion() });
 					}
 					break;
 				case "Telefono":
 				    if (i.getTelefono().toLowerCase().contains(valor)) {
 				        model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-				                i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
+				                i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad(), i.getDireccion() });
 				    }
 				    break;
 				case "Ciudad":
 				    if (i.getCiudad().toLowerCase().contains(valor)) {
 				        model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-				                i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
+				                i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad(), i.getDireccion() });
 				    }
 				    break;
 				}
@@ -308,7 +318,7 @@ public class PaginaVoluntarios extends JFrame {
 		table_1.setModel(model);
 		// Ajustar el ancho de las columnas
 		// Ajustar el ancho de las columnas
-		int[] columnWidths = { 80, 200, 100, 150, 200, 100, 100 }; 
+		int[] columnWidths = { 80, 150, 100, 80, 150, 100, 100, 100 }; 
 
 		for (int i = 0; i < columnWidths.length; i++) {
 		    TableColumn column = table_1.getColumnModel().getColumn(i);
@@ -323,7 +333,7 @@ public class PaginaVoluntarios extends JFrame {
 
 	public static void tabla(String valor) {
 		// Nombres de columna
-		String[] columnNames = { "Codigo", "Nombre", "CI", "Fecha Contratación", "Correo", "Teléfono", "Ciudad" };
+		String[] columnNames = { "Codigo", "Nombre", "CI", "Fecha Contratación", "Correo", "Teléfono", "Ciudad", "Dirección" };
 
 		// Obtener el tipo de búsqueda seleccionado en el comboBoxBuqueda
 		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
@@ -337,7 +347,7 @@ public class PaginaVoluntarios extends JFrame {
 		for (Funcionario i : volun) {
 			if (valor == "") {
 				model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-				        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
+				        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad(), i.getDireccion() });
 
 
 			} else {
@@ -345,31 +355,31 @@ public class PaginaVoluntarios extends JFrame {
 				case "Nombre":
 					if (i.getNombre().toLowerCase().contains(valor.toLowerCase())) {
 						model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
+						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad(), i.getDireccion() });
 					}
 					break;
 				case "C.I.":
 					if (i.getCi().toLowerCase().contains(valor)) {
 						model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
+						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad(), i.getDireccion() });
 					}
 					break;
 				case "Correo":
 					if (i.getCorreo().toLowerCase().contains(valor)) {
 						model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
+						        i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad(), i.getDireccion() });
 					}
 					break;
 				case "Telefono":
 				    if (i.getTelefono().toLowerCase().contains(valor)) {
 				        model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-				                i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
+				                i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad(), i.getDireccion() });
 				    }
 				    break;
 				case "Ciudad":
 				    if (i.getCiudad().toLowerCase().contains(valor)) {
 				        model.addRow(new String[] { i.getCod() + "", i.getNombre(), i.getCi(),
-				                i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad() });
+				                i.getLFechaCon().format(dateFormatter), i.getCorreo(), i.getTelefono(), i.getCiudad(), i.getDireccion() });
 				    }
 				    break;
 				}
@@ -381,7 +391,8 @@ public class PaginaVoluntarios extends JFrame {
 		table_1.setModel(model);
 
 		// Ajustar el ancho de las columnas
-		int[] columnWidths = { 80, 200, 100, 150, 200, 100, 100 }; 
+		int[] columnWidths = { 80, 150, 100, 80, 150, 100, 100, 100 }; 
+
 
 		for (int i = 0; i < columnWidths.length; i++) {
 		    TableColumn column = table_1.getColumnModel().getColumn(i);

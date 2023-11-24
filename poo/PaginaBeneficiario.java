@@ -58,12 +58,12 @@ public class PaginaBeneficiario extends JFrame {
 		JMenuItem mneliminar = new javax.swing.JMenuItem();
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 816, 574);
+		setBounds(100, 100, 1240, 646);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(36, 99, 729, 365);
+		scrollPane.setBounds(36, 99, 1155, 452);
 		contentPane.add(scrollPane);
 
 		table_1.setFillsViewportHeight(true);
@@ -78,7 +78,7 @@ public class PaginaBeneficiario extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(36, 488, 85, 21);
+		btnVolver.setBounds(36, 562, 85, 21);
 		contentPane.add(btnVolver);
 
 		JButton btnAgregar = new JButton("Agregar");
@@ -91,11 +91,11 @@ public class PaginaBeneficiario extends JFrame {
 
 			}
 		});
-		btnAgregar.setBounds(680, 488, 85, 21);
+		btnAgregar.setBounds(1106, 562, 85, 21);
 		contentPane.add(btnAgregar);
 
 		JButton btnBuscar = new JButton("Mostrar Todo");
-		btnBuscar.setBounds(631, 42, 134, 21);
+		btnBuscar.setBounds(724, 42, 134, 21);
 		contentPane.add(btnBuscar);
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -230,6 +230,10 @@ public class PaginaBeneficiario extends JFrame {
 			}
 		});
 		table_1.setComponentPopupMenu(jPopupMenu1);
+		
+		JButton btnBuscar_1 = new JButton("Actualizar");
+		btnBuscar_1.setBounds(608, 41, 106, 21);
+		contentPane.add(btnBuscar_1);
 		buscar("");
 		// tabla();
 	}
@@ -305,7 +309,7 @@ public class PaginaBeneficiario extends JFrame {
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and a.nombre like '%" + valor + "%'\n" + "and b.fechaRegistro between '" + fechaInicio
+							+ "and lower(a.nombre) like '%" + valor.toLowerCase() + "%'\n" + "and b.fechaRegistro between '" + fechaInicio
 							+ "' and '" + fechaFinal + "' \n" + "group by a.cid, b.cfr";
 					break;
 				case "C.I.":
@@ -402,7 +406,7 @@ public class PaginaBeneficiario extends JFrame {
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and a.nombre like '%" + valor + "%'\n" + "group by a.cid, b.cfr";
+							+ "and lower(a.nombre) like '%" + valor.toLowerCase() + "%'\n" + "group by a.cid, b.cfr";
 					break;
 				case "C.I.":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
@@ -499,5 +503,4 @@ public class PaginaBeneficiario extends JFrame {
 		}
 
 	}
-
 }
