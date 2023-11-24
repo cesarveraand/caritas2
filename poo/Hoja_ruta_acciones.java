@@ -403,7 +403,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
 					e1.printStackTrace();
 				}
         		if(!txtAcciones_1.getText().equals("")&& !txtInstrucciones2.getText().equals("")&& !txtObservacionAccion2.getText().equals("")&&!textField_1.getText().equals("")) {
-        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar(),true);
+        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),hhh,true);
         			try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
 					} catch (SQLException e1) {
@@ -431,7 +431,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int preferredWidth = screenSize.width; 
-        int preferredHeight = screenSize.height; 
+        int preferredHeight = screenSize.height+200; 
         contentPane.setPreferredSize(new Dimension(preferredWidth, preferredHeight));
 
         
@@ -900,7 +900,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int preferredWidth = screenSize.width; 
-        int preferredHeight = screenSize.height; 
+        int preferredHeight = screenSize.height+200; 
         contentPane.setPreferredSize(new Dimension(preferredWidth, preferredHeight));
 
         
@@ -1240,7 +1240,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
 					e1.printStackTrace();
 				}
         		if(!txtAcciones.getText().equals("")&& !txtInstrucciones.getText().equals("")&& !txtObservacionAccion.getText().equals("")&&!txtFechaAtencion.getText().equals("")) {
-        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar(),true);
+        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),hhhd.getHjr(),true);
         			try {
 						Conexion.actualizarHojaDeRutaAcciones(hjr,hhhd);
 					} catch (SQLException e1) {
@@ -1351,7 +1351,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
 					e1.printStackTrace();
 				}
         		if(!txtAcciones_1.getText().equals("")&& !txtInstrucciones2.getText().equals("")&& !txtObservacionAccion2.getText().equals("")&&!textField_1.getText().equals("")) {
-        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar(),true);
+        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),hhhd.getHjr(),true);
         			try {
 						Conexion.actualizarHojaDeRutaAcciones(hjr,hhhd_1);
 					} catch (SQLException e1) {
@@ -1379,7 +1379,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int preferredWidth = screenSize.width; 
-        int preferredHeight = screenSize.height; 
+        int preferredHeight = screenSize.height+200; 
         contentPane.setPreferredSize(new Dimension(preferredWidth, preferredHeight));
 
         
@@ -1776,7 +1776,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int preferredWidth = screenSize.width; 
-        int preferredHeight = screenSize.height; 
+        int preferredHeight = screenSize.height+200; 
         contentPane.setPreferredSize(new Dimension(preferredWidth, preferredHeight));
 
         
