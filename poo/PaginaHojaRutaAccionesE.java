@@ -561,7 +561,7 @@ public class PaginaHojaRutaAccionesE extends JFrame {
 		try {
 			if (selectedRow != -1) {
 				ArrayList<HojaRutaAcciones> f = new ArrayList<HojaRutaAcciones>();
-				int cod = Integer.parseInt((String) table_1.getValueAt(selectedRow, 0));
+				int cod = Integer.parseInt((String) table_1.getValueAt(selectedRow, 3));
 				try {
 					f = Conexion.traerHojaRutaAccion(cod);
 				} catch (SQLException e1) {
@@ -593,7 +593,7 @@ public class PaginaHojaRutaAccionesE extends JFrame {
 
 			if (selectedRow != -1) {
 				ArrayList<HojaRutaAcciones> f = new ArrayList<HojaRutaAcciones>();
-				int cod = Integer.parseInt((String) table_1.getValueAt(selectedRow, 0));
+				int cod = Integer.parseInt((String) table_1.getValueAt(selectedRow, 3));
 				try {
 					f = Conexion.traerHojaRutaAccion(cod);
 				} catch (SQLException e1) {
