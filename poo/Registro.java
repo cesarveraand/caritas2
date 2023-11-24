@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.io.ObjectInputFilter.Status;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,6 +48,19 @@ public class Registro extends JFrame {
 	private static boolean isRegistro = false;
 
 	public Registro() {
+		nombres.clear();
+		edades.clear();
+		docIdentidad.clear();
+		expedidos.clear();
+		educaciones.clear();
+		sexos.clear();
+		ingresos.clear();
+		permanencia.clear();
+		estatus.clear();
+		paisesPaso.clear();
+		panelesPaises.clear();
+		panelesPersonas.clear();
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1920, 1000);
 		contentPane = new JPanel();
@@ -571,9 +582,7 @@ public class Registro extends JFrame {
 		JButton btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean band = true;
 				if (Integer.parseInt(lblCantidadContador.getText()) > 0) {
-
 					if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 							&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
 							&& !txtComunicacion.getText().equals("") && !txtObservaciones.getText().equals("")) {
@@ -601,9 +610,6 @@ public class Registro extends JFrame {
 									paises.add(auxPais);
 									uP++;
 
-								} else {
-									JOptionPane.showMessageDialog(null,
-											"Debe llenar todos losa datos del formulario para poder registrarlo");
 								}
 							}
 							System.out.println(auxPais.toString());
@@ -611,9 +617,6 @@ public class Registro extends JFrame {
 								if (!nombres.get(i).getText().equals("") && !edades.get(i).getText().equals("")
 										&& !docIdentidad.get(i).getText().equals("")
 										&& !expedidos.get(i).getText().equals("")) {
-
-									String ci = docIdentidad.get(i).getText();
-
 									aux = new Beneficiarios(uB, nombres.get(i).getText(),
 											Integer.parseInt(edades.get(i).getText()),
 											sexos.get(i).getSelection().getActionCommand(),
@@ -622,47 +625,36 @@ public class Registro extends JFrame {
 											(String) educaciones.get(i).getSelectedItem(), paises, true);
 									beneficiarios.add(aux);
 									uB++;
-									System.out.println(band + "antes isreg");
-									band = band && Conexion.isCIRegistrado(ci);
-
-								} else {
-									JOptionPane.showMessageDialog(null,
-											"Debe llenar todos losa datos del formulario para poder registrarlo");
 								}
 
 							}
-							if (band) {
-								System.out.println(aux.toString());
-								Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0),
-										beneficiarios, true);
-								FormlarioRegistro form = new FormlarioRegistro(uR,
-										(String) comboBoxLugares.getSelectedItem(), txtTelefono.getText(),
-										(String) comboBoxPaisesOrigen.getSelectedItem(),
-										Extras.fechas(txtFechaSalida.getText()),
-										buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
-										txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
-										(String) comboBoxFronterasIngreso.getSelectedItem(),
-										(String) comboBoxDocumentosIngreso.getSelectedItem(),
-										buttonGroupPermanenciaMigracion.getSelection().getActionCommand(),
-										buttonGroupBoliviaFinal.getSelection().getActionCommand() == "SI",
-										(String) comboBoxPaisesSiguientes.getSelectedItem(), txtPqBolivia.getText(),
-										(String) comboBoxAlojamiento.getSelectedItem(),
-										buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
-										buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
-										buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
-										txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
-										chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
-										chckbxSolAsistencia.isSelected(), fam, true);
-								Main.setUltimoForm(form);
-								System.out.println(form);
-								Conexion.registrarFormBD(form);
-								isRegistro = true;
-								band = true;
-								JOptionPane.showMessageDialog(null, "Registro exitoso.");
-							} else {
-								JOptionPane.showMessageDialog(null, "El CI ya está registrado. Ingrese otro CI.");
 
-							}
+							System.out.println(aux.toString());
+							Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0), beneficiarios,
+									true);
+							FormlarioRegistro form = new FormlarioRegistro(uR,
+									(String) comboBoxLugares.getSelectedItem(), txtTelefono.getText(),
+									(String) comboBoxPaisesOrigen.getSelectedItem(),
+									Extras.fechas(txtFechaSalida.getText()),
+									buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
+									txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
+									(String) comboBoxFronterasIngreso.getSelectedItem(),
+									(String) comboBoxDocumentosIngreso.getSelectedItem(),
+									buttonGroupPermanenciaMigracion.getSelection().getActionCommand(),
+									buttonGroupBoliviaFinal.getSelection().getActionCommand() == "SI",
+									(String) comboBoxPaisesSiguientes.getSelectedItem(), txtPqBolivia.getText(),
+									(String) comboBoxAlojamiento.getSelectedItem(),
+									buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
+									buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
+									buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
+									txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
+									chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
+									chckbxSolAsistencia.isSelected(), fam, true);
+							Main.setUltimoForm(form);
+							System.out.println(form);
+							Conexion.registrarFormBD(form);
+							isRegistro = true;
+							JOptionPane.showMessageDialog(null, "Registro exitoso.");
 						} else {
 							JOptionPane.showMessageDialog(null, "Ingrese fechas en formato dd/MM/yyyy.");
 						}
@@ -683,7 +675,6 @@ public class Registro extends JFrame {
 		JButton btnHojaRuta = new JButton("IR HOJA DE RUTA");
 		btnHojaRuta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				if (!isRegistro) {
 					if (Integer.parseInt(lblCantidadContador.getText()) > 0) {
 						if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
@@ -711,9 +702,6 @@ public class Registro extends JFrame {
 											true);
 									paises.add(auxPais);
 									uP++;
-								} else {
-									JOptionPane.showMessageDialog(null,
-											"Debe llenar todos losa datos del formulario para poder registrarlo");
 								}
 
 							}
@@ -730,9 +718,6 @@ public class Registro extends JFrame {
 											(String) educaciones.get(i).getSelectedItem(), paises, true);
 									beneficiarios.add(aux);
 									uB++;
-								} else {
-									JOptionPane.showMessageDialog(null,
-											"Debe llenar todos losa datos del formulario para poder registrarlo");
 								}
 
 							}
@@ -798,6 +783,20 @@ public class Registro extends JFrame {
 	}
 
 	public Registro(FormlarioRegistro reg) {
+		
+		nombres.clear();
+		edades.clear();
+		docIdentidad.clear();
+		expedidos.clear();
+		educaciones.clear();
+		sexos.clear();
+		ingresos.clear();
+		permanencia.clear();
+		estatus.clear();
+		paisesPaso.clear();
+		panelesPaises.clear();
+		panelesPersonas.clear();
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1920, 1000);
 		contentPane = new JPanel();
@@ -1417,7 +1416,6 @@ public class Registro extends JFrame {
 		JButton btnRegistrar = new JButton("ACTUALIZAR");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean band = true;
 				if (Integer.parseInt(lblCantidadContador.getText()) > 0) {
 					if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 							&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
@@ -1444,9 +1442,6 @@ public class Registro extends JFrame {
 										Integer.parseInt(permanencia.get(i).getText()), estatus.get(i).getText(), true);
 								paises.add(auxPais);
 								uP++;
-							} else {
-								JOptionPane.showMessageDialog(null,
-										"Debe llenar todos losa datos del formulario para poder registrarlo");
 							}
 
 						}
@@ -1455,7 +1450,6 @@ public class Registro extends JFrame {
 							if (!nombres.get(i).getText().equals("") && !edades.get(i).getText().equals("")
 									&& !docIdentidad.get(i).getText().equals("")
 									&& !expedidos.get(i).getText().equals("")) {
-								String ci = docIdentidad.get(i).getText();
 								aux = new Beneficiarios(uB, nombres.get(i).getText(),
 										Integer.parseInt(edades.get(i).getText()),
 										sexos.get(i).getSelection().getActionCommand(), docIdentidad.get(i).getText(),
@@ -1464,54 +1458,44 @@ public class Registro extends JFrame {
 										(String) educaciones.get(i).getSelectedItem(), paises, true);
 								beneficiarios.add(aux);
 								uB++;
-								band = band&&Conexion.isCIRegistrado(ci);
-							} else {
-								JOptionPane.showMessageDialog(null,
-										"Debe llenar todos losa datos del formulario para poder registrarlo");
 							}
 
 						}
 
 						System.out.println(aux.toString());
-						if (band) {
-							Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0), beneficiarios,
-									true);
-							FormlarioRegistro form = new FormlarioRegistro(uR,
-									(String) comboBoxLugares.getSelectedItem(), txtTelefono.getText(),
-									(String) comboBoxPaisesOrigen.getSelectedItem(),
-									Extras.fechas(txtFechaSalida.getText()),
-									buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
-									txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
-									(String) comboBoxFronterasIngreso.getSelectedItem(),
-									(String) comboBoxDocumentosIngreso.getSelectedItem(),
-									buttonGroupPermanenciaMigracion.getSelection().getActionCommand(),
-									buttonGroupBoliviaFinal.getSelection().getActionCommand() == "SI",
-									(String) comboBoxPaisesSiguientes.getSelectedItem(), txtPqBolivia.getText(),
-									(String) comboBoxAlojamiento.getSelectedItem(),
-									buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
-									buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
-									buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
-									txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
-									chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
-									chckbxSolAsistencia.isSelected(), fam, true);
+						Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0), beneficiarios,
+								true);
+						FormlarioRegistro form = new FormlarioRegistro(uR, (String) comboBoxLugares.getSelectedItem(),
+								txtTelefono.getText(), (String) comboBoxPaisesOrigen.getSelectedItem(),
+								Extras.fechas(txtFechaSalida.getText()),
+								buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
+								txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
+								(String) comboBoxFronterasIngreso.getSelectedItem(),
+								(String) comboBoxDocumentosIngreso.getSelectedItem(),
+								buttonGroupPermanenciaMigracion.getSelection().getActionCommand(),
+								buttonGroupBoliviaFinal.getSelection().getActionCommand() == "SI",
+								(String) comboBoxPaisesSiguientes.getSelectedItem(), txtPqBolivia.getText(),
+								(String) comboBoxAlojamiento.getSelectedItem(),
+								buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
+								buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
+								buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
+								txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
+								chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
+								chckbxSolAsistencia.isSelected(), fam, true);
 
-							// Main.setUltimoForm(form);
-							// System.out.println(form);
+						// Main.setUltimoForm(form);
+						// System.out.println(form);
 
-							try {
-								Conexion.actualizarFormBD(form, reg);
-							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-							dispose();
-
-							band = true;
-							JOptionPane.showMessageDialog(null, "Registro exitoso.");
-						} else {
-							JOptionPane.showMessageDialog(null, "El CI ya está registrado. Ingrese otro CI.");
-
+						try {
+							Conexion.actualizarFormBD(form, reg);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
 						}
+						dispose();
+
+						isRegistro = true;
+						JOptionPane.showMessageDialog(null, "Registro exitoso.");
 
 					} else {
 						JOptionPane.showMessageDialog(null,
@@ -1567,8 +1551,6 @@ public class Registro extends JFrame {
 		for (Beneficiarios i : reg.getFam().getFamilia()) {
 			masPersona(lblCantidadContador, i);
 		}
-
-		/// For para conseguir todos los ci de los beneficiarios
 
 		// Hacer que la ventana se abra en pantalla completa
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -1831,22 +1813,26 @@ public class Registro extends JFrame {
 	}
 
 	public void masEstatusMigratorio(JPanel panelEstatusMigra) {
-
+		
+		
+        
 		JPanel panelPorEstatus = new JPanel();
-
+		
 		panelEstatusMigra.add(panelPorEstatus);
 		panelesPaises.add(panelPorEstatus);
 		panelPorEstatus.setLayout(new FlowLayout());
-
+		
 		JLabel lblPaisPaso = new JLabel("PAÍS:");
 		panelPorEstatus.add(lblPaisPaso);
 		JComboBox comboBoxPaisesPaso = new JComboBox();
-		comboBoxPaisesPaso.setModel(new DefaultComboBoxModel(new String[] { "pais 1" })); // paises
+		comboBoxPaisesPaso.setModel(new DefaultComboBoxModel(new String[] {"pais 1"})); //paises 
 		panelPorEstatus.add(comboBoxPaisesPaso);
 		paisesPaso.add(comboBoxPaisesPaso);
 		JLabel lblPermanencia = new JLabel("PERMANENCIA:");
 		panelPorEstatus.add(lblPermanencia);
-
+		
+		
+		
 		JTextField txtPermanencia = new JTextField();
 		txtPermanencia.setText("");
 		panelPorEstatus.add(txtPermanencia);
@@ -1854,14 +1840,14 @@ public class Registro extends JFrame {
 		permanencia.add(txtPermanencia);
 		JLabel lblEstatus = new JLabel("ESTATUS:");
 		panelPorEstatus.add(lblEstatus);
-
+		
 		JTextField txtEstatus = new JTextField();
 		panelPorEstatus.add(txtEstatus);
 		txtEstatus.setColumns(10);
 		estatus.add(txtEstatus);
-
-		panelEstatusMigra.revalidate();
-		panelEstatusMigra.repaint();
+	
+    panelEstatusMigra.revalidate();
+    panelEstatusMigra.repaint();
 		txtPermanencia.addKeyListener(new java.awt.event.KeyAdapter() {
 			public void keyTyped(java.awt.event.KeyEvent evt) {
 				char c = evt.getKeyChar();

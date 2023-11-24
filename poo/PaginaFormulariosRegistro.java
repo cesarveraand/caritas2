@@ -411,7 +411,16 @@ public class PaginaFormulariosRegistro extends JFrame {
 		int selectedRow = table_1.getSelectedRow();
 		try {
 			if (selectedRow != -1) {
+				FormlarioRegistro f = null;
+				int cod = Integer.parseInt((String) table_1.getValueAt(selectedRow, 0));
+				try {
+					f = Conexion.traerFormulario(cod);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
 
+				}
+				
+				Conexion.eliminarForm(f);
 			} else {
 				JOptionPane.showMessageDialog(null, "Seleccione una fila");
 			}
