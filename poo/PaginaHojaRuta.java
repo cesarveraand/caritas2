@@ -246,10 +246,10 @@ public class PaginaHojaRuta extends JFrame {
 		// Obtener el tipo de búsqueda seleccionado en el comboBoxBuqueda
 		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
 		// Nombres de columna
-		String[] columnNames = { "Codigo registro", "fecha", "CI representante", "Nombre Representante" };
+		String[] columnNames = { "Codigo registro", "fecha", "Hora Registro", "CI representante", "Nombre Representante" };
 		String[] registros = new String[7];
 		DefaultTableModel model = new DefaultTableModel(null, columnNames);
-		String cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+		String cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), a.horaRegistro, b.ci, b.nombre\n"
 				+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 				+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
 				+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
@@ -262,7 +262,7 @@ public class PaginaHojaRuta extends JFrame {
 
 			// Filtrar los funcionarios que coinciden con el valor de búsqueda
 			if (valor.isEmpty()) {
-				cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+				cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), a.horaRegistro, b.ci, b.nombre\n"
 						+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 						+ "Familia_beneficiario_voluntario d, familias e\n"
 						+ "where b.cid = c.beneficiario_cid\n"
@@ -278,7 +278,7 @@ public class PaginaHojaRuta extends JFrame {
 			} else {
 				switch (tipoBusqueda) {
 				case "Codigo Formulario":
-					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), a.horaRegistro, b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 							+ "Familia_beneficiario_voluntario d, familias e\n"
 							+ "where b.cid = c.beneficiario_cid\n"
@@ -294,7 +294,7 @@ public class PaginaHojaRuta extends JFrame {
 					break;
 				case "CI Representante":
 
-					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), a.horaRegistro, b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 							+ "Familia_beneficiario_voluntario d, familias e\n"
 							+ "where b.cid = c.beneficiario_cid\n"
@@ -309,7 +309,7 @@ public class PaginaHojaRuta extends JFrame {
 							+ "group by a.cfr, b.ci";
 					break;
 				case "Nombre Representante":
-					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), a.horaRegistro, b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 							+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
 							+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
@@ -326,6 +326,7 @@ public class PaginaHojaRuta extends JFrame {
 				registros[1] = rs.getString(2);
 				registros[2] = rs.getString(3);
 				registros[3] = rs.getString(4);
+				registros[4] = rs.getString(5);
 
 				model.addRow(registros);
 			}
@@ -336,7 +337,8 @@ public class PaginaHojaRuta extends JFrame {
 		}
 
 		// Ajustar el ancho de las columnas
-		int[] columnWidths = { 80, 130, 130, 130 };
+		int[] columnWidths = { 80, 130, 130, 130, 130 };
+
 		for (int i = 0; i < columnWidths.length; i++) {
 			TableColumn column = table_1.getColumnModel().getColumn(i);
 			column.setPreferredWidth(columnWidths[i]);
@@ -354,10 +356,10 @@ public class PaginaHojaRuta extends JFrame {
 		// Obtener el tipo de búsqueda seleccionado en el comboBoxBuqueda
 		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
 		// Nombres de columna
-		String[] columnNames = { "Codigo registro", "fecha", "CI representante", "Nombre Representante" };
+		String[] columnNames = { "Codigo registro", "fecha", "Hora Registro", "CI representante", "Nombre Representante" };
 		String[] registros = new String[7];
 		DefaultTableModel model = new DefaultTableModel(null, columnNames);
-		String cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
+		String cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), a.horaRegistro, b.ci, b.nombre\n"
 				+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 				+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
 				+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
@@ -370,7 +372,7 @@ public class PaginaHojaRuta extends JFrame {
 
 			// Filtrar los funcionarios que coinciden con el valor de búsqueda
 			if (valor.isEmpty()) {
-				cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
+				cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), a.horaRegistro, b.ci, b.nombre\n"
 						+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 						+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
 						+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
@@ -380,7 +382,7 @@ public class PaginaHojaRuta extends JFrame {
 			} else {
 				switch (tipoBusqueda) {
 				case "Codigo Formulario":
-					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), a.horaRegistro, b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 							+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
 							+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
@@ -388,7 +390,7 @@ public class PaginaHojaRuta extends JFrame {
 							+ "and b.estado = true\n" + " and a.cfr = " + Integer.parseInt(valor) + " group by a.cfr, b.ci, b.nombre";
 					break;
 				case "CI Representante":
-					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), a.horaRegistro, b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 							+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
 							+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
@@ -396,7 +398,7 @@ public class PaginaHojaRuta extends JFrame {
 							+ "and b.estado = true\n" + " and b.ci like '%" + valor + "%' group by a.cfr, b.ci, b.nombre";
 					break;
 				case "Nombre Representante":
-					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
+					cons = "select distinct a.cfr, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), a.horaRegistro, b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, formularioregbeneficiario c,\n"
 							+ "Familia_beneficiario_voluntario d, familias e\n" + "where b.cid = c.beneficiario_cid\n"
 							+ "and a.cfr = c.formularioregistro_cfr\n" + "and b.cid = d.beneficiario_cid\n"
@@ -412,6 +414,7 @@ public class PaginaHojaRuta extends JFrame {
 				registros[1] = rs.getString(2);
 				registros[2] = rs.getString(3);
 				registros[3] = rs.getString(4);
+				registros[4] = rs.getString(5);
 
 				model.addRow(registros);
 			}
@@ -421,7 +424,7 @@ public class PaginaHojaRuta extends JFrame {
 			System.out.println(e.getMessage());
 		}
 		// Ajustar el ancho de las columnas
-		int[] columnWidths = { 80, 130, 130, 130 };
+		int[] columnWidths = { 80, 130, 130, 130, 130 };
 
 		for (int i = 0; i < columnWidths.length; i++) {
 			TableColumn column = table_1.getColumnModel().getColumn(i);

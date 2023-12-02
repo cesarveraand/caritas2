@@ -2,6 +2,7 @@ package poo;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class FormlarioRegistro {
@@ -30,6 +31,9 @@ public class FormlarioRegistro {
 	private boolean transito,refugio,atencion;
 	private Familias fam;
 	private boolean estado;
+	private LocalTime horaRegistro;
+
+
 	public FormlarioRegistro(int cfr, String lugar,LocalDate fechaRegistro, String telefono, String paisOrigen,
 			LocalDate fechaSalida, boolean transporte, String razon, LocalDate fechaIngreso, String fronteraIngreso,
 			String documentoIngreso, int diasPermanencia, boolean destinoFinal, String paisSiguiente, String porquePais,
@@ -97,6 +101,7 @@ public class FormlarioRegistro {
 		this.atencion=atencion;
 		this.fam=fam;
 		this.estado=estado;
+		this.horaRegistro=LocalTime.now();
 
 	}
 	public FormlarioRegistro( String lugar, String telefono, String paisOrigen,
@@ -140,7 +145,13 @@ public class FormlarioRegistro {
 	}
 	
 	
+	public LocalTime getHoraRegistro() {
+		return horaRegistro;
+	}
 
+	public void setHoraRegistro(LocalTime horaRegistro) {
+		this.horaRegistro = horaRegistro;
+	}
 	public boolean isEstado() {
 		return estado;
 	}
@@ -196,9 +207,7 @@ public class FormlarioRegistro {
 	public LocalDate getFechaRegistro() {
 		return fechaRegistro;
 	}
-	public void setFechaRegistro(LocalDate fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
-	}
+
 	public String getTelefono() {
 		return telefono;
 	}
