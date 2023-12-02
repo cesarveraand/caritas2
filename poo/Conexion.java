@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
 
-	static final String DB_URl="jdbc:postgresql://192.168.1.7:5432/caritas";
+	static final String DB_URl="jdbc:postgresql://192.168.24.214:5432/caritas";
 	static final String USER ="chris";
 	static final String PASS= "1234";
 
