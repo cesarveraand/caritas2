@@ -260,7 +260,7 @@ public class PaginaHojaRutaAcciones extends JFrame {
 		String[] columnNames = { "Codigo registro", "fecha", "CI representante", "Nombre Representante" };
 		String[] registros = new String[7];
 		DefaultTableModel model = new DefaultTableModel(null, columnNames);
-		String cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+		String cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 				+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
 				+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
 				+ "where b.cid = c.beneficiario_cid\n"
@@ -282,7 +282,7 @@ public class PaginaHojaRutaAcciones extends JFrame {
 
 			// Filtrar los funcionarios que coinciden con el valor de búsqueda
 			if (valor.isEmpty()) {
-				cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+				cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 						+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
 						+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
 						+ "where b.cid = c.beneficiario_cid\n"
@@ -302,7 +302,7 @@ public class PaginaHojaRutaAcciones extends JFrame {
 			} else {
 				switch (tipoBusqueda) {
 				case "Codigo Formulario":
-					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
 							+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
 							+ "where b.cid = c.beneficiario_cid\n"
@@ -321,7 +321,7 @@ public class PaginaHojaRutaAcciones extends JFrame {
 							+ "group by g.cfhd, b.ci, a.fecharegistro";
 					break;
 				case "CI Representante":
-					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
 							+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
 							+ "where b.cid = c.beneficiario_cid\n"

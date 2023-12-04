@@ -12,9 +12,9 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
 
-	static final String DB_URl="jdbc:postgresql://localhost/caritas";
-	static final String USER ="postgres";
-	static final String PASS= "D4l3mb3rt";
+	static final String DB_URl="jdbc:postgresql://192.168.1.7:5432/caritas";
+	static final String USER ="chris";
+	static final String PASS= "1234";
 
 
 
@@ -870,8 +870,8 @@ public class Conexion {
 		PreparedStatement s;
 
 		String query = "insert into formularioregistro"
-				+ "(cfr, lugar, fecharegistro ,telefono,paisorigen,fechadesalida,transporte,razon,fechadeingreso,fronterodeingreso,documentodeingreso,diasdepermanencia,destinofinal,paissiguiente,porquepais,alojamiento,enviodinero,sustento,leenviandinero,medioenviodinero,comosecomunicafamilia,observaciones,transito,refugio,atencion,estado) values "
-				+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "(cfr, lugar, fecharegistro ,telefono,paisorigen,fechadesalida,transporte,razon,fechadeingreso,fronterodeingreso,documentodeingreso,diasdepermanencia,destinofinal,paissiguiente,porquepais,alojamiento,enviodinero,sustento,leenviandinero,medioenviodinero,comosecomunicafamilia,observaciones,transito,refugio,atencion,estado, horaRegistro) values "
+				+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			s = (PreparedStatement) conexion.prepareStatement(query);
 			s.setInt(1, form.getCfr());
@@ -900,6 +900,7 @@ public class Conexion {
 			s.setBoolean(24, form.isRefugio());
 			s.setBoolean(25, form.isAtencion());
 			s.setBoolean(26, true);
+			s.setTime(27, java.sql.Time.valueOf(form.getHoraRegistro()));
 			s.executeUpdate();
 
 		} catch (SQLException e) {
