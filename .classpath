@@ -6,12 +6,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ALIENWARE M16 R1/Documents/postgresql-42.7.0.jar">
+	<classpathentry kind="lib" path="C:/Users/LENOVO/Documents/Universidad/Nueva carpeta/postgresql-42.7.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ALIENWARE M16 R1/Documents/itext5-itextpdf-5.5.12.jar">
+	<classpathentry kind="lib" path="C:/Users/LENOVO/Documents/Universidad/Nueva carpeta/itext5-itextpdf-5.5.12.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

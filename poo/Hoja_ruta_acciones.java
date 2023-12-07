@@ -421,13 +421,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         separator_1.setBounds(0, 485, 1894, 2);
         panelLlenado.add(separator_1);
         
-        JButton btnImprimirAcciones = new JButton("IMPRIMIR ACCIONES REALIZADAS");
-        btnImprimirAcciones.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
-        btnImprimirAcciones.setBounds(1666, 548, 218, 29);
-        panelLlenado.add(btnImprimirAcciones);
+        
         
         JPanel panelAcRealizada2 = new JPanel();
         panelAcRealizada2.setLayout(null);
@@ -603,7 +597,181 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         panelAcRealizada1.setPreferredSize(new Dimension(600, 250)); 
         panelAcRealizada2.setPreferredSize(new Dimension(600, 250));
         
-        
+        JButton btnImprimirAcciones = new JButton("IMPRIMIR ACCIONES REALIZADAS");
+        btnImprimirAcciones.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		int cod=0;
+        		HojaRutaAcciones hjr=null;
+        		HojaRutaAcciones hjr1=null;
+				try {
+					cod = Conexion.ultimaHojaRutaAcciones();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		if(!txtAcciones.getText().equals("")&& !txtInstrucciones.getText().equals("")&& !txtObservacionAccion.getText().equals("")&&!txtFechaAtencion.getText().equals("")) {
+        			hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar(),true);
+        			
+        		}else {
+        			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        		}
+        		
+        		if(contadorAcciones>1) {
+        			int cod1=0;
+            		
+    				try {
+    					cod1 = Conexion.ultimaHojaRutaAcciones();
+    				} catch (SQLException e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				}
+            		if(!txtAcciones_1.getText().equals("")&& !txtInstrucciones2.getText().equals("")&& !txtObservacionAccion2.getText().equals("")&&!textField_1.getText().equals("")) {
+            			hjr1=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar(),true);
+            			
+            		}else {
+            			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+            		}
+        		}
+        		try {
+		            // Especifica la ruta donde quieres guardar el PDF
+				  String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_"+hjr.getCpmh()+".pdf";
+
+		            // Crea un documento PDF
+		            Document document = new Document();
+
+		            // Crea un escritor PDF
+		            try {
+						PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+					} catch (DocumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+		            // Abre el documento para agregar contenido
+		            document.open();
+
+		            // Crea una fuente en negrita
+		            com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
+		           Paragraph paragraph =new Paragraph();
+		            
+		            paragraph = new Paragraph("ACCIONES REALIZADAS: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("ACCION 1: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("N°: "+hjr.getCpmh()+"            Fecha atencion: "+hjr.getFechaAccion());
+		            
+		            document.add(paragraph);
+
+		            paragraph = new Paragraph("Accion realizada: "+hjr.getAccionRealizada());
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("Derivado a: "+hjr.getDerivado()+"              Instruccion: "+hjr.getInstruccion());
+		            
+		            document.add(paragraph);
+		            // Agrega el párrafo al documento
+		            paragraph = new Paragraph("Observaciones: "+hjr.getObservaciones());
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("___________________");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            // Agrega el párrafo al documento
+		            document.add(paragraph);
+		            paragraph = new Paragraph("       Firma        ");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            document.add(paragraph);
+		         
+		            if(contadorAcciones>1) {
+		            	
+		            }
+		            
+		            // Agrega el párrafo al documento
+		            document.close();
+		        } catch (FileNotFoundException e1) {
+		            e1.printStackTrace();
+		        } catch (DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
+        		
+        		try {
+		            // Especifica la ruta donde quieres guardar el PDF
+				  String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_"+hjr1.getCpmh()+".pdf";
+
+		            // Crea un documento PDF
+		            Document document = new Document();
+
+		            // Crea un escritor PDF
+		            try {
+						PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+					} catch (DocumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+		            // Abre el documento para agregar contenido
+		            document.open();
+
+		            // Crea una fuente en negrita
+		            com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
+		           Paragraph paragraph =new Paragraph();
+		            
+		            paragraph = new Paragraph("ACCIONES REALIZADAS: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("ACCION 1: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("N°: "+hjr1.getCpmh()+"            Fecha atencion: "+hjr1.getFechaAccion());
+		            
+		            document.add(paragraph);
+
+		            paragraph = new Paragraph("Accion realizada: "+hjr1.getAccionRealizada());
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("Derivado a: "+hjr1.getDerivado()+"              Instruccion: "+hjr1.getInstruccion());
+		            
+		            document.add(paragraph);
+		            // Agrega el párrafo al documento
+		            paragraph = new Paragraph("Observaciones: "+hjr1.getObservaciones());
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("___________________");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            // Agrega el párrafo al documento
+		            document.add(paragraph);
+		            paragraph = new Paragraph("       Firma        ");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            document.add(paragraph);
+		         
+		            
+		            // Agrega el párrafo al documento
+		            document.close();
+		        } catch (FileNotFoundException e1) {
+		            e1.printStackTrace();
+		        } catch (DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
+        	}
+        });
+        btnImprimirAcciones.setBounds(1666, 548, 218, 29);
+        panelLlenado.add(btnImprimirAcciones);
         JScrollPane mainScrollPane = new JScrollPane(contentPane);
         mainScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         mainScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -1360,14 +1528,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         separator_1.setBounds(0, 485, 1894, 2);
         panelLlenado.add(separator_1);
         
-        JButton btnImprimirAcciones = new JButton(""
-        		+ " ACCIONES REALIZADAS");
-        btnImprimirAcciones.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
-        btnImprimirAcciones.setBounds(1666, 548, 218, 29);
-        panelLlenado.add(btnImprimirAcciones);
+        
         
         JPanel panelAcRealizada2 = new JPanel();
         panelAcRealizada2.setLayout(null);
@@ -1554,7 +1715,182 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         int preferredHeight = screenSize.height; 
         contentPane.setPreferredSize(new Dimension(preferredWidth, preferredHeight));
 
-        
+        JButton btnImprimirAcciones = new JButton(""
+        		+ " ACCIONES REALIZADAS");
+        btnImprimirAcciones.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		int cod=0;
+        		HojaRutaAcciones hjr=null;
+        		HojaRutaAcciones hjr1=null;
+				try {
+					cod = Conexion.ultimaHojaRutaAcciones();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		if(!txtAcciones.getText().equals("")&& !txtInstrucciones.getText().equals("")&& !txtObservacionAccion.getText().equals("")&&!txtFechaAtencion.getText().equals("")) {
+        			hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar(),true);
+        			
+        		}else {
+        			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        		}
+        		
+        		if(contadorAcciones>1) {
+        			int cod1=0;
+            		
+    				try {
+    					cod1 = Conexion.ultimaHojaRutaAcciones();
+    				} catch (SQLException e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				}
+            		if(!txtAcciones_1.getText().equals("")&& !txtInstrucciones2.getText().equals("")&& !txtObservacionAccion2.getText().equals("")&&!textField_1.getText().equals("")) {
+            			hjr1=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar(),true);
+            			
+            		}else {
+            			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+            		}
+        		}
+        		try {
+		            // Especifica la ruta donde quieres guardar el PDF
+				  String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_"+hjr.getCpmh()+".pdf";
+
+		            // Crea un documento PDF
+		            Document document = new Document();
+
+		            // Crea un escritor PDF
+		            try {
+						PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+					} catch (DocumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+		            // Abre el documento para agregar contenido
+		            document.open();
+
+		            // Crea una fuente en negrita
+		            com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
+		           Paragraph paragraph =new Paragraph();
+		            
+		            paragraph = new Paragraph("ACCIONES REALIZADAS: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("ACCION 1: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("N°: "+hjr.getCpmh()+"            Fecha atencion: "+hjr.getFechaAccion());
+		            
+		            document.add(paragraph);
+
+		            paragraph = new Paragraph("Accion realizada: "+hjr.getAccionRealizada());
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("Derivado a: "+hjr.getDerivado()+"              Instruccion: "+hjr.getInstruccion());
+		            
+		            document.add(paragraph);
+		            // Agrega el párrafo al documento
+		            paragraph = new Paragraph("Observaciones: "+hjr.getObservaciones());
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("___________________");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            // Agrega el párrafo al documento
+		            document.add(paragraph);
+		            paragraph = new Paragraph("       Firma        ");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            document.add(paragraph);
+		         
+		            if(contadorAcciones>1) {
+		            	
+		            }
+		            
+		            // Agrega el párrafo al documento
+		            document.close();
+		        } catch (FileNotFoundException e1) {
+		            e1.printStackTrace();
+		        } catch (DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
+        		
+        		try {
+		            // Especifica la ruta donde quieres guardar el PDF
+				  String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_"+hjr1.getCpmh()+".pdf";
+
+		            // Crea un documento PDF
+		            Document document = new Document();
+
+		            // Crea un escritor PDF
+		            try {
+						PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+					} catch (DocumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+		            // Abre el documento para agregar contenido
+		            document.open();
+
+		            // Crea una fuente en negrita
+		            com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
+		           Paragraph paragraph =new Paragraph();
+		            
+		            paragraph = new Paragraph("ACCIONES REALIZADAS: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("ACCION 1: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("N°: "+hjr1.getCpmh()+"            Fecha atencion: "+hjr1.getFechaAccion());
+		            
+		            document.add(paragraph);
+
+		            paragraph = new Paragraph("Accion realizada: "+hjr1.getAccionRealizada());
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("Derivado a: "+hjr1.getDerivado()+"              Instruccion: "+hjr1.getInstruccion());
+		            
+		            document.add(paragraph);
+		            // Agrega el párrafo al documento
+		            paragraph = new Paragraph("Observaciones: "+hjr1.getObservaciones());
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("___________________");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            // Agrega el párrafo al documento
+		            document.add(paragraph);
+		            paragraph = new Paragraph("       Firma        ");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            document.add(paragraph);
+		         
+		            
+		            // Agrega el párrafo al documento
+		            document.close();
+		        } catch (FileNotFoundException e1) {
+		            e1.printStackTrace();
+		        } catch (DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
+        	}
+        });
+        btnImprimirAcciones.setBounds(1666, 548, 218, 29);
+        panelLlenado.add(btnImprimirAcciones);
         
         JScrollPane scrollPane = new JScrollPane(panelAcRealizada1);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -2154,14 +2490,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         separator_1.setBounds(0, 485, 1894, 2);
         panelLlenado.add(separator_1);
         
-        JButton btnImprimirAcciones = new JButton("IMPRIMIR ACCIONES REALIZADAS");
-        btnImprimirAcciones.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
-        btnImprimirAcciones.setBounds(1666, 548, 218, 29);
-        panelLlenado.add(btnImprimirAcciones);
-        
+       
         JPanel panelAcRealizada2 = new JPanel();
         panelAcRealizada2.setLayout(null);
         panelAcRealizada2.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -2361,6 +2690,182 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         panelLlenado.add(scrollPane);
 
 
+        JButton btnImprimirAcciones = new JButton(""
+        		+ " ACCIONES REALIZADAS");
+        btnImprimirAcciones.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		int cod=0;
+        		HojaRutaAcciones hjr=null;
+        		HojaRutaAcciones hjr1=null;
+				try {
+					cod = Conexion.ultimaHojaRutaAcciones();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		if(!txtAcciones.getText().equals("")&& !txtInstrucciones.getText().equals("")&& !txtObservacionAccion.getText().equals("")&&!txtFechaAtencion.getText().equals("")) {
+        			hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar(),true);
+        			
+        		}else {
+        			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        		}
+        		
+        		if(contadorAcciones>1) {
+        			int cod1=0;
+            		
+    				try {
+    					cod1 = Conexion.ultimaHojaRutaAcciones();
+    				} catch (SQLException e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				}
+            		if(!txtAcciones_1.getText().equals("")&& !txtInstrucciones2.getText().equals("")&& !txtObservacionAccion2.getText().equals("")&&!textField_1.getText().equals("")) {
+            			hjr1=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar(),true);
+            			
+            		}else {
+            			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+            		}
+        		}
+        		try {
+		            // Especifica la ruta donde quieres guardar el PDF
+				  String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_"+hjr.getCpmh()+".pdf";
+
+		            // Crea un documento PDF
+		            Document document = new Document();
+
+		            // Crea un escritor PDF
+		            try {
+						PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+					} catch (DocumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+		            // Abre el documento para agregar contenido
+		            document.open();
+
+		            // Crea una fuente en negrita
+		            com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
+		           Paragraph paragraph =new Paragraph();
+		            
+		            paragraph = new Paragraph("ACCIONES REALIZADAS: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("ACCION 1: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("N°: "+hjr.getCpmh()+"            Fecha atencion: "+hjr.getFechaAccion());
+		            
+		            document.add(paragraph);
+
+		            paragraph = new Paragraph("Accion realizada: "+hjr.getAccionRealizada());
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("Derivado a: "+hjr.getDerivado()+"              Instruccion: "+hjr.getInstruccion());
+		            
+		            document.add(paragraph);
+		            // Agrega el párrafo al documento
+		            paragraph = new Paragraph("Observaciones: "+hjr.getObservaciones());
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("___________________");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            // Agrega el párrafo al documento
+		            document.add(paragraph);
+		            paragraph = new Paragraph("       Firma        ");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            document.add(paragraph);
+		         
+		            if(contadorAcciones>1) {
+		            	
+		            }
+		            
+		            // Agrega el párrafo al documento
+		            document.close();
+		        } catch (FileNotFoundException e1) {
+		            e1.printStackTrace();
+		        } catch (DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
+        		
+        		try {
+		            // Especifica la ruta donde quieres guardar el PDF
+				  String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_"+hjr1.getCpmh()+".pdf";
+
+		            // Crea un documento PDF
+		            Document document = new Document();
+
+		            // Crea un escritor PDF
+		            try {
+						PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+					} catch (DocumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+		            // Abre el documento para agregar contenido
+		            document.open();
+
+		            // Crea una fuente en negrita
+		            com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
+		           Paragraph paragraph =new Paragraph();
+		            
+		            paragraph = new Paragraph("ACCIONES REALIZADAS: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("ACCION 1: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("N°: "+hjr1.getCpmh()+"            Fecha atencion: "+hjr1.getFechaAccion());
+		            
+		            document.add(paragraph);
+
+		            paragraph = new Paragraph("Accion realizada: "+hjr1.getAccionRealizada());
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("Derivado a: "+hjr1.getDerivado()+"              Instruccion: "+hjr1.getInstruccion());
+		            
+		            document.add(paragraph);
+		            // Agrega el párrafo al documento
+		            paragraph = new Paragraph("Observaciones: "+hjr1.getObservaciones());
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("___________________");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            // Agrega el párrafo al documento
+		            document.add(paragraph);
+		            paragraph = new Paragraph("       Firma        ");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            document.add(paragraph);
+		         
+		            
+		            // Agrega el párrafo al documento
+		            document.close();
+		        } catch (FileNotFoundException e1) {
+		            e1.printStackTrace();
+		        } catch (DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
+        	}
+        });
+        btnImprimirAcciones.setBounds(1666, 548, 218, 29);
+        panelLlenado.add(btnImprimirAcciones);
         
         JScrollPane scrollPane2 = new JScrollPane(panelAcRealizada2);
         scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -2437,7 +2942,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         panelBotonesCabecera.add(btnAtras);
 
         JButton btnPerfil = new JButton("");
-       ImageIcon iconOriginal = new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/perfilpersona.png"));
+        ImageIcon iconOriginal = new ImageIcon(Hoja_ruta_acciones.class.getResource("/imagenes_help/perfilpersona.png"));
         Image imagenOriginal = iconOriginal.getImage();
         int nuevoAncho = 100;
         int nuevoAlto = 100;
@@ -2616,7 +3121,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         btnImprimir.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
 
-				
+			
 				try {
 			            // Especifica la ruta donde quieres guardar el PDF
 					  String rutaPDF = "Archivos pdf registro/Registro_PMH_"+hj.getCfhd()+".pdf";
@@ -2952,7 +3457,7 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         
         btnAñadirAccion.setBounds(288, 495, 230, 23);
         panelLlenado.add(btnAñadirAccion);
-        JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
+JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         
         btnQuitarAccion.setBounds(500, 495, 230, 23);
         panelLlenado.add(btnQuitarAccion);
@@ -2960,14 +3465,177 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         separator_1.setBounds(0, 485, 1894, 2);
         panelLlenado.add(separator_1);
         
-        JButton btnImprimirAcciones = new JButton("IMPRIMIR ACCIONES REALIZADAS");
-        btnImprimirAcciones.addActionListener(new ActionListener() {
+       
+        JPanel panelAcRealizada2 = new JPanel();
+        panelAcRealizada2.setLayout(null);
+        panelAcRealizada2.setBorder(new LineBorder(new Color(0, 0, 0)));
+        panelAcRealizada2.setBounds(807, 529, 650, 224);
+        panelAcRealizada2.setVisible(false);
+        
+
+        JLabel lblFechaAccion_1 = new JLabel("FECHA DE ATENCION:");
+        lblFechaAccion_1.setBounds(27, 25, 119, 14);
+        panelAcRealizada2.add(lblFechaAccion_1);
+        
+        textField_1 = new JTextField();
+        textField_1.setColumns(15);
+        textField_1.setBounds(160, 22, 130, 20);
+        panelAcRealizada2.add(textField_1);
+        
+        JLabel lblAccionRealizada_1 = new JLabel("ACCIÓN REALIZADA:");
+        lblAccionRealizada_1.setBounds(25, 50, 121, 14);
+        panelAcRealizada2.add(lblAccionRealizada_1);
+        
+        JTextField txtAcciones_1  = new JTextField();
+        txtAcciones_1.setColumns(10);
+        txtAcciones_1.setBounds(160, 53, 150, 22);
+        panelAcRealizada2.add(txtAcciones_1);
+       
+        
+        JLabel lblDerivado_1 = new JLabel("DERIVADO A:");
+        lblDerivado_1.setBounds(317, 50, 110, 14);
+        panelAcRealizada2.add(lblDerivado_1);
+        
+        JComboBox<String> comboDerivados_1 = new JComboBox<String>();
+        comboDerivados_1.setBounds(412, 53, 110, 22);
+        panelAcRealizada2.add(comboDerivados_1);
+        comboDerivados_1.addItem("Encargado 1");
+        
+        JLabel lblInstruccion_1 = new JLabel("INSTRUCCIÖN:");
+        lblInstruccion_1.setBounds(27, 94, 119, 14);
+        panelAcRealizada2.add(lblInstruccion_1);
+        
+        JLabel lblObservacionAccion_1 = new JLabel("OBSERVACIONES:");
+        lblObservacionAccion_1.setBounds(27, 152, 152, 14);
+        panelAcRealizada2.add(lblObservacionAccion_1);
+        
+        JTextArea txtInstrucciones2 = new JTextArea();
+        JScrollPane scrollInstrucciones_1 = new JScrollPane(txtInstrucciones2 );
+        scrollInstrucciones_1.setBounds(133, 94, 294, 48);
+        panelAcRealizada2.add(scrollInstrucciones_1);
+        
+        JTextArea txtObservacionAccion2 = new JTextArea();
+        JScrollPane scrollObservacionesAccion_1 = new JScrollPane( txtObservacionAccion2 );
+        scrollObservacionesAccion_1.setBounds(133, 165, 294, 48);
+        panelAcRealizada2.add(scrollObservacionesAccion_1);
+       
+        JButton btnGuardarAccion_1 = new JButton("REGISTRAR ACCIÓN");
+        btnGuardarAccion_1.setBounds(452, 190, 152, 23);
+        panelAcRealizada2.add(btnGuardarAccion_1);
+        btnGuardarAccion_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		int cod=0;
+				try {
+					cod = Conexion.ultimaHojaRutaAcciones();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		if(!txtAcciones_1.getText().equals("")&& !txtInstrucciones2.getText().equals("")&& !txtObservacionAccion2.getText().equals("")&&!textField_1.getText().equals("")) {
+        			HojaRutaAcciones hjr=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar(),true);
+        			try {
+						Conexion.registrarHojaDeRutaAcciones(hjr);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+        		}else {
+        			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        		}
         	}
         });
-        btnImprimirAcciones.setBounds(1666, 548, 218, 29);
-        panelLlenado.add(btnImprimirAcciones);
+        JButton btnImprimirAccion_1 = new JButton("IMPRIMIR ACCIÓN");
+        btnImprimirAccion_1 .addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		int cod=0;
+        		HojaRutaAcciones hjr=null;
+				try {
+					cod = Conexion.ultimaHojaRutaAcciones();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		if(!txtAcciones_1.getText().equals("")&& !txtInstrucciones2.getText().equals("")&& !txtObservacionAccion2.getText().equals("")&&!textField_1.getText().equals("")) {
+        			hjr=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar(),true);
+        			
+        		}else {
+        			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        		}
+        		try {
+		            // Especifica la ruta donde quieres guardar el PDF
+				  String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_"+hjr.getCpmh()+".pdf";
 
+		            // Crea un documento PDF
+		            Document document = new Document();
+
+		            // Crea un escritor PDF
+		            try {
+						PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+					} catch (DocumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+		            // Abre el documento para agregar contenido
+		            document.open();
+
+		            // Crea una fuente en negrita
+		            com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
+		           Paragraph paragraph =new Paragraph();
+		            
+		            paragraph = new Paragraph("ACCIONES REALIZADAS: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("ACCION 1: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("N°: "+hjr.getCpmh()+"            Fecha atencion: "+hjr.getFechaAccion());
+		            
+		            document.add(paragraph);
+
+		            paragraph = new Paragraph("Accion realizada: "+hjr.getAccionRealizada());
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("Derivado a: "+hjr.getDerivado()+"              Instruccion: "+hjr.getInstruccion());
+		            
+		            document.add(paragraph);
+		            // Agrega el párrafo al documento
+		            paragraph = new Paragraph("Observaciones: "+hjr.getObservaciones());
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("___________________");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            // Agrega el párrafo al documento
+		            document.add(paragraph);
+		            paragraph = new Paragraph("       Firma        ");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            document.add(paragraph);
+		         
+		            
+		            // Agrega el párrafo al documento
+		            document.close();
+		        } catch (FileNotFoundException e1) {
+		            e1.printStackTrace();
+		        } catch (DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
+        	}});
+        btnImprimirAccion_1.setBounds(452, 148, 152, 23);
+        panelAcRealizada2.add(btnImprimirAccion_1);
+        contadorAcciones = 0; // la cantidad de acciones realizadas hasta el momento
+        
+        panelAcRealizada1.setPreferredSize(new Dimension(600, 250)); 
+        panelAcRealizada2.setPreferredSize(new Dimension(600, 250));
+        
+        
         JScrollPane mainScrollPane = new JScrollPane(contentPane);
         mainScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         mainScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -2986,9 +3654,199 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
         scrollPane.setVisible(false);
         scrollPane.setMinimumSize(new Dimension(200, 100)); // Set the minimum size
         panelLlenado.add(scrollPane);
+
+
+        JButton btnImprimirAcciones = new JButton(""
+        		+ " ACCIONES REALIZADAS");
+        btnImprimirAcciones.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		int cod=0;
+        		HojaRutaAcciones hjr=null;
+        		HojaRutaAcciones hjr1=null;
+				try {
+					cod = Conexion.ultimaHojaRutaAcciones();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		if(!txtAcciones.getText().equals("")&& !txtInstrucciones.getText().equals("")&& !txtObservacionAccion.getText().equals("")&&!txtFechaAtencion.getText().equals("")) {
+        			hjr=new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(), txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),Main.getUltimaHojar(),true);
+        			
+        		}else {
+        			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        		}
+        		
+        		if(contadorAcciones>1) {
+        			int cod1=0;
+            		
+    				try {
+    					cod1 = Conexion.ultimaHojaRutaAcciones();
+    				} catch (SQLException e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				}
+            		if(!txtAcciones_1.getText().equals("")&& !txtInstrucciones2.getText().equals("")&& !txtObservacionAccion2.getText().equals("")&&!textField_1.getText().equals("")) {
+            			hjr1=new HojaRutaAcciones(cod, txtAcciones_1.getText(), (String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(), txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),Main.getUltimaHojar(),true);
+            			
+            		}else {
+            			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+            		}
+        		}
+        		try {
+		            // Especifica la ruta donde quieres guardar el PDF
+				  String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_"+hjr.getCpmh()+".pdf";
+
+		            // Crea un documento PDF
+		            Document document = new Document();
+
+		            // Crea un escritor PDF
+		            try {
+						PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+					} catch (DocumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+		            // Abre el documento para agregar contenido
+		            document.open();
+
+		            // Crea una fuente en negrita
+		            com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
+		           Paragraph paragraph =new Paragraph();
+		            
+		            paragraph = new Paragraph("ACCIONES REALIZADAS: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("ACCION 1: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("N°: "+hjr.getCpmh()+"            Fecha atencion: "+hjr.getFechaAccion());
+		            
+		            document.add(paragraph);
+
+		            paragraph = new Paragraph("Accion realizada: "+hjr.getAccionRealizada());
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("Derivado a: "+hjr.getDerivado()+"              Instruccion: "+hjr.getInstruccion());
+		            
+		            document.add(paragraph);
+		            // Agrega el párrafo al documento
+		            paragraph = new Paragraph("Observaciones: "+hjr.getObservaciones());
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("___________________");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            // Agrega el párrafo al documento
+		            document.add(paragraph);
+		            paragraph = new Paragraph("       Firma        ");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            document.add(paragraph);
+		         
+		            if(contadorAcciones>1) {
+		            	
+		            }
+		            
+		            // Agrega el párrafo al documento
+		            document.close();
+		        } catch (FileNotFoundException e1) {
+		            e1.printStackTrace();
+		        } catch (DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
+        		
+        		try {
+		            // Especifica la ruta donde quieres guardar el PDF
+				  String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_"+hjr1.getCpmh()+".pdf";
+
+		            // Crea un documento PDF
+		            Document document = new Document();
+
+		            // Crea un escritor PDF
+		            try {
+						PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+					} catch (DocumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+		            // Abre el documento para agregar contenido
+		            document.open();
+
+		            // Crea una fuente en negrita
+		            com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
+		           Paragraph paragraph =new Paragraph();
+		            
+		            paragraph = new Paragraph("ACCIONES REALIZADAS: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("ACCION 1: ",fontBold);
+		            
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("N°: "+hjr1.getCpmh()+"            Fecha atencion: "+hjr1.getFechaAccion());
+		            
+		            document.add(paragraph);
+
+		            paragraph = new Paragraph("Accion realizada: "+hjr1.getAccionRealizada());
+		            
+		            document.add(paragraph);
+		            
+		            paragraph = new Paragraph("Derivado a: "+hjr1.getDerivado()+"              Instruccion: "+hjr1.getInstruccion());
+		            
+		            document.add(paragraph);
+		            // Agrega el párrafo al documento
+		            paragraph = new Paragraph("Observaciones: "+hjr1.getObservaciones());
+		            
+		            document.add(paragraph);
+		            paragraph = new Paragraph("___________________");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            // Agrega el párrafo al documento
+		            document.add(paragraph);
+		            paragraph = new Paragraph("       Firma        ");
+		            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+		            document.add(paragraph);
+		         
+		            
+		            // Agrega el párrafo al documento
+		            document.close();
+		        } catch (FileNotFoundException e1) {
+		            e1.printStackTrace();
+		        } catch (DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
+        	}
+        });
+        btnImprimirAcciones.setBounds(1666, 548, 218, 29);
+        panelLlenado.add(btnImprimirAcciones);
+        
+        JScrollPane scrollPane2 = new JScrollPane(panelAcRealizada2);
+        scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane2.setBounds(807, 529, 644, 250);
+        scrollPane2.setVisible(false);
+        scrollPane2.setMinimumSize(new Dimension(200, 200)); // Set the minimum size
+        panelLlenado.add(scrollPane2);
         scrollPane.setVisible(true);
         panelAcRealizada1.setVisible(true);
         contadorAcciones = 1;
+   
+        	scrollPane2.setVisible(true);
+            panelAcRealizada2.setVisible(true);
+           
+        
         
         
         btnAñadirAccion.addActionListener(new ActionListener() {
@@ -2997,19 +3855,33 @@ JButton btnQuitarAccion = new JButton("QUITAR ACCION REALIZADA");
                 	scrollPane.setVisible(true);
                     panelAcRealizada1.setVisible(true);
                     contadorAcciones = 1;
-                } 
+                } else {
+                    if (contadorAcciones == 1) {
+                    	scrollPane2.setVisible(true);
+                        panelAcRealizada2.setVisible(true);
+                        contadorAcciones = 2;
+                    }
+                }
             }
         });
         btnQuitarAccion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (contadorAcciones == 1) {
-                	scrollPane.setVisible(false);
-                    panelAcRealizada1.setVisible(false);
-                    contadorAcciones = 0;
-                } 
+                if (contadorAcciones == 2) {
+                	scrollPane2.setVisible(false);
+                    panelAcRealizada2.setVisible(false);
+                	
+                    contadorAcciones = 1;
+                } else {
+                    if (contadorAcciones == 1) {
+                    	scrollPane.setVisible(false); 
+                        panelAcRealizada1.setVisible(false);
+                        contadorAcciones = 0;
+                    }
+                }
             }
         });
         // Hacer que la ventana se abra en pantalla completa
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 }
+    
