@@ -179,8 +179,6 @@ public class Registro extends JFrame {
 		separator_1.setBounds(0, 122, 1894, 13);
 		panelDatosIniciales.add(separator_1);
 
-	
-
 		JPanel panelIdentificación = new JPanel();
 		panelLlenado.add(panelIdentificación, BorderLayout.CENTER);
 		panelIdentificación.setLayout(new BorderLayout(0, 0));
@@ -638,7 +636,7 @@ public class Registro extends JFrame {
 											(String) educaciones.get(i).getSelectedItem(), paises, true);
 									beneficiarios.add(aux);
 									uB++;
-									
+
 									band = band && Conexion.isCIRegistrado(docIdentidad.get(i).getText());
 								}
 
@@ -670,10 +668,9 @@ public class Registro extends JFrame {
 								System.out.println(form);
 								Conexion.registrarFormBD(form);
 								isRegistro = true;
-								
+
 								band = true;
 								JOptionPane.showMessageDialog(null, "Registro exitoso.");
-							
 
 							} else {
 								JOptionPane.showMessageDialog(null, "Documento de identidad ya fue registrado.");
@@ -692,13 +689,13 @@ public class Registro extends JFrame {
 				}
 
 			}
-			
+
 		});
 		JButton btnImprimir = new JButton("IMPRIMIR");
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean band = true;
-				FormlarioRegistro form=null;
+				FormlarioRegistro form = null;
 				if (Integer.parseInt(lblCantidadContador.getText()) > 0) {
 					if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 							&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
@@ -744,46 +741,40 @@ public class Registro extends JFrame {
 											(String) educaciones.get(i).getSelectedItem(), paises, true);
 									beneficiarios.add(aux);
 									uB++;
-									
+
 									band = band && Conexion.isCIRegistrado(docIdentidad.get(i).getText());
 								}
 
 							}
 
 							System.out.println(aux.toString());
-							if (band) {
-								Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0),
-										beneficiarios, true);
-								form = new FormlarioRegistro(uR,
-										(String) comboBoxLugares.getSelectedItem(), txtTelefono.getText(),
-										(String) comboBoxPaisesOrigen.getSelectedItem(),
-										Extras.fechas(txtFechaSalida.getText()),
-										buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
-										txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
-										(String) comboBoxFronterasIngreso.getSelectedItem(),
-										(String) comboBoxDocumentosIngreso.getSelectedItem(),
-										buttonGroupPermanenciaMigracion.getSelection().getActionCommand(),
-										buttonGroupBoliviaFinal.getSelection().getActionCommand() == "SI",
-										(String) comboBoxPaisesSiguientes.getSelectedItem(), txtPqBolivia.getText(),
-										(String) comboBoxAlojamiento.getSelectedItem(),
-										buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
-										buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
-												buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
-										txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
-										chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
-										chckbxSolAsistencia.isSelected(), fam, true);
-								//Main.setUltimoForm(form);
-								System.out.println(form);
-								//Conexion.registrarFormBD(form);
-								isRegistro = true;
-								
-								band = true;
-								JOptionPane.showMessageDialog(null, "Registro exitoso.");
-							
+							Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0), beneficiarios,
+									true);
+							form = new FormlarioRegistro(uR, (String) comboBoxLugares.getSelectedItem(),
+									txtTelefono.getText(), (String) comboBoxPaisesOrigen.getSelectedItem(),
+									Extras.fechas(txtFechaSalida.getText()),
+									buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
+									txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
+									(String) comboBoxFronterasIngreso.getSelectedItem(),
+									(String) comboBoxDocumentosIngreso.getSelectedItem(),
+									buttonGroupPermanenciaMigracion.getSelection().getActionCommand(),
+									buttonGroupBoliviaFinal.getSelection().getActionCommand() == "SI",
+									(String) comboBoxPaisesSiguientes.getSelectedItem(), txtPqBolivia.getText(),
+									(String) comboBoxAlojamiento.getSelectedItem(),
+									buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
+									buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
+									buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
+									txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
+									chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
+									chckbxSolAsistencia.isSelected(), fam, true);
+							// Main.setUltimoForm(form);
+							System.out.println(form);
+							// Conexion.registrarFormBD(form);
+							isRegistro = true;
 
-							} else {
-								JOptionPane.showMessageDialog(null, "Documento de identidad ya fue registrado.");
-							}
+							band = true;
+							JOptionPane.showMessageDialog(null, "Registro exitoso.");
+
 						} else {
 							JOptionPane.showMessageDialog(null, "Ingrese fechas en formato dd/MM/yyyy.");
 						}
@@ -797,220 +788,226 @@ public class Registro extends JFrame {
 							"Debe registrar minimimamente a un Beneficiario para poder registrar el formulario");
 				}
 
-			
 				try {
-			            // Especifica la ruta donde quieres guardar el PDF
-					  String rutaPDF = "Archivos pdf registro/Registro_"+form.getCfr()+".pdf";
+					// Especifica la ruta donde quieres guardar el PDF
+					String rutaPDF = "Archivos pdf registro/Registro_" + form.getCfr() + ".pdf";
 
-			            // Crea un documento PDF
-			            Document document = new Document();
+					// Crea un documento PDF
+					Document document = new Document();
 
-			            // Crea un escritor PDF
-			            try {
-							PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
-						} catch (DocumentException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-
-			            // Abre el documento para agregar contenido
-			            document.open();
-
-			            // Crea una fuente en negrita
-			            com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
-
-			            // Crea un párrafo centrado y en negrita
-			            Paragraph paragraph = new Paragraph("FORMULARIO DE REGISTRO", fontBold);
-			            paragraph.setAlignment(Element.ALIGN_CENTER);
-
-			            // Agrega el párrafo al documento
-			            document.add(paragraph);
-			            //line2
-			            paragraph = new Paragraph("Fecha: "+form.getFechaRegistro()+"            Lugar: "+form.getLugar());
-			            paragraph.setSpacingAfter(0);
-			            document.add(paragraph);
-			            
-			            if(form.isTransito()) {
-			            	Paragraph paragraph1 = new Paragraph("Transito");
-				            paragraph1.setAlignment(Element.ALIGN_RIGHT);	
-				            document.add(paragraph1);
-
-			            }
-			         
-			            // Agrega el párrafo al documento
-			            
-			            //line3
-			           
-			            if(form.isRefugio()) {
-			            	 paragraph = new Paragraph("Solicitud refugio ");
-					            paragraph.setAlignment(Element.ALIGN_RIGHT);
-					            document.add(paragraph);
-
-			            }
-			         
-			            // Agrega el párrafo al documento
-			            //line4
-			            
-			            if(form.isAtencion()) {
-				            paragraph = new Paragraph("Solicitud de otro tipo de asistencia ");
-				            paragraph.setAlignment(Element.ALIGN_RIGHT);
-				            document.add(paragraph);
-
-			            }
-			         
-			            // Agrega el párrafo al documento
-			          //line5
-			            paragraph = new Paragraph("Telefono: "+form.getTelefono());
-			            paragraph.setAlignment(Element.ALIGN_RIGHT);
-			            
-			         
-			            // Agrega el párrafo al documento
-			            document.add(paragraph);
-			            //line6
-			            paragraph = new Paragraph("IDENTIFICACIÓN",fontBold);
-			            paragraph.setAlignment(Element.ALIGN_LEFT);
-			            
-			         
-			            // Agrega el párrafo al documento
-			            document.add(paragraph);
-			            
-			           for(Beneficiarios i: form.getFam().getFamilia()) {
-			        	   //linea 1 identificacion
-			        	   paragraph = new Paragraph("Nombre: "+i.getNombre()+"         Edad: "+i.getEdad());
-				          
-				            // Agrega el párrafo al documento
-				            document.add(paragraph);
-				            //linea 2 identicacion
-				            paragraph = new Paragraph("Número de Documento de identidad: "+i.getCi()+"            Expedido en: "+i.getFechaExpedido()+"       Sexo: "+i.getSexo());
-					          
-				            // Agrega el párrafo al documento
-				            document.add(paragraph);
-				            //linea 3 identicacion
-				            paragraph = new Paragraph("Nivel educación: "+i.getEducacion()+"             Ingreso: ");
-				            if(i.isIngreso()) {
-				            	paragraph.add("Irregular");
-				            }else {
-				            	paragraph.add("Regular");
-
-				            }
-					          
-				            // Agrega el párrafo al documento
-				            document.add(paragraph);
-			           }
-			            
-			         //line8
-			            paragraph = new Paragraph("ORÍGEN",fontBold);
-			            paragraph.setAlignment(Element.ALIGN_LEFT);
-			            document.add(paragraph);
-
-			            
-			          //line9
-			            paragraph = new Paragraph("Pais origen: "+form.getPaisOrigen()+"                   Fecha salida: "+form.getFechaSalida()+"                     Transporte: ");
-			            if(form.isTransporte()){
-			            	paragraph.add("Tierra");
-			            }else {
-			            	paragraph.add("Aéreo");
-
-			            }
-			            document.add(paragraph);
-			            for(PaisVisita i: form.getFam().getFamilia().get(0).getPais()) {
-			            	//linea 1 pais
-				        	   paragraph = new Paragraph("Paises por los que paso: "+i.getPais()+"            Tiempo permanencia: "+i.getTiempoDias()+"            Estatus migratorio: "+i.getEstadoMigratorioString());
-					          
-					            // Agrega el párrafo al documento
-					            document.add(paragraph);
-			            }
-			            paragraph = new Paragraph("EXPLIQUE LAS RAZONES POR LAS QUE SALIÓ DE SU PAÍS DE ORIGEN: ");
-			            document.add(paragraph);
-			            paragraph = new Paragraph(form.getRazon());
-			            document.add(paragraph);
-			            
-			            
-			            //linea 10
-			            paragraph = new Paragraph("DESTINO",fontBold);
-			            document.add(paragraph);
-			            //linea 11
-			            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-			            String horaFormateada = form.getHoraRegistro().format(formatter);
-			            paragraph = new Paragraph("Fecha de ingreso a Bolivia: "+form.getFechaIngreso()+"                 Hora ingreso: "+horaFormateada+"                    Frontera ingreso: "+form.getFronteraIngreso());
-			            document.add(paragraph);
-			            //linea 12
-			            paragraph = new Paragraph("Documento de ingreso: "+form.getDocumentoIngreso()+"            Dias de permanencia: "+form.getDiasPermanencia());
-			            document.add(paragraph);
-			          //linea 13
-			            paragraph = new Paragraph("Bolivia es su destino final: ");
-			            if(form.isDestinoFinal()) {
-			            	paragraph.add("si");
-			            	paragraph.add("SI BOLIVA ES SU DESTINO FINAL, ¿POR QUÉ ESCOGIÓ ESTE PAÍS? \n");
-			            	paragraph.add(form.getPorquePais());
-			            }else {
-			            	paragraph.add("no");
-			            	paragraph.add("A que pais seguira: "+form.getPaisSiguiente());
-			            }
-			            
-			            document.add(paragraph);
-			          //linea 14
-			            paragraph = new Paragraph("FORMA DE VIDA",fontBold);
-			            document.add(paragraph);
-			            //linea 15
-			            paragraph = new Paragraph("Donde se aloja: "+form.getAlojamiento()+"                   Hora ingreso: ");
-			            if(form.getSustento()) {
-			            	paragraph.add("Informal");
-			            }else {
-			            	paragraph.add("formal");
-			            }
-			            document.add(paragraph);
-			            //linea 16
-			            paragraph = new Paragraph("Envia dinero a su familia: ");
-			            if(form.isEnviaDinero()) {
-			            	paragraph.add("si");
-			            }else {
-			            	paragraph.add("no");
-			            }
-			            document.add(paragraph);
-			          //linea 16
-			            paragraph = new Paragraph("Le envia dinero su familia ");
-			            if(form.isLeEnviaDienro()) {
-			            	paragraph.add("si");
-			            	paragraph.add("Medio envio: "+form.getMedioEvniaDinero() );
-			            }else {
-			            	paragraph.add("no");
-			            }
-			            document.add(paragraph);
-			            //linea 17
-			            paragraph = new Paragraph("Como se comunica con su familia: "+form.getComunicaFamilia());
-			            
-			            document.add(paragraph);
-			            
-			            paragraph = new Paragraph("OBSERVACIONES",fontBold);
-			            document.add(paragraph);
-			            
-			            paragraph = new Paragraph(form.getObs());
-			            document.add(paragraph);
-			            
-			            paragraph = new Paragraph("AUTORIZACIÓN Y COMPROMISO",fontBold);
-			            document.add(paragraph);
-			            paragraph =new Paragraph("Yo declaro que todos los datos que se encuentran en el presente documento son verdaderos y autorizo a que la PMH de Cáritas Bolivia archive mis datos y los utilice para los fines que corresponda, cuidando mi privacidad, y en beneficio de mi persona.\r\n"
-			            		+ "\r\n"
-			            		+ "Asimismo me comprometo a observar un buen comportamiento dentro de las instalaciones de Caritas y en todos los lugares a los que ésta me derive.\n\n");
-			            document.add(paragraph);
-			            paragraph = new Paragraph("____________________________");
-			            paragraph.setAlignment(Element.ALIGN_CENTER);
-
-			            document.add(paragraph);
-			            
-			            // Cierra el documento
-			            document.close();
-			        } catch (FileNotFoundException e1) {
-			            e1.printStackTrace();
-			        } catch (DocumentException e1) {
+					// Crea un escritor PDF
+					try {
+						PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+					} catch (DocumentException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+
+					// Abre el documento para agregar contenido
+					document.open();
+
+					// Crea una fuente en negrita
+					com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
+					// Crea un párrafo centrado y en negrita
+					Paragraph paragraph = new Paragraph("FORMULARIO DE REGISTRO", fontBold);
+					paragraph.setAlignment(Element.ALIGN_CENTER);
+
+					// Agrega el párrafo al documento
+					document.add(paragraph);
+					// line2
+					paragraph = new Paragraph(
+							"Fecha: " + form.getFechaRegistro() + "            Lugar: " + form.getLugar());
+					paragraph.setSpacingAfter(0);
+					document.add(paragraph);
+
+					if (form.isTransito()) {
+						Paragraph paragraph1 = new Paragraph("Transito");
+						paragraph1.setAlignment(Element.ALIGN_RIGHT);
+						document.add(paragraph1);
+
+					}
+
+					// Agrega el párrafo al documento
+
+					// line3
+
+					if (form.isRefugio()) {
+						paragraph = new Paragraph("Solicitud refugio ");
+						paragraph.setAlignment(Element.ALIGN_RIGHT);
+						document.add(paragraph);
+
+					}
+
+					// Agrega el párrafo al documento
+					// line4
+
+					if (form.isAtencion()) {
+						paragraph = new Paragraph("Solicitud de otro tipo de asistencia ");
+						paragraph.setAlignment(Element.ALIGN_RIGHT);
+						document.add(paragraph);
+
+					}
+
+					// Agrega el párrafo al documento
+					// line5
+					paragraph = new Paragraph("Telefono: " + form.getTelefono());
+					paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+					// Agrega el párrafo al documento
+					document.add(paragraph);
+					// line6
+					paragraph = new Paragraph("IDENTIFICACIÓN", fontBold);
+					paragraph.setAlignment(Element.ALIGN_LEFT);
+
+					// Agrega el párrafo al documento
+					document.add(paragraph);
+
+					for (Beneficiarios i : form.getFam().getFamilia()) {
+						// linea 1 identificacion
+						paragraph = new Paragraph("Nombre: " + i.getNombre() + "         Edad: " + i.getEdad());
+
+						// Agrega el párrafo al documento
+						document.add(paragraph);
+						// linea 2 identicacion
+						paragraph = new Paragraph("Número de Documento de identidad: " + i.getCi()
+								+ "            Expedido en: " + i.getFechaExpedido() + "       Sexo: " + i.getSexo());
+
+						// Agrega el párrafo al documento
+						document.add(paragraph);
+						// linea 3 identicacion
+						paragraph = new Paragraph("Nivel educación: " + i.getEducacion() + "             Ingreso: ");
+						if (i.isIngreso()) {
+							paragraph.add("Irregular");
+						} else {
+							paragraph.add("Regular");
+
+						}
+
+						// Agrega el párrafo al documento
+						document.add(paragraph);
+					}
+
+					// line8
+					paragraph = new Paragraph("ORÍGEN", fontBold);
+					paragraph.setAlignment(Element.ALIGN_LEFT);
+					document.add(paragraph);
+
+					// line9
+					paragraph = new Paragraph(
+							"Pais origen: " + form.getPaisOrigen() + "                   Fecha salida: "
+									+ form.getFechaSalida() + "                     Transporte: ");
+					if (form.isTransporte()) {
+						paragraph.add("Tierra");
+					} else {
+						paragraph.add("Aéreo");
+
+					}
+					document.add(paragraph);
+					for (PaisVisita i : form.getFam().getFamilia().get(0).getPais()) {
+						// linea 1 pais
+						paragraph = new Paragraph("Paises por los que paso: " + i.getPais()
+								+ "            Tiempo permanencia: " + i.getTiempoDias()
+								+ "            Estatus migratorio: " + i.getEstadoMigratorioString());
+
+						// Agrega el párrafo al documento
+						document.add(paragraph);
+					}
+					paragraph = new Paragraph("EXPLIQUE LAS RAZONES POR LAS QUE SALIÓ DE SU PAÍS DE ORIGEN: ");
+					document.add(paragraph);
+					paragraph = new Paragraph(form.getRazon());
+					document.add(paragraph);
+
+					// linea 10
+					paragraph = new Paragraph("DESTINO", fontBold);
+					document.add(paragraph);
+					// linea 11
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+					String horaFormateada = form.getHoraRegistro().format(formatter);
+					paragraph = new Paragraph("Fecha de ingreso a Bolivia: " + form.getFechaIngreso()
+							+ "                 Hora ingreso: " + horaFormateada
+							+ "                    Frontera ingreso: " + form.getFronteraIngreso());
+					document.add(paragraph);
+					// linea 12
+					paragraph = new Paragraph("Documento de ingreso: " + form.getDocumentoIngreso()
+							+ "            Dias de permanencia: " + form.getDiasPermanencia());
+					document.add(paragraph);
+					// linea 13
+					paragraph = new Paragraph("Bolivia es su destino final: ");
+					if (form.isDestinoFinal()) {
+						paragraph.add("si");
+						paragraph.add("SI BOLIVA ES SU DESTINO FINAL, ¿POR QUÉ ESCOGIÓ ESTE PAÍS? \n");
+						paragraph.add(form.getPorquePais());
+					} else {
+						paragraph.add("no");
+						paragraph.add("A que pais seguira: " + form.getPaisSiguiente());
+					}
+
+					document.add(paragraph);
+					// linea 14
+					paragraph = new Paragraph("FORMA DE VIDA", fontBold);
+					document.add(paragraph);
+					// linea 15
+					paragraph = new Paragraph(
+							"Donde se aloja: " + form.getAlojamiento() + "                   Hora ingreso: ");
+					if (form.getSustento()) {
+						paragraph.add("Informal");
+					} else {
+						paragraph.add("formal");
+					}
+					document.add(paragraph);
+					// linea 16
+					paragraph = new Paragraph("Envia dinero a su familia: ");
+					if (form.isEnviaDinero()) {
+						paragraph.add("si");
+					} else {
+						paragraph.add("no");
+					}
+					document.add(paragraph);
+					// linea 16
+					paragraph = new Paragraph("Le envia dinero su familia ");
+					if (form.isLeEnviaDienro()) {
+						paragraph.add("si");
+						paragraph.add("Medio envio: " + form.getMedioEvniaDinero());
+					} else {
+						paragraph.add("no");
+					}
+					document.add(paragraph);
+					// linea 17
+					paragraph = new Paragraph("Como se comunica con su familia: " + form.getComunicaFamilia());
+
+					document.add(paragraph);
+
+					paragraph = new Paragraph("OBSERVACIONES", fontBold);
+					document.add(paragraph);
+
+					paragraph = new Paragraph(form.getObs());
+					document.add(paragraph);
+
+					paragraph = new Paragraph("AUTORIZACIÓN Y COMPROMISO", fontBold);
+					document.add(paragraph);
+					paragraph = new Paragraph(
+							"Yo declaro que todos los datos que se encuentran en el presente documento son verdaderos y autorizo a que la PMH de Cáritas Bolivia archive mis datos y los utilice para los fines que corresponda, cuidando mi privacidad, y en beneficio de mi persona.\r\n"
+									+ "\r\n"
+									+ "Asimismo me comprometo a observar un buen comportamiento dentro de las instalaciones de Caritas y en todos los lugares a los que ésta me derive.\n\n");
+					document.add(paragraph);
+					paragraph = new Paragraph("____________________________");
+					paragraph.setAlignment(Element.ALIGN_CENTER);
+
+					document.add(paragraph);
+
+					// Cierra el documento
+					document.close();
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				} catch (DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnImprimir.setBounds(723, 45, 141, 23);
-		
+
 		panelDatosIniciales.add(btnImprimir);
 		btnRegistrar.setBounds(723, 20, 139, 23);
 		panelDatosIniciales.add(btnRegistrar);
@@ -1023,7 +1020,8 @@ public class Registro extends JFrame {
 						if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 								&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
 								&& !txtComunicacion.getText().equals("") && !txtObservaciones.getText().equals("")
-								&& alMenosUnCheckBoxSeleccionado(chckbxTransito, chckbxSolRefugio, chckbxSolAsistencia)) {
+								&& alMenosUnCheckBoxSeleccionado(chckbxTransito, chckbxSolRefugio,
+										chckbxSolAsistencia)) {
 							if (validarFecha(txtFechaSalida.getText()) && validarFecha(txtFechaIngreso.getText())
 									&& validarFecha(txtExpedido.getText()) && validarFecha(txtFecha.getText())) {
 								ArrayList<Beneficiarios> beneficiarios = new ArrayList<>();
@@ -1041,11 +1039,12 @@ public class Registro extends JFrame {
 									e1.printStackTrace();
 								}
 								for (int i = 0; i < estatus.size(); i++) {
-									if (!permanencia.get(i).getText().equals("") && !estatus.get(i).getText().equals("")) {
+									if (!permanencia.get(i).getText().equals("")
+											&& !estatus.get(i).getText().equals("")) {
 
 										auxPais = new PaisVisita(uP, (String) paisesPaso.get(i).getSelectedItem(),
-												Integer.parseInt(permanencia.get(i).getText()), estatus.get(i).getText(),
-												true);
+												Integer.parseInt(permanencia.get(i).getText()),
+												estatus.get(i).getText(), true);
 										paises.add(auxPais);
 										uP++;
 
@@ -1059,12 +1058,13 @@ public class Registro extends JFrame {
 										aux = new Beneficiarios(uB, nombres.get(i).getText(),
 												Integer.parseInt(edades.get(i).getText()),
 												sexos.get(i).getSelection().getActionCommand(),
-												docIdentidad.get(i).getText(), Extras.fechas(expedidos.get(i).getText()),
+												docIdentidad.get(i).getText(),
+												Extras.fechas(expedidos.get(i).getText()),
 												ingresos.get(i).getSelection().getActionCommand() == "IRREGULAR",
 												(String) educaciones.get(i).getSelectedItem(), paises, true);
 										beneficiarios.add(aux);
 										uB++;
-										
+
 										band = band && Conexion.isCIRegistrado(docIdentidad.get(i).getText());
 									}
 
@@ -1088,18 +1088,17 @@ public class Registro extends JFrame {
 											(String) comboBoxAlojamiento.getSelectedItem(),
 											buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
 											buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
-													buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
-											txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
-											chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
-											chckbxSolAsistencia.isSelected(), fam, true);
+											buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
+											txtMedioEnvio.getText(), txtComunicacion.getText(),
+											txtObservaciones.getText(), chckbxTransito.isSelected(),
+											chckbxSolRefugio.isSelected(), chckbxSolAsistencia.isSelected(), fam, true);
 									Main.setUltimoForm(form);
 									System.out.println(form);
 									Conexion.registrarFormBD(form);
 									isRegistro = true;
-									
+
 									band = true;
 									JOptionPane.showMessageDialog(null, "Registro exitoso.");
-								
 
 								} else {
 									JOptionPane.showMessageDialog(null, "Documento de identidad ya fue registrado.");
@@ -1277,8 +1276,6 @@ public class Registro extends JFrame {
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(0, 122, 1894, 13);
 		panelDatosIniciales.add(separator_1);
-
-		
 
 		JPanel panelIdentificación = new JPanel();
 		panelLlenado.add(panelIdentificación, BorderLayout.CENTER);
@@ -1692,7 +1689,7 @@ public class Registro extends JFrame {
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean band = true;
-				FormlarioRegistro form=null;
+				FormlarioRegistro form = null;
 				if (Integer.parseInt(lblCantidadContador.getText()) > 0) {
 					if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 							&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
@@ -1738,19 +1735,18 @@ public class Registro extends JFrame {
 											(String) educaciones.get(i).getSelectedItem(), paises, true);
 									beneficiarios.add(aux);
 									uB++;
-									
+
 									band = band && Conexion.isCIRegistrado(docIdentidad.get(i).getText());
 								}
 
 							}
 
 							System.out.println(aux.toString());
-							if (band) {
+							
 								Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0),
 										beneficiarios, true);
-								form = new FormlarioRegistro(uR,
-										(String) comboBoxLugares.getSelectedItem(), txtTelefono.getText(),
-										(String) comboBoxPaisesOrigen.getSelectedItem(),
+								form = new FormlarioRegistro(uR, (String) comboBoxLugares.getSelectedItem(),
+										txtTelefono.getText(), (String) comboBoxPaisesOrigen.getSelectedItem(),
 										Extras.fechas(txtFechaSalida.getText()),
 										buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
 										txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
@@ -1762,22 +1758,19 @@ public class Registro extends JFrame {
 										(String) comboBoxAlojamiento.getSelectedItem(),
 										buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
 										buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
-												buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
+										buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
 										txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
 										chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
 										chckbxSolAsistencia.isSelected(), fam, true);
-								//Main.setUltimoForm(form);
+								// Main.setUltimoForm(form);
 								System.out.println(form);
-								//Conexion.registrarFormBD(form);
+								// Conexion.registrarFormBD(form);
 								isRegistro = true;
-								
+
 								band = true;
 								JOptionPane.showMessageDialog(null, "Registro exitoso.");
-							
 
-							} else {
-								JOptionPane.showMessageDialog(null, "Documento de identidad ya fue registrado.");
-							}
+							
 						} else {
 							JOptionPane.showMessageDialog(null, "Ingrese fechas en formato dd/MM/yyyy.");
 						}
@@ -1791,216 +1784,222 @@ public class Registro extends JFrame {
 							"Debe registrar minimimamente a un Beneficiario para poder registrar el formulario");
 				}
 
-			
 				try {
-			            // Especifica la ruta donde quieres guardar el PDF
-					  String rutaPDF = "Archivos pdf registro/Registro_"+form.getCfr()+".pdf";
+					// Especifica la ruta donde quieres guardar el PDF
+					String rutaPDF = "Archivos pdf registro/Registro_" + form.getCfr() + ".pdf";
 
-			            // Crea un documento PDF
-			            Document document = new Document();
+					// Crea un documento PDF
+					Document document = new Document();
 
-			            // Crea un escritor PDF
-			            try {
-							PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
-						} catch (DocumentException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-
-			            // Abre el documento para agregar contenido
-			            document.open();
-
-			            // Crea una fuente en negrita
-			            com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
-
-			            // Crea un párrafo centrado y en negrita
-			            Paragraph paragraph = new Paragraph("FORMULARIO DE REGISTRO", fontBold);
-			            paragraph.setAlignment(Element.ALIGN_CENTER);
-
-			            // Agrega el párrafo al documento
-			            document.add(paragraph);
-			            //line2
-			            paragraph = new Paragraph("Fecha: "+form.getFechaRegistro()+"            Lugar: "+form.getLugar());
-			            paragraph.setSpacingAfter(0);
-			            document.add(paragraph);
-			            
-			            if(form.isTransito()) {
-			            	Paragraph paragraph1 = new Paragraph("Transito");
-				            paragraph1.setAlignment(Element.ALIGN_RIGHT);	
-				            document.add(paragraph1);
-
-			            }
-			         
-			            // Agrega el párrafo al documento
-			            
-			            //line3
-			           
-			            if(form.isRefugio()) {
-			            	 paragraph = new Paragraph("Solicitud refugio ");
-					            paragraph.setAlignment(Element.ALIGN_RIGHT);
-					            document.add(paragraph);
-
-			            }
-			         
-			            // Agrega el párrafo al documento
-			            //line4
-			            
-			            if(form.isAtencion()) {
-				            paragraph = new Paragraph("Solicitud de otro tipo de asistencia ");
-				            paragraph.setAlignment(Element.ALIGN_RIGHT);
-				            document.add(paragraph);
-
-			            }
-			         
-			            // Agrega el párrafo al documento
-			          //line5
-			            paragraph = new Paragraph("Telefono: "+form.getTelefono());
-			            paragraph.setAlignment(Element.ALIGN_RIGHT);
-			            
-			         
-			            // Agrega el párrafo al documento
-			            document.add(paragraph);
-			            //line6
-			            paragraph = new Paragraph("IDENTIFICACIÓN",fontBold);
-			            paragraph.setAlignment(Element.ALIGN_LEFT);
-			            
-			         
-			            // Agrega el párrafo al documento
-			            document.add(paragraph);
-			            
-			           for(Beneficiarios i: form.getFam().getFamilia()) {
-			        	   //linea 1 identificacion
-			        	   paragraph = new Paragraph("Nombre: "+i.getNombre()+"         Edad: "+i.getEdad());
-				          
-				            // Agrega el párrafo al documento
-				            document.add(paragraph);
-				            //linea 2 identicacion
-				            paragraph = new Paragraph("Número de Documento de identidad: "+i.getCi()+"            Expedido en: "+i.getFechaExpedido()+"       Sexo: "+i.getSexo());
-					          
-				            // Agrega el párrafo al documento
-				            document.add(paragraph);
-				            //linea 3 identicacion
-				            paragraph = new Paragraph("Nivel educación: "+i.getEducacion()+"             Ingreso: ");
-				            if(i.isIngreso()) {
-				            	paragraph.add("Irregular");
-				            }else {
-				            	paragraph.add("Regular");
-
-				            }
-					          
-				            // Agrega el párrafo al documento
-				            document.add(paragraph);
-			           }
-			            
-			         //line8
-			            paragraph = new Paragraph("ORÍGEN",fontBold);
-			            paragraph.setAlignment(Element.ALIGN_LEFT);
-			            document.add(paragraph);
-
-			            
-			          //line9
-			            paragraph = new Paragraph("Pais origen: "+form.getPaisOrigen()+"                   Fecha salida: "+form.getFechaSalida()+"                     Transporte: ");
-			            if(form.isTransporte()){
-			            	paragraph.add("Tierra");
-			            }else {
-			            	paragraph.add("Aéreo");
-
-			            }
-			            document.add(paragraph);
-			            for(PaisVisita i: form.getFam().getFamilia().get(0).getPais()) {
-			            	//linea 1 pais
-				        	   paragraph = new Paragraph("Paises por los que paso: "+i.getPais()+"            Tiempo permanencia: "+i.getTiempoDias()+"            Estatus migratorio: "+i.getEstadoMigratorioString());
-					          
-					            // Agrega el párrafo al documento
-					            document.add(paragraph);
-			            }
-			            paragraph = new Paragraph("EXPLIQUE LAS RAZONES POR LAS QUE SALIÓ DE SU PAÍS DE ORIGEN: ");
-			            document.add(paragraph);
-			            paragraph = new Paragraph(form.getRazon());
-			            document.add(paragraph);
-			            
-			            
-			            //linea 10
-			            paragraph = new Paragraph("DESTINO",fontBold);
-			            document.add(paragraph);
-			            //linea 11
-			            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-			            String horaFormateada = form.getHoraRegistro().format(formatter);
-			            paragraph = new Paragraph("Fecha de ingreso a Bolivia: "+form.getFechaIngreso()+"                 Hora ingreso: "+horaFormateada+"                    Frontera ingreso: "+form.getFronteraIngreso());
-			            document.add(paragraph);
-			            //linea 12
-			            paragraph = new Paragraph("Documento de ingreso: "+form.getDocumentoIngreso()+"            Dias de permanencia: "+form.getDiasPermanencia());
-			            document.add(paragraph);
-			          //linea 13
-			            paragraph = new Paragraph("Bolivia es su destino final: ");
-			            if(form.isDestinoFinal()) {
-			            	paragraph.add("si");
-			            	paragraph.add("SI BOLIVA ES SU DESTINO FINAL, ¿POR QUÉ ESCOGIÓ ESTE PAÍS? \n");
-			            	paragraph.add(form.getPorquePais());
-			            }else {
-			            	paragraph.add("no");
-			            	paragraph.add("A que pais seguira: "+form.getPaisSiguiente());
-			            }
-			            
-			            document.add(paragraph);
-			          //linea 14
-			            paragraph = new Paragraph("FORMA DE VIDA",fontBold);
-			            document.add(paragraph);
-			            //linea 15
-			            paragraph = new Paragraph("Donde se aloja: "+form.getAlojamiento()+"                   Hora ingreso: ");
-			            if(form.getSustento()) {
-			            	paragraph.add("Informal");
-			            }else {
-			            	paragraph.add("formal");
-			            }
-			            document.add(paragraph);
-			            //linea 16
-			            paragraph = new Paragraph("Envia dinero a su familia: ");
-			            if(form.isEnviaDinero()) {
-			            	paragraph.add("si");
-			            }else {
-			            	paragraph.add("no");
-			            }
-			            document.add(paragraph);
-			          //linea 16
-			            paragraph = new Paragraph("Le envia dinero su familia ");
-			            if(form.isLeEnviaDienro()) {
-			            	paragraph.add("si");
-			            	paragraph.add("Medio envio: "+form.getMedioEvniaDinero() );
-			            }else {
-			            	paragraph.add("no");
-			            }
-			            document.add(paragraph);
-			            //linea 17
-			            paragraph = new Paragraph("Como se comunica con su familia: "+form.getComunicaFamilia());
-			            
-			            document.add(paragraph);
-			            
-			            paragraph = new Paragraph("OBSERVACIONES",fontBold);
-			            document.add(paragraph);
-			            
-			            paragraph = new Paragraph(form.getObs());
-			            document.add(paragraph);
-			            
-			            paragraph = new Paragraph("AUTORIZACIÓN Y COMPROMISO",fontBold);
-			            document.add(paragraph);
-			            paragraph =new Paragraph("Yo declaro que todos los datos que se encuentran en el presente documento son verdaderos y autorizo a que la PMH de Cáritas Bolivia archive mis datos y los utilice para los fines que corresponda, cuidando mi privacidad, y en beneficio de mi persona.\r\n"
-			            		+ "\r\n"
-			            		+ "Asimismo me comprometo a observar un buen comportamiento dentro de las instalaciones de Caritas y en todos los lugares a los que ésta me derive.\n\n");
-			            document.add(paragraph);
-			            paragraph = new Paragraph("____________________________");
-			            paragraph.setAlignment(Element.ALIGN_CENTER);
-
-			            document.add(paragraph);
-			            
-			            // Cierra el documento
-			            document.close();
-			        } catch (FileNotFoundException e1) {
-			            e1.printStackTrace();
-			        } catch (DocumentException e1) {
+					// Crea un escritor PDF
+					try {
+						PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+					} catch (DocumentException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+
+					// Abre el documento para agregar contenido
+					document.open();
+
+					// Crea una fuente en negrita
+					com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
+					// Crea un párrafo centrado y en negrita
+					Paragraph paragraph = new Paragraph("FORMULARIO DE REGISTRO", fontBold);
+					paragraph.setAlignment(Element.ALIGN_CENTER);
+
+					// Agrega el párrafo al documento
+					document.add(paragraph);
+					// line2
+					paragraph = new Paragraph(
+							"Fecha: " + form.getFechaRegistro() + "            Lugar: " + form.getLugar());
+					paragraph.setSpacingAfter(0);
+					document.add(paragraph);
+
+					if (form.isTransito()) {
+						Paragraph paragraph1 = new Paragraph("Transito");
+						paragraph1.setAlignment(Element.ALIGN_RIGHT);
+						document.add(paragraph1);
+
+					}
+
+					// Agrega el párrafo al documento
+
+					// line3
+
+					if (form.isRefugio()) {
+						paragraph = new Paragraph("Solicitud refugio ");
+						paragraph.setAlignment(Element.ALIGN_RIGHT);
+						document.add(paragraph);
+
+					}
+
+					// Agrega el párrafo al documento
+					// line4
+
+					if (form.isAtencion()) {
+						paragraph = new Paragraph("Solicitud de otro tipo de asistencia ");
+						paragraph.setAlignment(Element.ALIGN_RIGHT);
+						document.add(paragraph);
+
+					}
+
+					// Agrega el párrafo al documento
+					// line5
+					paragraph = new Paragraph("Telefono: " + form.getTelefono());
+					paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+					// Agrega el párrafo al documento
+					document.add(paragraph);
+					// line6
+					paragraph = new Paragraph("IDENTIFICACIÓN", fontBold);
+					paragraph.setAlignment(Element.ALIGN_LEFT);
+
+					// Agrega el párrafo al documento
+					document.add(paragraph);
+
+					for (Beneficiarios i : form.getFam().getFamilia()) {
+						// linea 1 identificacion
+						paragraph = new Paragraph("Nombre: " + i.getNombre() + "         Edad: " + i.getEdad());
+
+						// Agrega el párrafo al documento
+						document.add(paragraph);
+						// linea 2 identicacion
+						paragraph = new Paragraph("Número de Documento de identidad: " + i.getCi()
+								+ "            Expedido en: " + i.getFechaExpedido() + "       Sexo: " + i.getSexo());
+
+						// Agrega el párrafo al documento
+						document.add(paragraph);
+						// linea 3 identicacion
+						paragraph = new Paragraph("Nivel educación: " + i.getEducacion() + "             Ingreso: ");
+						if (i.isIngreso()) {
+							paragraph.add("Irregular");
+						} else {
+							paragraph.add("Regular");
+
+						}
+
+						// Agrega el párrafo al documento
+						document.add(paragraph);
+					}
+
+					// line8
+					paragraph = new Paragraph("ORÍGEN", fontBold);
+					paragraph.setAlignment(Element.ALIGN_LEFT);
+					document.add(paragraph);
+
+					// line9
+					paragraph = new Paragraph(
+							"Pais origen: " + form.getPaisOrigen() + "                   Fecha salida: "
+									+ form.getFechaSalida() + "                     Transporte: ");
+					if (form.isTransporte()) {
+						paragraph.add("Tierra");
+					} else {
+						paragraph.add("Aéreo");
+
+					}
+					document.add(paragraph);
+					for (PaisVisita i : form.getFam().getFamilia().get(0).getPais()) {
+						// linea 1 pais
+						paragraph = new Paragraph("Paises por los que paso: " + i.getPais()
+								+ "            Tiempo permanencia: " + i.getTiempoDias()
+								+ "            Estatus migratorio: " + i.getEstadoMigratorioString());
+
+						// Agrega el párrafo al documento
+						document.add(paragraph);
+					}
+					paragraph = new Paragraph("EXPLIQUE LAS RAZONES POR LAS QUE SALIÓ DE SU PAÍS DE ORIGEN: ");
+					document.add(paragraph);
+					paragraph = new Paragraph(form.getRazon());
+					document.add(paragraph);
+
+					// linea 10
+					paragraph = new Paragraph("DESTINO", fontBold);
+					document.add(paragraph);
+					// linea 11
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+					String horaFormateada = form.getHoraRegistro().format(formatter);
+					paragraph = new Paragraph("Fecha de ingreso a Bolivia: " + form.getFechaIngreso()
+							+ "                 Hora ingreso: " + horaFormateada
+							+ "                    Frontera ingreso: " + form.getFronteraIngreso());
+					document.add(paragraph);
+					// linea 12
+					paragraph = new Paragraph("Documento de ingreso: " + form.getDocumentoIngreso()
+							+ "            Dias de permanencia: " + form.getDiasPermanencia());
+					document.add(paragraph);
+					// linea 13
+					paragraph = new Paragraph("Bolivia es su destino final: ");
+					if (form.isDestinoFinal()) {
+						paragraph.add("si");
+						paragraph.add("SI BOLIVA ES SU DESTINO FINAL, ¿POR QUÉ ESCOGIÓ ESTE PAÍS? \n");
+						paragraph.add(form.getPorquePais());
+					} else {
+						paragraph.add("no");
+						paragraph.add("A que pais seguira: " + form.getPaisSiguiente());
+					}
+
+					document.add(paragraph);
+					// linea 14
+					paragraph = new Paragraph("FORMA DE VIDA", fontBold);
+					document.add(paragraph);
+					// linea 15
+					paragraph = new Paragraph(
+							"Donde se aloja: " + form.getAlojamiento() + "                   Hora ingreso: ");
+					if (form.getSustento()) {
+						paragraph.add("Informal");
+					} else {
+						paragraph.add("formal");
+					}
+					document.add(paragraph);
+					// linea 16
+					paragraph = new Paragraph("Envia dinero a su familia: ");
+					if (form.isEnviaDinero()) {
+						paragraph.add("si");
+					} else {
+						paragraph.add("no");
+					}
+					document.add(paragraph);
+					// linea 16
+					paragraph = new Paragraph("Le envia dinero su familia ");
+					if (form.isLeEnviaDienro()) {
+						paragraph.add("si");
+						paragraph.add("Medio envio: " + form.getMedioEvniaDinero());
+					} else {
+						paragraph.add("no");
+					}
+					document.add(paragraph);
+					// linea 17
+					paragraph = new Paragraph("Como se comunica con su familia: " + form.getComunicaFamilia());
+
+					document.add(paragraph);
+
+					paragraph = new Paragraph("OBSERVACIONES", fontBold);
+					document.add(paragraph);
+
+					paragraph = new Paragraph(form.getObs());
+					document.add(paragraph);
+
+					paragraph = new Paragraph("AUTORIZACIÓN Y COMPROMISO", fontBold);
+					document.add(paragraph);
+					paragraph = new Paragraph(
+							"Yo declaro que todos los datos que se encuentran en el presente documento son verdaderos y autorizo a que la PMH de Cáritas Bolivia archive mis datos y los utilice para los fines que corresponda, cuidando mi privacidad, y en beneficio de mi persona.\r\n"
+									+ "\r\n"
+									+ "Asimismo me comprometo a observar un buen comportamiento dentro de las instalaciones de Caritas y en todos los lugares a los que ésta me derive.\n\n");
+					document.add(paragraph);
+					paragraph = new Paragraph("____________________________");
+					paragraph.setAlignment(Element.ALIGN_CENTER);
+
+					document.add(paragraph);
+
+					// Cierra el documento
+					document.close();
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				} catch (DocumentException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnImprimir.setBounds(723, 45, 141, 23);
@@ -2073,7 +2072,7 @@ public class Registro extends JFrame {
 									(String) comboBoxAlojamiento.getSelectedItem(),
 									buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
 									buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
-											buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
+									buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
 									txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
 									chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
 									chckbxSolAsistencia.isSelected(), fam, true);
@@ -2102,15 +2101,14 @@ public class Registro extends JFrame {
 				dispose();
 			}
 		});
-		
-		
+
 		btnHojaRuta.setBounds(723, 70, 139, 23);
 		panelDatosIniciales.add(btnHojaRuta);
 		JButton btnRegistrar = new JButton("ACTUALIZAR");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean band = true;
-				
+
 				if (Integer.parseInt(lblCantidadContador.getText()) > 0) {
 					if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 							&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
@@ -2157,7 +2155,7 @@ public class Registro extends JFrame {
 											(String) educaciones.get(i).getSelectedItem(), paises, true);
 									beneficiarios.add(aux);
 									uB++;
-									//band = band && Conexion.isCIRegistrado(docIdentidad.get(i).getText());
+									// band = band && Conexion.isCIRegistrado(docIdentidad.get(i).getText());
 
 								}
 
@@ -2181,7 +2179,7 @@ public class Registro extends JFrame {
 										(String) comboBoxAlojamiento.getSelectedItem(),
 										buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
 										buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
-												buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
+										buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
 										txtMedioEnvio.getText(), txtComunicacion.getText(), txtObservaciones.getText(),
 										chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
 										chckbxSolAsistencia.isSelected(), fam, true);
@@ -2265,11 +2263,8 @@ public class Registro extends JFrame {
 		for (Beneficiarios i : reg.getFam().getFamilia()) {
 			masPersona(lblCantidadContador, i);
 		}
-		
-		
-		
-		//txtDocIdentidad.setEditable(false);
 
+		// txtDocIdentidad.setEditable(false);
 
 		// Hacer que la ventana se abra en pantalla completa
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
