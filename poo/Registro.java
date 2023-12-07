@@ -2006,6 +2006,7 @@ public class Registro extends JFrame {
 		panelDatosIniciales.add(btnImprimir);
 		JButton btnHojaRuta = new JButton("IR HOJA DE RUTA");
 		btnHojaRuta.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
 
 				if (!isRegistro) {
