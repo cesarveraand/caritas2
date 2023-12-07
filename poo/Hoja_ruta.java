@@ -3,9 +3,21 @@ package poo;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class Hoja_ruta extends JFrame {
@@ -234,6 +246,170 @@ public class Hoja_ruta extends JFrame {
         panelLlenado.add(btnRegistrar);
 
         JButton btnImprimir = new JButton("IMPRIMIR");
+       
+		btnImprimir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Hoja_de_ruta hj=null;
+        		if(!txtNombresBenef.getText().equals("")&&!txtObservaciones.getText().equals("")) {
+        			if(!txtAsignacion.getText().equals("") ||!textFieldFechaAsigacion.getText().equals("") ) {
+        				if(!textFieldFechaAsigacion.getText().equals("")&&!txtAsignacion.getText().equals("")) {
+                    		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(), txtAsignacion.getText(),Extras.fechas(textFieldFechaAsigacion.getText()),Main.getUltimoForm(),true);
+
+        				}else {
+                			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos de asignacion");
+
+        				}
+        			}else {
+                		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm(),true);
+
+        			}
+
+        		}else {
+        			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        		}
+        		
+        	
+			
+				try {
+			            // Especifica la ruta donde quieres guardar el PDF
+					  String rutaPDF = "Archivos pdf registro/Registro_PMH_"+hj.getCfhd()+".pdf";
+
+			            // Crea un documento PDF
+			            Document document = new Document();
+
+			            // Crea un escritor PDF
+			            try {
+							PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+						} catch (DocumentException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
+			            // Abre el documento para agregar contenido
+			            document.open();
+
+			            // Crea una fuente en negrita
+			            com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
+			            // Crea un párrafo centrado y en negrita
+			            Paragraph paragraph = new Paragraph("HOJA DE RUTA P.M.H.", fontBold);
+			            paragraph.setAlignment(Element.ALIGN_CENTER);
+
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            //line2
+			            // Crea un párrafo centrado y en negrita
+			            paragraph = new Paragraph("N° "+hj.getNumero());
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);	
+			            paragraph = new Paragraph("Fecha de atención: "+hj.getFechaReg());
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            paragraph = new Paragraph("Numero de personas:  "+hj.getCantPer());
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            paragraph = new Paragraph("Nombre(s) Apellidos: \n");
+			            // Agrega el párrafo al documento
+			           
+			            
+			            for(Beneficiarios i: hj.getForm().getFam().getFamilia()) {
+			            	paragraph.add(i.getNombre()+"\n");
+				            // Agrega el párrafo al documento
+				           
+			            }
+			            document.add(paragraph);
+			            
+			            paragraph = new Paragraph("Tipo de atención");
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            
+			            if(hj.isLegal()) {
+			            	paragraph = new Paragraph("Asesoramiento legal");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            if(hj.isRefugio()) {
+			            	paragraph = new Paragraph("Solicitud refugio");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            if(hj.isAtencion()) {
+			            	paragraph = new Paragraph("Solo atención social");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            paragraph = new Paragraph("Se solicita al area social analizar la posibilidad de: ");
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            
+			            if(hj.isAccionAlbergue()) {
+			            	paragraph = new Paragraph("Albergue");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            if(hj.isAccionSerMedico()) {
+			            	paragraph = new Paragraph("Servicios Médicos");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            if(hj.isAccionAlimentacion()) {
+			            	paragraph = new Paragraph("Alimentación");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+
+			            if(hj.isAccionAyudaHum()) {
+			            	paragraph = new Paragraph("Ayuda Humanitaria");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            if(hj.isAccionPasajes()) {
+			            	paragraph = new Paragraph("Pasajes");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            if(hj.isAccionCondonacion()) {
+			            	paragraph = new Paragraph("Info. Condonación");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            paragraph = new Paragraph("Asignación: "+hj.getAsignacion());
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            // Cierra el documento
+			            paragraph = new Paragraph("Fecha accion: "+hj.getFechaAsig());
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            
+			            paragraph = new Paragraph("OSERVACIONES: ",fontBold);
+			            
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            paragraph = new Paragraph(hj.getObs());
+			            
+			            document.add(paragraph);
+
+			            
+			            paragraph = new Paragraph("___________________");
+			            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            paragraph = new Paragraph("       Firma        ");
+			            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            // Agrega el párrafo al documento
+			            document.close();
+			        } catch (FileNotFoundException e1) {
+			            e1.printStackTrace();
+			        } catch (DocumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			}
+		});
         btnImprimir.setBounds(1136, 460, 117, 29);
         btnImprimir.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -539,6 +715,169 @@ public class Hoja_ruta extends JFrame {
         btnAcciones.setBounds(1263, 460, 117, 29);
         panelLlenado.add(btnAcciones);
         JButton btnImprimir = new JButton("IMPRIMIR");
+        btnImprimir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Hoja_de_ruta hj=null;
+        		if(!txtNombresBenef.getText().equals("")&&!txtObservaciones.getText().equals("")) {
+        			if(!txtAsignacion.getText().equals("") ||!textFieldFechaAsigacion.getText().equals("") ) {
+        				if(!textFieldFechaAsigacion.getText().equals("")&&!txtAsignacion.getText().equals("")) {
+                    		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(), txtAsignacion.getText(),Extras.fechas(textFieldFechaAsigacion.getText()),Main.getUltimoForm(),true);
+
+        				}else {
+                			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos de asignacion");
+
+        				}
+        			}else {
+                		hj=new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(), chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(), chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(), chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(), chckbxAyudaHumanitaria.isSelected(), chckbxPasajes.isSelected(), chckbxInfCondonación.isSelected(),Main.getUltimoForm(),true);
+
+        			}
+
+        		}else {
+        			JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        		}
+        		
+        	
+			
+				try {
+			            // Especifica la ruta donde quieres guardar el PDF
+					  String rutaPDF = "Archivos pdf registro/Registro_PMH_"+hj.getCfhd()+".pdf";
+
+			            // Crea un documento PDF
+			            Document document = new Document();
+
+			            // Crea un escritor PDF
+			            try {
+							PdfWriter.getInstance(document, new FileOutputStream(rutaPDF));
+						} catch (DocumentException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
+			            // Abre el documento para agregar contenido
+			            document.open();
+
+			            // Crea una fuente en negrita
+			            com.itextpdf.text.Font fontBold = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
+			            // Crea un párrafo centrado y en negrita
+			            Paragraph paragraph = new Paragraph("HOJA DE RUTA P.M.H.", fontBold);
+			            paragraph.setAlignment(Element.ALIGN_CENTER);
+
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            //line2
+			            // Crea un párrafo centrado y en negrita
+			            paragraph = new Paragraph("N° "+hj.getNumero());
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);	
+			            paragraph = new Paragraph("Fecha de atención: "+hj.getFechaReg());
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            paragraph = new Paragraph("Numero de personas:  "+hj.getCantPer());
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            paragraph = new Paragraph("Nombre(s) Apellidos: \n");
+			            // Agrega el párrafo al documento
+			           
+			            
+			            for(Beneficiarios i: hj.getForm().getFam().getFamilia()) {
+			            	paragraph.add(i.getNombre()+"\n");
+				            // Agrega el párrafo al documento
+				           
+			            }
+			            document.add(paragraph);
+			            
+			            paragraph = new Paragraph("Tipo de atención");
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            
+			            if(hj.isLegal()) {
+			            	paragraph = new Paragraph("Asesoramiento legal");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            if(hj.isRefugio()) {
+			            	paragraph = new Paragraph("Solicitud refugio");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            if(hj.isAtencion()) {
+			            	paragraph = new Paragraph("Solo atención social");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            paragraph = new Paragraph("Se solicita al area social analizar la posibilidad de: ");
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            
+			            if(hj.isAccionAlbergue()) {
+			            	paragraph = new Paragraph("Albergue");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            if(hj.isAccionSerMedico()) {
+			            	paragraph = new Paragraph("Servicios Médicos");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            if(hj.isAccionAlimentacion()) {
+			            	paragraph = new Paragraph("Alimentación");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+
+			            if(hj.isAccionAyudaHum()) {
+			            	paragraph = new Paragraph("Ayuda Humanitaria");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            if(hj.isAccionPasajes()) {
+			            	paragraph = new Paragraph("Pasajes");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            if(hj.isAccionCondonacion()) {
+			            	paragraph = new Paragraph("Info. Condonación");
+				            // Agrega el párrafo al documento
+				            document.add(paragraph);
+			            }
+			            paragraph = new Paragraph("Asignación: "+hj.getAsignacion());
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            // Cierra el documento
+			            paragraph = new Paragraph("Fecha accion: "+hj.getFechaAsig());
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            
+			            paragraph = new Paragraph("OSERVACIONES: ",fontBold);
+			            
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            paragraph = new Paragraph(hj.getObs());
+			            
+			            document.add(paragraph);
+
+			            
+			            paragraph = new Paragraph("___________________");
+			            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            paragraph = new Paragraph("       Firma        ");
+			            paragraph.setAlignment(Element.ALIGN_RIGHT);
+
+			            // Agrega el párrafo al documento
+			            document.add(paragraph);
+			            // Agrega el párrafo al documento
+			            document.close();
+			        } catch (FileNotFoundException e1) {
+			            e1.printStackTrace();
+			        } catch (DocumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			}
+		});
         btnImprimir.setBounds(1136, 460, 117, 29);
         panelLlenado.add(btnImprimir);
         
