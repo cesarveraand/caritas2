@@ -15,6 +15,9 @@ public class Main {
 		InicioSesion inicioSecion = new InicioSesion();
 		inicioSecion.setVisible(true);
 	}
+	public static Funcionario getFun() {
+		return fun;
+	}
 	public static int getCod() {
 		return fun.getCod();
 	}

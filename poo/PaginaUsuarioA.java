@@ -24,6 +24,8 @@ import poo.PaginaHojaRutaAcciones;
 import poo.PaginaVoluntarios;
 
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -36,7 +38,7 @@ public class PaginaUsuarioA extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	private static boolean ventanaAbierta=false;
 
 	public PaginaUsuarioA() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,23 +61,37 @@ public class PaginaUsuarioA extends JFrame {
         panelCabecera.add(panelBotonesCabecera, BorderLayout.EAST);
         panelBotonesCabecera.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-        JButton btnAtras = new JButton("< Salir");
-        btnAtras.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		dispose();
-        	}
-        });
-        panelBotonesCabecera.add(btnAtras);
+        JButton btnAtras = new JButton("< Volver");
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		panelBotonesCabecera.add(btnAtras);
 
-        JButton btnPerfil = new JButton("");
-        ImageIcon iconOriginal = new ImageIcon(Hoja_ruta.class.getResource("/imagenes_help/perfilpersona.png"));
-        Image imagenOriginal = iconOriginal.getImage();
-        int nuevoAncho = 100;
-        int nuevoAlto = 100;
-        Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
-        ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
-        btnPerfil.setIcon(iconRedimensionadoPerfil);
-        panelBotonesCabecera.add(btnPerfil);
+		JButton btnPerfil = new JButton("");
+		ImageIcon iconOriginal = new ImageIcon(Registro.class.getResource("/imagenes_help/perfilpersona.png"));
+		btnPerfil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				PerfilFuncionario pf = new PerfilFuncionario(Main.getFun(), true);
+				pf.setVisible(true);
+				ventanaAbierta = true; // Marcar la ventana como abierta
+				pf.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosed(WindowEvent e) {
+						ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
+					}
+				});
+			}
+		});
+		Image imagenOriginal = iconOriginal.getImage();
+		int nuevoAncho = 100;
+		int nuevoAlto = 100;
+		Image imagenRedimensionada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
+		ImageIcon iconRedimensionadoPerfil = new ImageIcon(imagenRedimensionada);
+		btnPerfil.setIcon(iconRedimensionadoPerfil);
+		panelBotonesCabecera.add(btnPerfil);
 
         JSeparator separator = new JSeparator();
         panelCabecera.add(separator, BorderLayout.SOUTH);

@@ -202,13 +202,7 @@ public class PaginaBeneficiarioV extends JFrame {
 		        }
 		    }
 		});
-		mnactualizar.setText("Modificar");
-		mnactualizar.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				mnactualizarActionPerformed(evt);
-			}
-		});
-		jPopupMenu1.add(mnactualizar);
+		
 
 
 		txtBuscar.addActionListener(new java.awt.event.ActionListener() {

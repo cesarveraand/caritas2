@@ -79,6 +79,9 @@ public class PaginaHojaRutaV extends JFrame {
 		contentPane.add(btnVolver);
 
 		JButton btnVerHojasDeRutaExistentes = new JButton("Editar");
+		if(!Main.getFun().isAdmin()) {
+			btnVerHojasDeRutaExistentes.setEnabled(false);
+		}
 		btnVerHojasDeRutaExistentes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -458,10 +461,11 @@ public class PaginaHojaRutaV extends JFrame {
 				}
 				// Registro reg= new Registro(f);
 				// reg.setVisible(true);
-				Registro reg = new Registro(f);
-				reg.setVisible(true);
+				
+				Hoja_ruta hj=new Hoja_ruta(f,false);
+				hj.setVisible(true);
 				ventanaAbierta = true; // Marcar la ventana como abierta
-				reg.addWindowListener(new WindowAdapter() {
+				hj.addWindowListener(new WindowAdapter() {
 					@Override
 					public void windowClosed(WindowEvent e) {
 						ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre

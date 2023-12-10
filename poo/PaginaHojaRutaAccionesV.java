@@ -79,6 +79,9 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 		contentPane.add(btnVolver);
 		
 		JButton btnAgregar = new JButton("Editar Acciones");
+		if(!Main.getFun().isAdmin()) {
+			btnAgregar.setEnabled(false);
+		}
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -543,6 +546,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
                 }
                 Hoja_ruta_acciones reg= new Hoja_ruta_acciones(f);
                 reg.setVisible(true);
+                
             	 ventanaAbierta = true; // Marcar la ventana como abierta
                  reg.addWindowListener(new WindowAdapter() {
                      @Override

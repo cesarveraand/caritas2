@@ -18,6 +18,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectInputFilter.Status;
@@ -57,7 +59,7 @@ public class Registro extends JFrame {
 	private static List<JComboBox<String>> paisesPaso = new ArrayList<>();
 	private static List<JPanel> panelesPaises = new ArrayList<>();
 	private static List<JPanel> panelesPersonas = new ArrayList<>();
-
+	private static boolean ventanaAbierta=false;
 	private static boolean isRegistro = false;
 
 	public Registro() {
@@ -95,10 +97,29 @@ public class Registro extends JFrame {
 		panelBotonesCabecera.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		JButton btnAtras = new JButton("< Volver");
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		panelBotonesCabecera.add(btnAtras);
 
 		JButton btnPerfil = new JButton("");
 		ImageIcon iconOriginal = new ImageIcon(Registro.class.getResource("/imagenes_help/perfilpersona.png"));
+		btnPerfil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				PerfilFuncionario pf = new PerfilFuncionario(Main.getFun(), Main.getFun().isAdmin());
+				pf.setVisible(true);
+				ventanaAbierta = true; // Marcar la ventana como abierta
+				pf.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosed(WindowEvent e) {
+						ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
+					}
+				});
+			}
+		});
 		Image imagenOriginal = iconOriginal.getImage();
 		int nuevoAncho = 100;
 		int nuevoAlto = 100;
@@ -1117,7 +1138,7 @@ public class Registro extends JFrame {
 					}
 
 				}
-				Hoja_ruta dj = new Hoja_ruta();
+				Hoja_ruta dj = new Hoja_ruta(null,true);
 				dj.setVisible(true);
 				dispose();
 			}
@@ -1193,10 +1214,29 @@ public class Registro extends JFrame {
 		panelBotonesCabecera.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		JButton btnAtras = new JButton("< Volver");
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		panelBotonesCabecera.add(btnAtras);
 
 		JButton btnPerfil = new JButton("");
 		ImageIcon iconOriginal = new ImageIcon(Registro.class.getResource("/imagenes_help/perfilpersona.png"));
+		btnPerfil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				PerfilFuncionario pf = new PerfilFuncionario(Main.getFun(), Main.getFun().isAdmin());
+				pf.setVisible(true);
+				ventanaAbierta = true; // Marcar la ventana como abierta
+				pf.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosed(WindowEvent e) {
+						ventanaAbierta = false; // Marcar la ventana como cerrada cuando se cierre
+					}
+				});
+			}
+		});
 		Image imagenOriginal = iconOriginal.getImage();
 		int nuevoAncho = 100;
 		int nuevoAlto = 100;
@@ -2097,7 +2137,7 @@ public class Registro extends JFrame {
 					}
 
 				}
-				Hoja_ruta dj = new Hoja_ruta();
+				Hoja_ruta dj = new Hoja_ruta(null,true);
 				dj.setVisible(true);
 				dispose();
 			}

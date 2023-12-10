@@ -160,6 +160,7 @@ public class PerfilFuncionario extends JFrame {
 		textFieldTelefono.setText(f.getTelefono());
 
 		JButton btnGuardar = new JButton("Guardar");
+		
 		btnGuardar.setEnabled(false);
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -245,6 +246,9 @@ public class PerfilFuncionario extends JFrame {
 		contentPane.add(btnGuardar);
 
 		btnEditar = new JButton("Editar");
+		if(!admin) {
+			btnEditar.setEnabled(false);
+		}
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (edit) {
@@ -282,6 +286,9 @@ public class PerfilFuncionario extends JFrame {
 		contentPane.add(btnEditar);
 
 		JButton btnBorrar = new JButton("Eliminar");
+		if(!admin) {
+			btnBorrar.setEnabled(false);
+		}
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
