@@ -46,6 +46,8 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import java.awt.Toolkit;
+import java.awt.Color;
 
 public class PaginaVoluntarios extends JFrame {
 
@@ -60,6 +62,7 @@ public class PaginaVoluntarios extends JFrame {
 	private static JButton btnBuscarFechas;
 
 	public PaginaVoluntarios(ArrayList<Funcionario> volun) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PaginaVoluntarios.class.getResource("/imagenes_help/iconCaritas.png")));
 		setTitle("Voluntarios");
 
 		this.volun = volun;
@@ -81,6 +84,8 @@ public class PaginaVoluntarios extends JFrame {
 		setContentPane(contentPane);
 
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setBackground(new Color(23, 74, 131));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -90,6 +95,8 @@ public class PaginaVoluntarios extends JFrame {
 		contentPane.add(btnVolver);
 
 		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.setForeground(new Color(255, 255, 255));
+		btnAgregar.setBackground(new Color(205, 55, 66));
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AgregarFuncionario addmin = new AgregarFuncionario(false);

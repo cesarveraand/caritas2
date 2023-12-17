@@ -35,6 +35,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class PaginaUsuarioA extends JFrame {
 
@@ -43,6 +44,7 @@ public class PaginaUsuarioA extends JFrame {
 	private static boolean ventanaAbierta=false;
 
 	public PaginaUsuarioA() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PaginaUsuarioA.class.getResource("/imagenes_help/iconCaritas.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1920, 1080);
         contentPane = new JPanel();
@@ -60,10 +62,13 @@ public class PaginaUsuarioA extends JFrame {
         panelCabecera.add(imagenCaritas, BorderLayout.WEST);
 
         JPanel panelBotonesCabecera = new JPanel();
+        panelBotonesCabecera.setBackground(Color.WHITE);
         panelCabecera.add(panelBotonesCabecera, BorderLayout.EAST);
         panelBotonesCabecera.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
         JButton btnAtras = new JButton("< Volver");
+        btnAtras.setForeground(new Color(255, 255, 255));
+        btnAtras.setBackground(new Color(23, 74, 131));
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -72,6 +77,8 @@ public class PaginaUsuarioA extends JFrame {
 		panelBotonesCabecera.add(btnAtras);
 
 		JButton btnPerfil = new JButton("");
+		btnPerfil.setBackground(Color.WHITE);
+		btnPerfil.setBounds(EXIT_ON_CLOSE, ABORT, WIDTH, HEIGHT);
 		ImageIcon iconOriginal = new ImageIcon(Registro.class.getResource("/imagenes_help/perfilpersona.png"));
 		btnPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -99,6 +106,7 @@ public class PaginaUsuarioA extends JFrame {
         panelCabecera.add(separator, BorderLayout.SOUTH);
         
         JLabel lblnombre = new JLabel("Administrador: ");
+        lblnombre.setBackground(Color.WHITE);
         lblnombre.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 17));
         panelCabecera.add(lblnombre, BorderLayout.CENTER);
 		lblnombre.setText(lblnombre.getText()+Main.nombre());
@@ -114,6 +122,8 @@ public class PaginaUsuarioA extends JFrame {
         panel_1.setLayout(null);
         
         JButton btnFormReg = new JButton("FORMULARIO DE REGISTRO");
+        btnFormReg.setForeground(new Color(255, 255, 255));
+        btnFormReg.setBackground(new Color(23, 74, 131));
 		btnFormReg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -127,6 +137,8 @@ public class PaginaUsuarioA extends JFrame {
         panel_1.add(btnFormReg);
         
         JButton btnRegFormHoja = new JButton("FORMULARIO HOJA DE RUTA");
+        btnRegFormHoja.setForeground(new Color(255, 255, 255));
+        btnRegFormHoja.setBackground(new Color(205, 55, 66));
 		btnRegFormHoja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -147,6 +159,8 @@ public class PaginaUsuarioA extends JFrame {
         panel_1.add(lblNewLabel);
         
         JButton btnRegAcciones = new JButton("AGREGAR ACCIONES HOJA DE RUTA");
+        btnRegAcciones.setForeground(new Color(255, 255, 255));
+        btnRegAcciones.setBackground(new Color(23, 74, 131));
 		btnRegAcciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -177,6 +191,8 @@ public class PaginaUsuarioA extends JFrame {
         panel_3.add(lblNewLabel_1_1_2);
         
         JButton btnAdmins = new JButton("ADMINISTRADORES");
+        btnAdmins.setForeground(new Color(255, 255, 255));
+        btnAdmins.setBackground(new Color(23, 74, 131));
 		btnAdmins.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Funcionario> admis =new ArrayList<Funcionario>();
@@ -196,6 +212,8 @@ public class PaginaUsuarioA extends JFrame {
         panel_3.add(btnAdmins);
         
         JButton btnVoluntarios = new JButton("VOLUNTARIOS");
+        btnVoluntarios.setForeground(new Color(255, 255, 255));
+        btnVoluntarios.setBackground(new Color(205, 55, 66));
 		btnVoluntarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Funcionario> v =new ArrayList<Funcionario>();
@@ -214,6 +232,8 @@ public class PaginaUsuarioA extends JFrame {
         panel_3.add(btnVoluntarios);
         
         JButton btnRefugiados = new JButton("BENEFICIARIOS");
+        btnRefugiados.setForeground(new Color(255, 255, 255));
+        btnRefugiados.setBackground(new Color(23, 74, 131));
 		btnRefugiados.setBounds(298, 236, 198, 21);
 		btnRefugiados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

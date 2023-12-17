@@ -44,6 +44,7 @@ public class Registro2 extends JFrame {
 	 * Create the frame.
 	 */
 	public Registro2() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Registro2.class.getResource("/imagenes_help/iconCaritas.png")));
 		personas = new ArrayList<BeneficiarioRegistro>();
 		estatusMigratorios = new ArrayList<EstatusMigratorio>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,6 +56,7 @@ public class Registro2 extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelCabecera = new JPanel();
+		panelCabecera.setBackground(Color.WHITE);
 		contentPane.add(panelCabecera, BorderLayout.NORTH);
 		panelCabecera.setLayout(new BorderLayout(0, 0));
 		
@@ -63,15 +65,19 @@ public class Registro2 extends JFrame {
 		panelCabecera.add(imagenCaritas, BorderLayout.WEST);
 		
 		JPanel panelBotonesCabecera = new JPanel();
+		panelBotonesCabecera.setBackground(Color.WHITE);
 		panelCabecera.add(panelBotonesCabecera, BorderLayout.EAST);
 		panelBotonesCabecera.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnAtras = new JButton("< Volver");
+		btnAtras.setForeground(new Color(255, 255, 255));
+		btnAtras.setBackground(new Color(23, 74, 131));
 		panelBotonesCabecera.add(btnAtras);
 		
 	
 
 		JButton btnPerfil = new JButton("");
+		btnPerfil.setBackground(new Color(255, 255, 255));
 		ImageIcon iconOriginal = new ImageIcon(Registro2.class.getResource("/imagenes_help/perfilpersona.png"));
 		Image imagenOriginal = iconOriginal.getImage();
 		int nuevoAncho = 100; 

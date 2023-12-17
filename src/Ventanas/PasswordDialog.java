@@ -14,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+import java.awt.Toolkit;
+import java.awt.Color;
+import java.awt.Font;
 
 public class PasswordDialog extends JDialog {
 
@@ -32,6 +35,8 @@ public class PasswordDialog extends JDialog {
 	}
 
 	public PasswordDialog() {
+		getContentPane().setBackground(new Color(23, 74, 131));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PasswordDialog.class.getResource("/imagenes_help/iconCaritas.png")));
         setTitle("Ingrese la contraseña de administrador");
         setModal(true);
         setBounds(100, 100, 400, 200);
@@ -39,15 +44,19 @@ public class PasswordDialog extends JDialog {
         getContentPane().setLayout(null);
 
         JLabel lblPassword = new JLabel("Contraseña:");
-        lblPassword.setBounds(20, 30, 100, 30);
+        lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblPassword.setForeground(new Color(255, 255, 255));
+        lblPassword.setBackground(new Color(255, 255, 255));
+        lblPassword.setBounds(20, 43, 100, 30);
         getContentPane().add(lblPassword);
 
         passwordField = new JPasswordField();
-        passwordField.setBounds(120, 30, 200, 30);
+        passwordField.setBounds(121, 43, 241, 30);
         getContentPane().add(passwordField);
 
         JButton btnAceptar = new JButton("Aceptar");
-        btnAceptar.setBounds(120, 80, 100, 30);
+        btnAceptar.setBackground(new Color(255, 255, 255));
+        btnAceptar.setBounds(139, 98, 100, 30);
         getContentPane().add(btnAceptar);
 
         btnAceptar.addActionListener(new ActionListener() {

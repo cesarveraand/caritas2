@@ -43,6 +43,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Toolkit;
+import java.awt.Color;
 
 public class PaginaHojaRutaE extends JFrame {
 
@@ -56,6 +58,7 @@ public class PaginaHojaRutaE extends JFrame {
 	static JComboBox comboBoxBuqueda = new JComboBox();
 
 	public PaginaHojaRutaE() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PaginaHojaRutaE.class.getResource("/imagenes_help/iconCaritas.png")));
 
 		JPopupMenu jPopupMenu1 = new javax.swing.JPopupMenu();
 		JMenuItem mnactualizar = new javax.swing.JMenuItem();
@@ -75,15 +78,19 @@ public class PaginaHojaRutaE extends JFrame {
 		setContentPane(contentPane);
 
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setBackground(new Color(23, 74, 131));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(66, 506, 85, 21);
+		btnVolver.setBounds(66, 486, 85, 21);
 		contentPane.add(btnVolver);
 
 		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.setForeground(new Color(255, 255, 255));
+		btnAgregar.setBackground(new Color(205, 55, 66));
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PaginaHojaRuta pag = new PaginaHojaRuta();
@@ -92,7 +99,7 @@ public class PaginaHojaRutaE extends JFrame {
 				buscar("");
 			}
 		});
-		btnAgregar.setBounds(674, 486, 85, 21);
+		btnAgregar.setBounds(629, 486, 85, 21);
 		contentPane.add(btnAgregar);
 
 		comboBoxBuqueda.setModel(new DefaultComboBoxModel(new String[] { "Codigo Formulario", "CI Representante" }));

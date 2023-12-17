@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class PaginaUsuarioV extends JFrame {
 
@@ -39,6 +40,7 @@ public class PaginaUsuarioV extends JFrame {
 	private boolean ventanaAbierta=false;
 
 	public PaginaUsuarioV() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PaginaUsuarioV.class.getResource("/imagenes_help/iconCaritas.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1920, 1080);
         contentPane = new JPanel();
@@ -56,10 +58,12 @@ public class PaginaUsuarioV extends JFrame {
         panelCabecera.add(imagenCaritas, BorderLayout.WEST);
 
         JPanel panelBotonesCabecera = new JPanel();
+        panelBotonesCabecera.setBackground(new Color(255, 255, 255));
         panelCabecera.add(panelBotonesCabecera, BorderLayout.EAST);
         panelBotonesCabecera.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
         JButton btnAtras = new JButton("< Volver");
+        btnAtras.setBackground(Color.GRAY);
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -68,6 +72,7 @@ public class PaginaUsuarioV extends JFrame {
 		panelBotonesCabecera.add(btnAtras);
 
 		JButton btnPerfil = new JButton("");
+		btnPerfil.setBackground(Color.WHITE);
 		ImageIcon iconOriginal = new ImageIcon(Registro.class.getResource("/imagenes_help/perfilpersona.png"));
 		btnPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -95,6 +100,7 @@ public class PaginaUsuarioV extends JFrame {
         panelCabecera.add(separator, BorderLayout.SOUTH);
         
         JPanel panel = new JPanel();
+        panel.setBackground(new Color(255, 255, 255));
         panelCabecera.add(panel, BorderLayout.CENTER);
         panel.setLayout(null);
         

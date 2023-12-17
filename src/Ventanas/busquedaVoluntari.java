@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import java.awt.Toolkit;
 
 public class busquedaVoluntari extends JFrame {
 
@@ -61,6 +62,7 @@ public class busquedaVoluntari extends JFrame {
 	 * Create the frame.
 	 */
 	public busquedaVoluntari() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(busquedaVoluntari.class.getResource("/imagenes_help/iconCaritas.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1920, 1080);
         contentPane = new JPanel();
@@ -70,6 +72,7 @@ public class busquedaVoluntari extends JFrame {
 
         // Panel de cabecera
         JPanel panelCabecera = new JPanel();
+        panelCabecera.setBackground(Color.WHITE);
         contentPane.add(panelCabecera, BorderLayout.NORTH);
         panelCabecera.setLayout(new BorderLayout(0, 0));
 
@@ -78,13 +81,17 @@ public class busquedaVoluntari extends JFrame {
         panelCabecera.add(imagenCaritas, BorderLayout.WEST);
 
         JPanel panelBotonesCabecera = new JPanel();
+        panelBotonesCabecera.setBackground(Color.WHITE);
         panelCabecera.add(panelBotonesCabecera, BorderLayout.EAST);
         panelBotonesCabecera.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
         JButton btnAtras = new JButton("< Volver");
+        btnAtras.setForeground(new Color(255, 255, 255));
+        btnAtras.setBackground(new Color(23, 74, 131));
         panelBotonesCabecera.add(btnAtras);
 
         JButton btnPerfil = new JButton("");
+        btnPerfil.setBackground(Color.WHITE);
         ImageIcon iconOriginal = new ImageIcon(busquedaVoluntari.class.getResource("/imagenes_help/perfilpersona.png"));
         Image imagenOriginal = iconOriginal.getImage();
         int nuevoAncho = 100;

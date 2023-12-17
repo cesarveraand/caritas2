@@ -20,6 +20,8 @@ import java.sql.SQLException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
+import java.awt.Color;
 
 public class AgregarFuncionario extends JFrame {
 
@@ -39,6 +41,7 @@ public class AgregarFuncionario extends JFrame {
 	private JTextField textFieldDireccion;
 
 	public AgregarFuncionario(boolean admin) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AgregarFuncionario.class.getResource("/imagenes_help/iconCaritas.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 578, 424);
 		contentPane = new JPanel();
@@ -98,7 +101,7 @@ public class AgregarFuncionario extends JFrame {
 		contentPane.add(textFieldContrasenia);
 
 		lblContrasenia = new JLabel("Contraseña");
-		lblContrasenia.setBounds(84, 103, 55, 13);
+		lblContrasenia.setBounds(84, 103, 62, 13);
 		contentPane.add(lblContrasenia);
 
 		lblCiudad = new JLabel("Ciudad");
@@ -119,6 +122,8 @@ public class AgregarFuncionario extends JFrame {
 		textFieldDireccion.setBounds(149, 174, 307, 19);
 		contentPane.add(textFieldDireccion);
 		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.setForeground(new Color(255, 255, 255));
+		btnAgregar.setBackground(new Color(205, 55, 66));
 		btnAgregar.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        try {
@@ -198,6 +203,8 @@ public class AgregarFuncionario extends JFrame {
 		contentPane.add(btnAgregar);
 
 		btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setForeground(new Color(255, 255, 255));
+		btnLimpiar.setBackground(new Color(23, 74, 131));
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textFieldCi.setText("");

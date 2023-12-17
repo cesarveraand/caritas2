@@ -44,6 +44,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Toolkit;
+import java.awt.Color;
 
 public class PaginaHojaRutaV extends JFrame {
 
@@ -57,6 +59,7 @@ public class PaginaHojaRutaV extends JFrame {
 	static JComboBox comboBoxBuqueda = new JComboBox();
 
 	public PaginaHojaRutaV() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PaginaHojaRutaV.class.getResource("/imagenes_help/iconCaritas.png")));
 		
 		JPopupMenu jPopupMenu1 = new javax.swing.JPopupMenu();
 		JMenuItem mnactualizar = new javax.swing.JMenuItem();
@@ -76,6 +79,8 @@ public class PaginaHojaRutaV extends JFrame {
 		setContentPane(contentPane);
 
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setBackground(new Color(23, 74, 131));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -85,6 +90,8 @@ public class PaginaHojaRutaV extends JFrame {
 		contentPane.add(btnVolver);
 
 		JButton btnVerHojasDeRutaExistentes = new JButton("Editar");
+		btnVerHojasDeRutaExistentes.setBackground(new Color(205, 55, 66));
+		btnVerHojasDeRutaExistentes.setForeground(new Color(255, 255, 255));
 		if(!Main.getFun().isAdmin()) {
 			btnVerHojasDeRutaExistentes.setEnabled(false);
 		}

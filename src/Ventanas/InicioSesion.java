@@ -28,6 +28,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.JPasswordField;
+import java.awt.Toolkit;
 
 
 public class InicioSesion extends JFrame{
@@ -42,7 +43,7 @@ public class InicioSesion extends JFrame{
 		
 		//icono de ventana :)
 		ImageIcon icono = new ImageIcon("C:\\Users\\HP\\eclipse-workspace\\Ventanas\\src\\imagenes\\iconCaritas.png");
-		setIconImage(icono.getImage());
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InicioSesion.class.getResource("/imagenes_help/iconCaritas.png")));
 
 		setTitle("Cáritas Bolivia");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

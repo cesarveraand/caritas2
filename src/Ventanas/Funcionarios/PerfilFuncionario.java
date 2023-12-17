@@ -22,6 +22,8 @@ import Conexion.*;
 import Ventanas.Extras;
 import Ventanas.Admins.PaginaAdministradores;
 import Ventanas.Voluntario.PaginaVoluntarios;
+import java.awt.Color;
+import java.awt.Toolkit;
 public class PerfilFuncionario extends JFrame {
 
 	private JPanel contentPane;
@@ -43,6 +45,7 @@ public class PerfilFuncionario extends JFrame {
 	private JButton btnBorrar;
 
 	public PerfilFuncionario(Funcionario f, boolean admin) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PerfilFuncionario.class.getResource("/imagenes_help/iconCaritas.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 578, 424);
 		contentPane = new JPanel();
@@ -108,7 +111,7 @@ public class PerfilFuncionario extends JFrame {
 		contentPane.add(textFieldContrasenia);
 
 		lblContrasenia = new JLabel("Contraseña");
-		lblContrasenia.setBounds(84, 103, 55, 13);
+		lblContrasenia.setBounds(84, 103, 61, 13);
 		contentPane.add(lblContrasenia);
 
 		lblCiudad = new JLabel("Ciudad");
@@ -163,6 +166,8 @@ public class PerfilFuncionario extends JFrame {
 		textFieldTelefono.setText(f.getTelefono());
 
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setForeground(new Color(255, 255, 255));
+		btnGuardar.setBackground(new Color(23, 74, 131));
 		
 		btnGuardar.setEnabled(false);
 		btnGuardar.addActionListener(new ActionListener() {
@@ -249,6 +254,8 @@ public class PerfilFuncionario extends JFrame {
 		contentPane.add(btnGuardar);
 
 		btnEditar = new JButton("Editar");
+		btnEditar.setForeground(new Color(255, 255, 255));
+		btnEditar.setBackground(new Color(23, 74, 131));
 		if(!admin) {
 			btnEditar.setEnabled(false);
 		}
@@ -289,6 +296,8 @@ public class PerfilFuncionario extends JFrame {
 		contentPane.add(btnEditar);
 
 		JButton btnBorrar = new JButton("Eliminar");
+		btnBorrar.setForeground(new Color(255, 255, 255));
+		btnBorrar.setBackground(new Color(23, 74, 131));
 		if(!admin) {
 			btnBorrar.setEnabled(false);
 		}

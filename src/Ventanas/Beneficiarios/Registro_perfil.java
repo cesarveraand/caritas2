@@ -44,6 +44,7 @@ public class Registro_perfil extends JFrame {
 	 * Create the frame.
 	 */
 	public Registro_perfil() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Registro_perfil.class.getResource("/imagenes_help/iconCaritas.png")));
 		//Todos los campos tiene la edicion desabilitada en cambio los valores son sacados de la BD
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1920, 1000);
@@ -66,6 +67,8 @@ public class Registro_perfil extends JFrame {
 		panelBotonesCabecera.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnAtras = new JButton("< Volver");
+		btnAtras.setForeground(new Color(255, 255, 255));
+		btnAtras.setBackground(new Color(23, 74, 131));
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PerfilBeneficiario frame = new PerfilBeneficiario();
@@ -78,6 +81,7 @@ public class Registro_perfil extends JFrame {
 	
 
 		JButton btnPerfil = new JButton("");
+		btnPerfil.setBackground(new Color(255, 255, 255));
 		ImageIcon iconOriginal = new ImageIcon(Registro_perfil.class.getResource("/imagenes_help/perfilpersona.png"));
 		Image imagenOriginal = iconOriginal.getImage();
 		int nuevoAncho = 100; 

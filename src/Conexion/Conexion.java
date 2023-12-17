@@ -1,4 +1,4 @@
-package src.Conexion;
+package Conexion;
 import java.sql.Connection;
 import poo.*;
 import Ventanas.*;

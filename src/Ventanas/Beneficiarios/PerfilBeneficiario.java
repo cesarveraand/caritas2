@@ -22,6 +22,8 @@ import Ventanas.Formularios.Registro;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
+import java.awt.Color;
 
 public class PerfilBeneficiario extends JFrame {
 
@@ -51,6 +53,7 @@ public class PerfilBeneficiario extends JFrame {
 	 * Create the frame.
 	 */
 	public PerfilBeneficiario() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PerfilBeneficiario.class.getResource("/imagenes_help/iconCaritas.png")));
 		//los campos no se pueden editar y deben ser sacados de la BD
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 807, 610);
@@ -73,6 +76,8 @@ public class PerfilBeneficiario extends JFrame {
 		panelBotonesCabecera.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnAtras = new JButton("< Volver");
+		btnAtras.setForeground(new Color(255, 255, 255));
+		btnAtras.setBackground(new Color(23, 74, 131));
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -156,6 +161,8 @@ public class PerfilBeneficiario extends JFrame {
         textField.setColumns(10);
         
         JButton btnRegistro = new JButton("FORMULARIO DE REGISTRO COMPLETO");
+        btnRegistro.setForeground(new Color(255, 255, 255));
+        btnRegistro.setBackground(new Color(205, 55, 66));
         btnRegistro.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
@@ -171,6 +178,8 @@ public class PerfilBeneficiario extends JFrame {
         panelPerfil.add(btnRegistro);
         
         JButton btnHoja_Ruta = new JButton("HOJA DE RUTA P.M.H.");
+        btnHoja_Ruta.setForeground(new Color(255, 255, 255));
+        btnHoja_Ruta.setBackground(new Color(23, 74, 131));
         btnHoja_Ruta.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		Hoja_ruta_acciones frame = new Hoja_ruta_acciones();

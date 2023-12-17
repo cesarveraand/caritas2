@@ -88,6 +88,7 @@ public class Registro extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		JPanel panelCabecera = new JPanel();
+		panelCabecera.setBackground(Color.WHITE);
 		contentPane.add(panelCabecera, BorderLayout.NORTH);
 		panelCabecera.setLayout(new BorderLayout(0, 0));
 
@@ -96,6 +97,7 @@ public class Registro extends JFrame {
 		panelCabecera.add(imagenCaritas, BorderLayout.WEST);
 
 		JPanel panelBotonesCabecera = new JPanel();
+		panelBotonesCabecera.setBackground(Color.WHITE);
 		panelCabecera.add(panelBotonesCabecera, BorderLayout.EAST);
 		panelBotonesCabecera.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
