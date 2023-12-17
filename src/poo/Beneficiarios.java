@@ -1,4 +1,4 @@
-package poo;
+package src.poo;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
