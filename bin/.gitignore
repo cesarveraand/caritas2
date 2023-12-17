@@ -1,1 +1,7 @@
-/poo/
+/.classpath
+/.project
+/.settings/
+/.vscode/
+/README.md
+/imagenes_help/
+/src/
