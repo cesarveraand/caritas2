@@ -758,6 +758,7 @@ public class Hoja_ruta extends JFrame {
     					// TODO Auto-generated catch block
     					e1.printStackTrace();
     				}
+            		Main.setUltimaHojar(hjn);
             		Hoja_ruta_acciones jhr=new Hoja_ruta_acciones();
             		jhr.setVisible(true);
             		dispose();

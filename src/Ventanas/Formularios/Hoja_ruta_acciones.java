@@ -325,7 +325,7 @@ public class Hoja_ruta_acciones extends JFrame {
 					HojaRutaAcciones hjr = new HojaRutaAcciones(cod, txtAcciones.getText(),
 							(String) comboDerivados.getSelectedItem(), txtInstrucciones.getText(),
 							txtObservacionAccion.getText(), Extras.fechas(txtFechaAtencion.getText()),
-							Main.getUltimaHojar(), true);
+							hhh, true);
 					try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
 					} catch (SQLException e1) {
@@ -352,7 +352,7 @@ public class Hoja_ruta_acciones extends JFrame {
 						&& !txtObservacionAccion.getText().equals("") && !txtFechaAtencion.getText().equals("")) {
 					hjr = new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(),
 							txtInstrucciones.getText(), txtObservacionAccion.getText(),
-							Extras.fechas(txtFechaAtencion.getText()), Main.getUltimaHojar(), true);
+							Extras.fechas(txtFechaAtencion.getText()), hhh, true);
 					try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
 					} catch (SQLException e1) {
@@ -517,7 +517,7 @@ public class Hoja_ruta_acciones extends JFrame {
 					HojaRutaAcciones hjr = new HojaRutaAcciones(cod, txtAcciones_1.getText(),
 							(String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(),
 							txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),
-							Main.getUltimaHojar(), true);
+							hhh, true);
 					try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
 					} catch (SQLException e1) {
@@ -545,7 +545,7 @@ public class Hoja_ruta_acciones extends JFrame {
 					hjr = new HojaRutaAcciones(cod, txtAcciones_1.getText(),
 							(String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(),
 							txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),
-							Main.getUltimaHojar(), true);
+							hhh, true);
 					try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
 					} catch (SQLException e1) {
@@ -645,7 +645,7 @@ public class Hoja_ruta_acciones extends JFrame {
 						&& !txtObservacionAccion.getText().equals("") && !txtFechaAtencion.getText().equals("")) {
 					hjr = new HojaRutaAcciones(cod, txtAcciones.getText(), (String) comboDerivados.getSelectedItem(),
 							txtInstrucciones.getText(), txtObservacionAccion.getText(),
-							Extras.fechas(txtFechaAtencion.getText()), Main.getUltimaHojar(), true);
+							Extras.fechas(txtFechaAtencion.getText()), hhh, true);
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
@@ -665,7 +665,7 @@ public class Hoja_ruta_acciones extends JFrame {
 						hjr1 = new HojaRutaAcciones(cod, txtAcciones_1.getText(),
 								(String) comboDerivados_1.getSelectedItem(), txtInstrucciones2.getText(),
 								txtObservacionAccion2.getText(), Extras.fechas(textField_1.getText()),
-								Main.getUltimaHojar(), true);
+								hhh, true);
 
 					} else {
 						JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
@@ -818,7 +818,7 @@ public class Hoja_ruta_acciones extends JFrame {
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Hoja_de_ruta hj = Main.getUltimaHojar();
+				Hoja_de_ruta hj = hhh;
 				try {
 					// Especifica la ruta donde quieres guardar el PDF
 					String rutaPDF = "Archivos pdf registro/Registro_PMH_" + hj.getCfhd() + ".pdf";
@@ -1111,7 +1111,7 @@ public class Hoja_ruta_acciones extends JFrame {
 		JLabel lblNombresPersonas = new JLabel("Nombre(s) Apellidos:");
 		lblNombresPersonas.setBounds(52, 158, 134, 16);
 		panelLlenado.add(lblNombresPersonas);
-		FormlarioRegistro fm = Main.getUltimoForm();
+		FormlarioRegistro fm = Main.getUltimaHojar().getForm();
 
 		String s = "";
 		for (Beneficiarios i : fm.getFam().getFamilia()) {
@@ -1121,7 +1121,7 @@ public class Hoja_ruta_acciones extends JFrame {
 
 		JTextArea txtNombresBenef = new JTextArea();
 		txtNombresBenef.setEditable(false);
-		txtNombresBenef.setWrapStyleWord(true);
+		txtNombresBenef.setWrapStyleWord(true); 
 		txtNombresBenef.setLineWrap(false);
 		txtNombresBenef.setText(s);
 		JScrollPane scrollNombres = new JScrollPane(txtNombresBenef); // Por si son muchos nombres de personas
