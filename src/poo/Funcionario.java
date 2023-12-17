@@ -1,7 +1,7 @@
-package src.poo;
+package poo;
 import java.sql.SQLException;
 import java.time.LocalDate;
-
+import Conexion.*;
 public class Funcionario {
 	private int cod;
 	private String nombre,ci,correo,telefono,ciudad,direccion,contra;

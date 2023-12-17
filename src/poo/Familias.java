@@ -1,8 +1,8 @@
-package src.poo;
+package poo;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+import Conexion.*;
 public class Familias {
 	private int codFamilia;
 	private int cantidad;

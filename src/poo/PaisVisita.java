@@ -1,7 +1,7 @@
-package src.poo;
+package poo;
 
 import java.sql.SQLException;
-
+import Conexion.*;
 public class PaisVisita {
 	private int cpo;
 	private String pais;

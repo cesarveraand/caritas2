@@ -1,8 +1,9 @@
-package src.poo;
+package poo;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import Conexion.*;
 public class Beneficiarios {
 	private int codBen;
 	private String nombre;
