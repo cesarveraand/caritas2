@@ -205,13 +205,7 @@ public class PaginaHojaRutaAcciones extends JFrame {
 		});
 		jPopupMenu1.add(mnactualizar);
 
-		mneliminar.setText("Eliminar");
-		mneliminar.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				mneliminarActionPerformed(evt);
-			}
-		});
-		jPopupMenu1.add(mneliminar);
+
 		txtBuscar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				txtbuscarActionPerformed(evt);

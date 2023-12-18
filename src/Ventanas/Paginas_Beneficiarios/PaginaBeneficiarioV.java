@@ -282,7 +282,6 @@ public class PaginaBeneficiarioV extends JFrame {
 
 	private void filtrarPorFechas(LocalDate fechaInicio, LocalDate fechaFinal, String valor) {
 
-
 		// Obtener el tipo de búsqueda seleccionado en el comboBoxBuqueda
 		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
 		// Nombres de columna
@@ -292,7 +291,7 @@ public class PaginaBeneficiarioV extends JFrame {
 		String cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 				+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 				+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-				+ "group by a.cid, b.cfr";
+				+ "and a.estado = true\n" + "group by a.cid, b.cfr";
 		try {
 			Conexion cn = new Conexion();
 			Connection conexion = cn.getConexionPostgres();
@@ -304,7 +303,7 @@ public class PaginaBeneficiarioV extends JFrame {
 						+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 						+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
 						+ "and b.fechaRegistro between '" + fechaInicio + "' and '" + fechaFinal + "' \n"
-						+ "group by a.cid, b.cfr";
+						+ "and a.estado = true\n" + "group by a.cid, b.cfr";
 
 			} else {
 				switch (tipoBusqueda) {
@@ -312,36 +311,39 @@ public class PaginaBeneficiarioV extends JFrame {
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and lower(a.nombre) like '%" + valor.toLowerCase() + "%'\n" + "and b.fechaRegistro between '" + fechaInicio
-							+ "' and '" + fechaFinal + "' \n" + "group by a.cid, b.cfr";
+							+ "and lower(a.nombre) like '%" + valor.toLowerCase() + "%'\n"
+							+ "and b.fechaRegistro between '" + fechaInicio + "' and '" + fechaFinal + "' \n"
+							+ "and a.estado = true\n" + "group by a.cid, b.cfr";
 					break;
 				case "C.I.":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
 							+ "and a.ci like '%" + valor + "%'\n" + "and b.fechaRegistro between '" + fechaInicio
-							+ "' and '" + fechaFinal + "' \n" + "group by a.cid, b.cfr";
+							+ "' and '" + fechaFinal + "' \n" + "and a.estado = true\n" + "group by a.cid, b.cfr";
 					break;
 				case "Edad":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and a.edad = " + Integer.valueOf(valor) + "\n" + "and b.fechaRegistro between '" + fechaInicio
-							+ "' and '" + fechaFinal + "' \n" + "group by a.cid, b.cfr";
+							+ "and a.edad = " + Integer.valueOf(valor) + "\n" + "and b.fechaRegistro between '"
+							+ fechaInicio + "' and '" + fechaFinal + "' \n" + "and a.estado = true\n"
+							+ "group by a.cid, b.cfr";
 					break;
 				case "Sexo":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and a.sexo like '%" + valor.toUpperCase() + "%'\n" + "and b.fechaRegistro between '" + fechaInicio
-							+ "' and '" + fechaFinal + "' \n" + "group by a.cid, b.cfr";
+							+ "and a.sexo like '%" + valor.toUpperCase() + "%'\n" + "and b.fechaRegistro between '"
+							+ fechaInicio + "' and '" + fechaFinal + "' \n" + "and a.estado = true\n"
+							+ "group by a.cid, b.cfr";
 					break;
 				case "Formulario":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and b.cfr = " + Integer.parseInt(valor) + " and b.fechaRegistro between '" + fechaInicio + "' and '"
-							+ fechaFinal + "' \n" + "group by a.cid, b.cfr";
+							+ "and b.cfr = " + Integer.parseInt(valor) + " and b.fechaRegistro between '" + fechaInicio
+							+ "' and '" + fechaFinal + "' \n" + "and a.estado = true\n" + "group by a.cid, b.cfr";
 					break;
 				}
 			}
@@ -394,14 +396,14 @@ public class PaginaBeneficiarioV extends JFrame {
 			String cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 					+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 					+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-					+ "group by a.cid, b.cfr";
+					+ "and a.estado = true\n" + "group by a.cid, b.cfr";
 
 			// Filtrar los funcionarios que coinciden con el valor de búsqueda
 			if (valor.isEmpty()) {
 				cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 						+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 						+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-						+ "group by a.cid, b.cfr";
+						+ "and a.estado = true\n" + "group by a.cid, b.cfr";
 
 			} else {
 				switch (tipoBusqueda) {
@@ -409,31 +411,35 @@ public class PaginaBeneficiarioV extends JFrame {
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and lower(a.nombre) like '%" + valor.toLowerCase() + "%'\n" + "group by a.cid, b.cfr";
+							+ "and lower(a.nombre) like '%" + valor.toLowerCase() + "%'\n" + "and a.estado = true\n"
+							+ "group by a.cid, b.cfr";
 					break;
 				case "C.I.":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and a.ci like '%" + valor + "%'\n" + "group by a.cid, b.cfr";
+							+ "and a.ci like '%" + valor + "%'\n" + "and a.estado = true\n" + "group by a.cid, b.cfr";
 					break;
 				case "Edad":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and a.edad = " + Integer.valueOf(valor) + "\n" + "group by a.cid, b.cfr";
+							+ "and a.edad = " + Integer.valueOf(valor) + "\n" + "and a.estado = true\n"
+							+ "group by a.cid, b.cfr";
 					break;
 				case "Sexo":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and a.sexo like '%" + valor.toUpperCase() + "%'\n" + "group by a.cid, b.cfr";
+							+ "and a.sexo like '%" + valor.toUpperCase() + "%'\n" + "and a.estado = true\n"
+							+ "group by a.cid, b.cfr";
 					break;
 				case "Formulario":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and b.cfr = " + Integer.parseInt(valor) + " group by a.cid, b.cfr";
+							+ "and b.cfr = " + Integer.parseInt(valor) + "and a.estado = true\n"
+							+ " group by a.cid, b.cfr";
 					break;
 				}
 			}

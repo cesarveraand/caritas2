@@ -328,6 +328,8 @@ public class Hoja_ruta_acciones extends JFrame {
 							hhh, true);
 					try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
+						JOptionPane.showMessageDialog(null, "Registrado exitosamente", "Registro Exitoso",
+								JOptionPane.INFORMATION_MESSAGE);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -421,6 +423,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -520,6 +524,8 @@ public class Hoja_ruta_acciones extends JFrame {
 							hhh, true);
 					try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
+						JOptionPane.showMessageDialog(null, "Registrado exitosamente", "Registro Exitoso",
+								JOptionPane.INFORMATION_MESSAGE);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -614,6 +620,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -734,6 +742,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -800,6 +810,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -949,6 +961,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -1367,6 +1381,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -1450,6 +1466,8 @@ public class Hoja_ruta_acciones extends JFrame {
 							Main.getUltimaHojar(), true);
 					try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
+						JOptionPane.showMessageDialog(null, "Registrado exitosamente", "Registro Exitoso",
+								JOptionPane.INFORMATION_MESSAGE);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -1543,6 +1561,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -1642,6 +1662,8 @@ public class Hoja_ruta_acciones extends JFrame {
 							Main.getUltimaHojar(), true);
 					try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
+						JOptionPane.showMessageDialog(null, "Registrado exitosamente", "Registro Exitoso",
+								JOptionPane.INFORMATION_MESSAGE);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -1736,6 +1758,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -1866,6 +1890,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -1932,6 +1958,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -2345,6 +2373,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -2432,6 +2462,8 @@ public class Hoja_ruta_acciones extends JFrame {
 							Main.getUltimaHojar(), true);
 					try {
 						Conexion.actualizarHojaDeRutaAcciones(hjr, hhhd);
+						JOptionPane.showMessageDialog(null, "Registrado exitosamente", "Registro Exitoso",
+								JOptionPane.INFORMATION_MESSAGE);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -2525,6 +2557,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -2628,6 +2662,8 @@ public class Hoja_ruta_acciones extends JFrame {
 							Main.getUltimaHojar(), true);
 					try {
 						Conexion.actualizarHojaDeRutaAcciones(hjr, hhhd_1);
+						JOptionPane.showMessageDialog(null, "Registrado exitosamente", "Registro Exitoso",
+								JOptionPane.INFORMATION_MESSAGE);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -2722,6 +2758,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -2859,6 +2897,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -2925,6 +2965,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -3338,6 +3380,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -3425,6 +3469,8 @@ public class Hoja_ruta_acciones extends JFrame {
 							Main.getUltimaHojar(), true);
 					try {
 						Conexion.actualizarHojaDeRutaAcciones(hjr, hhhd);
+						JOptionPane.showMessageDialog(null, "Registrado exitosamente", "Registro Exitoso",
+								JOptionPane.INFORMATION_MESSAGE);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -3518,6 +3564,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -3617,6 +3665,8 @@ public class Hoja_ruta_acciones extends JFrame {
 							Main.getUltimaHojar(), true);
 					try {
 						Conexion.registrarHojaDeRutaAcciones(hjr);
+						JOptionPane.showMessageDialog(null, "Registrado exitosamente", "Registro Exitoso",
+								JOptionPane.INFORMATION_MESSAGE);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -3706,6 +3756,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -3843,6 +3895,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -3909,6 +3963,8 @@ public class Hoja_ruta_acciones extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {

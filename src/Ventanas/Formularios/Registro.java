@@ -1048,6 +1048,8 @@ public class Registro extends JFrame {
 
 					// Cierra el documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {
@@ -1860,7 +1862,7 @@ public class Registro extends JFrame {
 								isRegistro = true;
 
 								band = true;
-								JOptionPane.showMessageDialog(null, "Registro exitoso.");
+							
 
 							
 						} else {
@@ -2086,6 +2088,8 @@ public class Registro extends JFrame {
 
 					// Cierra el documento
 					document.close();
+					JOptionPane.showMessageDialog(null, "PDF generado exitosamente", "Mensaje",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				} catch (DocumentException e1) {

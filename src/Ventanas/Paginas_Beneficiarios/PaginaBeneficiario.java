@@ -60,7 +60,8 @@ public class PaginaBeneficiario extends JFrame {
 	private static JButton btnBuscarFechas;
 
 	public PaginaBeneficiario() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(PaginaBeneficiario.class.getResource("/imagenes_help/iconCaritas.png")));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(PaginaBeneficiario.class.getResource("/imagenes_help/iconCaritas.png")));
 		JPopupMenu jPopupMenu1 = new javax.swing.JPopupMenu();
 		JMenuItem mnactualizar = new javax.swing.JMenuItem();
 		JMenuItem mneliminar = new javax.swing.JMenuItem();
@@ -98,7 +99,7 @@ public class PaginaBeneficiario extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Registro reg = new Registro();
 				reg.setVisible(true);
-				
+
 				buscar("");
 
 			}
@@ -197,24 +198,24 @@ public class PaginaBeneficiario extends JFrame {
 		 * comboBoxBuqueda.addItem("Opción 3"); comboBoxBuqueda.addItem("Opción 4");
 		 */
 		txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-		    public void keyTyped(java.awt.event.KeyEvent evt) {
-		        // Obtén el tipo de búsqueda seleccionado en el comboBoxBuqueda
-		        String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+				// Obtén el tipo de búsqueda seleccionado en el comboBoxBuqueda
+				String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
 
-		        // Si el tipo de búsqueda es "Edad", solo permite ingresar números
-		        if ("Edad".equals(tipoBusqueda)) {
-		            char c = evt.getKeyChar();
-		            if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-		                evt.consume();
-		            }
-		        }
-		        if ("Formulario".equals(tipoBusqueda)) {
-		            char c = evt.getKeyChar();
-		            if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-		                evt.consume();
-		            }
-		        }
-		    }
+				// Si el tipo de búsqueda es "Edad", solo permite ingresar números
+				if ("Edad".equals(tipoBusqueda)) {
+					char c = evt.getKeyChar();
+					if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+						evt.consume();
+					}
+				}
+				if ("Formulario".equals(tipoBusqueda)) {
+					char c = evt.getKeyChar();
+					if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+						evt.consume();
+					}
+				}
+			}
 		});
 		mnactualizar.setText("Modificar");
 		mnactualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -224,13 +225,6 @@ public class PaginaBeneficiario extends JFrame {
 		});
 		jPopupMenu1.add(mnactualizar);
 
-		mneliminar.setText("Eliminar");
-		mneliminar.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				mneliminarActionPerformed(evt);
-			}
-		});
-		jPopupMenu1.add(mneliminar);
 		txtBuscar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				txtbuscarActionPerformed(evt);
@@ -242,7 +236,7 @@ public class PaginaBeneficiario extends JFrame {
 			}
 		});
 		table_1.setComponentPopupMenu(jPopupMenu1);
-		
+
 		JButton btnBuscar_1 = new JButton("Actualizar");
 		btnBuscar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -297,7 +291,6 @@ public class PaginaBeneficiario extends JFrame {
 
 	private void filtrarPorFechas(LocalDate fechaInicio, LocalDate fechaFinal, String valor) {
 
-
 		// Obtener el tipo de búsqueda seleccionado en el comboBoxBuqueda
 		String tipoBusqueda = (String) comboBoxBuqueda.getSelectedItem();
 		// Nombres de columna
@@ -307,7 +300,7 @@ public class PaginaBeneficiario extends JFrame {
 		String cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 				+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 				+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-				+ "group by a.cid, b.cfr";
+				+ "and a.estado = true\n" + "group by a.cid, b.cfr";
 		try {
 			Conexion cn = new Conexion();
 			Connection conexion = cn.getConexionPostgres();
@@ -319,7 +312,7 @@ public class PaginaBeneficiario extends JFrame {
 						+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 						+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
 						+ "and b.fechaRegistro between '" + fechaInicio + "' and '" + fechaFinal + "' \n"
-						+ "group by a.cid, b.cfr";
+						+ "and a.estado = true\n" + "group by a.cid, b.cfr";
 
 			} else {
 				switch (tipoBusqueda) {
@@ -327,36 +320,39 @@ public class PaginaBeneficiario extends JFrame {
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and lower(a.nombre) like '%" + valor.toLowerCase() + "%'\n" + "and b.fechaRegistro between '" + fechaInicio
-							+ "' and '" + fechaFinal + "' \n" + "group by a.cid, b.cfr";
+							+ "and lower(a.nombre) like '%" + valor.toLowerCase() + "%'\n"
+							+ "and b.fechaRegistro between '" + fechaInicio + "' and '" + fechaFinal + "' \n"
+							+ "and a.estado = true\n" + "group by a.cid, b.cfr";
 					break;
 				case "C.I.":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
 							+ "and a.ci like '%" + valor + "%'\n" + "and b.fechaRegistro between '" + fechaInicio
-							+ "' and '" + fechaFinal + "' \n" + "group by a.cid, b.cfr";
+							+ "' and '" + fechaFinal + "' \n" + "and a.estado = true\n" + "group by a.cid, b.cfr";
 					break;
 				case "Edad":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and a.edad = " + Integer.valueOf(valor) + "\n" + "and b.fechaRegistro between '" + fechaInicio
-							+ "' and '" + fechaFinal + "' \n" + "group by a.cid, b.cfr";
+							+ "and a.edad = " + Integer.valueOf(valor) + "\n" + "and b.fechaRegistro between '"
+							+ fechaInicio + "' and '" + fechaFinal + "' \n" + "and a.estado = true\n"
+							+ "group by a.cid, b.cfr";
 					break;
 				case "Sexo":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and a.sexo like '%" + valor.toUpperCase() + "%'\n" + "and b.fechaRegistro between '" + fechaInicio
-							+ "' and '" + fechaFinal + "' \n" + "group by a.cid, b.cfr";
+							+ "and a.sexo like '%" + valor.toUpperCase() + "%'\n" + "and b.fechaRegistro between '"
+							+ fechaInicio + "' and '" + fechaFinal + "' \n" + "and a.estado = true\n"
+							+ "group by a.cid, b.cfr";
 					break;
 				case "Formulario":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and b.cfr = " + Integer.parseInt(valor) + " and b.fechaRegistro between '" + fechaInicio + "' and '"
-							+ fechaFinal + "' \n" + "group by a.cid, b.cfr";
+							+ "and b.cfr = " + Integer.parseInt(valor) + " and b.fechaRegistro between '" + fechaInicio
+							+ "' and '" + fechaFinal + "' \n" + "and a.estado = true\n" + "group by a.cid, b.cfr";
 					break;
 				}
 			}
@@ -409,14 +405,14 @@ public class PaginaBeneficiario extends JFrame {
 			String cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 					+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 					+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-					+ "group by a.cid, b.cfr";
+					+ "and a.estado = true\n" + "group by a.cid, b.cfr";
 
 			// Filtrar los funcionarios que coinciden con el valor de búsqueda
 			if (valor.isEmpty()) {
 				cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 						+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 						+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-						+ "group by a.cid, b.cfr";
+						+ "and a.estado = true\n" + "group by a.cid, b.cfr";
 
 			} else {
 				switch (tipoBusqueda) {
@@ -424,31 +420,35 @@ public class PaginaBeneficiario extends JFrame {
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and lower(a.nombre) like '%" + valor.toLowerCase() + "%'\n" + "group by a.cid, b.cfr";
+							+ "and lower(a.nombre) like '%" + valor.toLowerCase() + "%'\n" + "and a.estado = true\n"
+							+ "group by a.cid, b.cfr";
 					break;
 				case "C.I.":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and a.ci like '%" + valor + "%'\n" + "group by a.cid, b.cfr";
+							+ "and a.ci like '%" + valor + "%'\n" + "and a.estado = true\n" + "group by a.cid, b.cfr";
 					break;
 				case "Edad":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and a.edad = " + Integer.valueOf(valor) + "\n" + "group by a.cid, b.cfr";
+							+ "and a.edad = " + Integer.valueOf(valor) + "\n" + "and a.estado = true\n"
+							+ "group by a.cid, b.cfr";
 					break;
 				case "Sexo":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and a.sexo like '%" + valor.toUpperCase() + "%'\n" + "group by a.cid, b.cfr";
+							+ "and a.sexo like '%" + valor.toUpperCase() + "%'\n" + "and a.estado = true\n"
+							+ "group by a.cid, b.cfr";
 					break;
 				case "Formulario":
 					cons = "select a.cid, a.nombre, a.ci, TO_CHAR(b.fecharegistro, 'DD/MM/YYYY'), a.edad, a.sexo, b.cfr\n"
 							+ "from beneficiario a, formularioregistro b, Formularioregbeneficiario c\n"
 							+ "where a.cid = c.beneficiario_cid\n" + "and b.cfr = c.formularioregistro_cfr\n"
-							+ "and b.cfr = " + Integer.parseInt(valor) + " group by a.cid, b.cfr";
+							+ "and b.cfr = " + Integer.parseInt(valor) + "and a.estado = true\n"
+							+ " group by a.cid, b.cfr";
 					break;
 				}
 			}
@@ -484,7 +484,7 @@ public class PaginaBeneficiario extends JFrame {
 		int selectedRow = table_1.getSelectedRow();
 		try {
 			if (selectedRow != -1) {
-				
+
 			} else {
 				JOptionPane.showMessageDialog(null, "Seleccione una fila");
 			}
