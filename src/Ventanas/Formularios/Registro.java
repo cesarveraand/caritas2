@@ -823,7 +823,7 @@ public class Registro extends JFrame {
 							isRegistro = true;
 
 							band = true;
-							JOptionPane.showMessageDialog(null, "Registro exitoso.");
+							
 
 						} else {
 							JOptionPane.showMessageDialog(null, "Ingrese fechas en formato dd/MM/yyyy.");
