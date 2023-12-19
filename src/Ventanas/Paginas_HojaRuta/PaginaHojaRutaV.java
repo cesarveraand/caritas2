@@ -198,7 +198,7 @@ public class PaginaHojaRutaV extends JFrame {
 		        }
 		    }
 		});
-		mnactualizar.setText("Modificar");
+		mnactualizar.setText("P.M.H.");
 		mnactualizar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				mnactualizarActionPerformed(evt);

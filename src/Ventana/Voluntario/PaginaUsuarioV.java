@@ -1,4 +1,4 @@
-package Ventanas.Voluntario;
+package Ventana.Voluntario;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -7,6 +7,7 @@ import poo.*;
 import Ventanas.Main;
 import Ventanas.Formularios.*;
 import Ventanas.Funcionarios.PerfilFuncionario;
+import Ventanas.Funcionarios.PerfilFuncionarioV;
 import Ventanas.Pagina_HojaRutaAcciones.PaginaHojaRutaAccionesV;
 import Ventanas.Paginas_Beneficiarios.PaginaBeneficiarioV;
 import Ventanas.Paginas_HojaRuta.PaginaHojaRutaV;
@@ -77,7 +78,7 @@ public class PaginaUsuarioV extends JFrame {
 		btnPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				PerfilFuncionario pf = new PerfilFuncionario(Main.getFun(), false);
+				PerfilFuncionarioV pf = new PerfilFuncionarioV(Main.getFun(), false);
 				pf.setVisible(true);
 				ventanaAbierta = true; // Marcar la ventana como abierta
 				pf.addWindowListener(new WindowAdapter() {

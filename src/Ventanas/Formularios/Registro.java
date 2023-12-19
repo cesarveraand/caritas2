@@ -46,7 +46,7 @@ public class Registro extends JFrame {
 	private JTextField txtDocIdentidad;
 	private JTextField txtExpedido;
 	private JComboBox<String> comboBoxEnvio;
-	private  JComboBox<String> comboBoxComunicacion;
+	private JComboBox<String> comboBoxComunicacion;
 	private JTextField txtFechaIngreso;
 	private JTextField txtFechaSalida;
 	private int contadorPersonas;
@@ -62,7 +62,7 @@ public class Registro extends JFrame {
 	private static List<JComboBox<String>> paisesPaso = new ArrayList<>();
 	private static List<JPanel> panelesPaises = new ArrayList<>();
 	private static List<JPanel> panelesPersonas = new ArrayList<>();
-	private static boolean ventanaAbierta=false;
+	private static boolean ventanaAbierta = false;
 	private static boolean isRegistro = false;
 
 	public Registro() {
@@ -113,7 +113,7 @@ public class Registro extends JFrame {
 		ImageIcon iconOriginal = new ImageIcon(Registro.class.getResource("/imagenes_help/perfilpersona.png"));
 		btnPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				PerfilFuncionario pf = new PerfilFuncionario(Main.getFun(), Main.getFun().isAdmin());
 				pf.setVisible(true);
 				ventanaAbierta = true; // Marcar la ventana como abierta
@@ -273,14 +273,37 @@ public class Registro extends JFrame {
 		panelInfoO.add(lblPaisOrigen);
 
 		JComboBox comboBoxPaisesOrigen = new JComboBox();
-		comboBoxPaisesOrigen
-		.setModel(new DefaultComboBoxModel(new String[] {"Afganistán", "Albania", "Alemania", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bahréin", "Bangladés", "Barbados", "Bélgica", "Belice", "Benín", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina", "Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Catar", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo", "Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eritrea", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Etiopía", "Filipinas", "Finlandia", "Fiyi", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "India", "Indonesia", "Irak", "Irán", "Irlanda", "Islandia", "Islas Marshall", "Islas Salomón", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Montenegro", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Países Bajos", "Pakistán", "Palaos", "Panamá", "Papúa Nueva Guinea", "Paraguay", "Perú", "Polonia", "Portugal", "Reino Unido", "República Centroafricana", "República Checa", "República Democrática del Congo", "República Dominicana", "Ruanda", "Rumanía", "Rusia", "Samoa", "San Cristóbal y Nieves", "San Marino", "San Vicente y las Granadinas", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turkmenistán", "Turquía", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Vaticano", "Venezuela", "Vietnam", "Yemen", "Yibuti", "Zambia", "Zimbabue"}));
+		comboBoxPaisesOrigen.setModel(new DefaultComboBoxModel(new String[] { "Afganistán", "Albania", "Alemania",
+				"Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bahréin", "Bangladés",
+				"Barbados", "Bélgica", "Belice", "Benín", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina",
+				"Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi", "Bután", "Cabo Verde", "Camboya",
+				"Camerún", "Canadá", "Catar", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo",
+				"Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca",
+				"Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eritrea", "Eslovaquia",
+				"Eslovenia", "España", "Estados Unidos", "Estonia", "Etiopía", "Filipinas", "Finlandia", "Fiyi",
+				"Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guinea",
+				"Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "India", "Indonesia", "Irak", "Irán",
+				"Irlanda", "Islandia", "Islas Marshall", "Islas Salomón", "Israel", "Italia", "Jamaica", "Japón",
+				"Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia",
+				"Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte",
+				"Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania",
+				"México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Montenegro", "Mozambique", "Namibia",
+				"Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Países Bajos",
+				"Pakistán", "Palaos", "Panamá", "Papúa Nueva Guinea", "Paraguay", "Perú", "Polonia", "Portugal",
+				"Reino Unido", "República Centroafricana", "República Checa", "República Democrática del Congo",
+				"República Dominicana", "Ruanda", "Rumanía", "Rusia", "Samoa", "San Cristóbal y Nieves", "San Marino",
+				"San Vicente y las Granadinas", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia",
+				"Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sudáfrica",
+				"Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Taiwán", "Tanzania", "Tayikistán",
+				"Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turkmenistán", "Turquía", "Tuvalu",
+				"Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Vaticano", "Venezuela", "Vietnam", "Yemen",
+				"Yibuti", "Zambia", "Zimbabue" }));
 		comboBoxPaisesOrigen.setBounds(136, 7, 102, 22);
 		comboBoxPaisesOrigen.setPreferredSize(new Dimension(200, 30));
 
-	        // Crear un JScrollPane y agregar el JComboBox a él
-	        JScrollPane scrollPane = new JScrollPane(comboBoxPaisesOrigen);
-	        comboBoxPaisesOrigen.setSelectedIndex(3);
+		// Crear un JScrollPane y agregar el JComboBox a él
+		JScrollPane scrollPane = new JScrollPane(comboBoxPaisesOrigen);
+		comboBoxPaisesOrigen.setSelectedIndex(3);
 		panelInfoO.add(comboBoxPaisesOrigen);
 
 		JLabel lblFechaSalida = new JLabel("FECHA SALIDA:");
@@ -373,7 +396,8 @@ public class Registro extends JFrame {
 
 		JComboBox comboBoxDocumentosIngreso = new JComboBox();
 		comboBoxDocumentosIngreso
-				.setModel(new DefaultComboBoxModel(new String[] { "Cédula", "Pasaporte", "Tarjeta Andina","Acta de nacimiento","Denuncia de perdidad de documento","Registro de la corte electoral" }));
+				.setModel(new DefaultComboBoxModel(new String[] { "Cédula", "Pasaporte", "Tarjeta Andina",
+						"Acta de nacimiento", "Denuncia de perdidad de documento", "Registro de la corte electoral" }));
 		comboBoxDocumentosIngreso.setBounds(183, 60, 131, 22);
 		panelDestino.add(comboBoxDocumentosIngreso);
 
@@ -425,20 +449,39 @@ public class Registro extends JFrame {
 		lblPaisSiguiente.setVisible(true);
 		panelDestino.add(lblPaisSiguiente);
 
-		
 		JComboBox comboBoxPaisesSiguientes = new JComboBox();
-		comboBoxPaisesSiguientes
-		.setModel(new DefaultComboBoxModel(new String[] {"Afganistán", "Albania", "Alemania", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bahréin", "Bangladés", "Barbados", "Bélgica", "Belice", "Benín", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina", "Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Catar", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo", "Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eritrea", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Etiopía", "Filipinas", "Finlandia", "Fiyi", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "India", "Indonesia", "Irak", "Irán", "Irlanda", "Islandia", "Islas Marshall", "Islas Salomón", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Montenegro", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Países Bajos", "Pakistán", "Palaos", "Panamá", "Papúa Nueva Guinea", "Paraguay", "Perú", "Polonia", "Portugal", "Reino Unido", "República Centroafricana", "República Checa", "República Democrática del Congo", "República Dominicana", "Ruanda", "Rumanía", "Rusia", "Samoa", "San Cristóbal y Nieves", "San Marino", "San Vicente y las Granadinas", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turkmenistán", "Turquía", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Vaticano", "Venezuela", "Vietnam", "Yemen", "Yibuti", "Zambia", "Zimbabue"}));
+		comboBoxPaisesSiguientes.setModel(new DefaultComboBoxModel(new String[] { "Afganistán", "Albania", "Alemania",
+				"Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bahréin", "Bangladés",
+				"Barbados", "Bélgica", "Belice", "Benín", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina",
+				"Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi", "Bután", "Cabo Verde", "Camboya",
+				"Camerún", "Canadá", "Catar", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo",
+				"Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca",
+				"Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eritrea", "Eslovaquia",
+				"Eslovenia", "España", "Estados Unidos", "Estonia", "Etiopía", "Filipinas", "Finlandia", "Fiyi",
+				"Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guinea",
+				"Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "India", "Indonesia", "Irak", "Irán",
+				"Irlanda", "Islandia", "Islas Marshall", "Islas Salomón", "Israel", "Italia", "Jamaica", "Japón",
+				"Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia",
+				"Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte",
+				"Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania",
+				"México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Montenegro", "Mozambique", "Namibia",
+				"Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Países Bajos",
+				"Pakistán", "Palaos", "Panamá", "Papúa Nueva Guinea", "Paraguay", "Perú", "Polonia", "Portugal",
+				"Reino Unido", "República Centroafricana", "República Checa", "República Democrática del Congo",
+				"República Dominicana", "Ruanda", "Rumanía", "Rusia", "Samoa", "San Cristóbal y Nieves", "San Marino",
+				"San Vicente y las Granadinas", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia",
+				"Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sudáfrica",
+				"Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Taiwán", "Tanzania", "Tayikistán",
+				"Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turkmenistán", "Turquía", "Tuvalu",
+				"Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Vaticano", "Venezuela", "Vietnam", "Yemen",
+				"Yibuti", "Zambia", "Zimbabue" }));
 		comboBoxPaisesSiguientes.setBounds(183, 142, 131, 22);
 		comboBoxPaisesSiguientes.setPreferredSize(new Dimension(200, 30));
 		comboBoxPaisesSiguientes.setVisible(true);
-	        // Crear un JScrollPane y agregar el JComboBox a él
-	        JScrollPane scrollPanePaisesSiguientes = new JScrollPane(comboBoxPaisesSiguientes);
-	        comboBoxPaisesSiguientes.setSelectedIndex(3);
-	        panelDestino.add(comboBoxPaisesSiguientes);
-		
-		
-		
+		// Crear un JScrollPane y agregar el JComboBox a él
+		JScrollPane scrollPanePaisesSiguientes = new JScrollPane(comboBoxPaisesSiguientes);
+		comboBoxPaisesSiguientes.setSelectedIndex(3);
+		panelDestino.add(comboBoxPaisesSiguientes);
 
 		JLabel lblPqBolivia = new JLabel("POR QUÉ ESOCOGIO BOLIVIA COMO DESTINO FINAL?:");
 		lblPqBolivia.setBounds(10, 176, 370, 14);
@@ -492,7 +535,7 @@ public class Registro extends JFrame {
 
 		JComboBox comboBoxAlojamiento = new JComboBox();
 		comboBoxAlojamiento.setModel(new DefaultComboBoxModel(
-				new String[] { "Alquiler", "Acogido", "Alojamiento", "Situación de calle", "Otro ","Albergue" }));
+				new String[] { "Alquiler", "Acogido", "Alojamiento", "Situación de calle", "Otro ", "Albergue" }));
 		comboBoxAlojamiento.setBounds(136, 80, 111, 22);
 		panelFormadeVida.add(comboBoxAlojamiento);
 
@@ -552,12 +595,11 @@ public class Registro extends JFrame {
 		buttonGroupLeEnvianDinero.add(rdbtnNoLeEnvian);
 
 		JLabel lblMedioEnvio = new JLabel("POR QUÉ MEDIO?:");
-		String[] opcionesEnvio = {"Giros", "Encomiendas"};
+		String[] opcionesEnvio = { "Giros", "Encomiendas" };
 
-        // Crear el JComboBox con las opciones
-       comboBoxEnvio = new JComboBox<>(opcionesEnvio);
-        
-		
+		// Crear el JComboBox con las opciones
+		comboBoxEnvio = new JComboBox<>(opcionesEnvio);
+
 		lblMedioEnvio.setVisible(false);
 		comboBoxEnvio.setVisible(false);
 		lblMedioEnvio.setBounds(10, 305, 111, 14);
@@ -584,13 +626,12 @@ public class Registro extends JFrame {
 		lblComunicacion.setBounds(10, 361, 222, 14);
 		panelFormadeVida.add(lblComunicacion);
 
-		 String[] opcionesComunicacion = {"Whatsapp", "Mensajeria"};
+		String[] opcionesComunicacion = { "Whatsapp", "Mensajeria" };
 
-	        // Crear el JComboBox con las opciones
-	        comboBoxComunicacion = new JComboBox<>(opcionesComunicacion);
+		// Crear el JComboBox con las opciones
+		comboBoxComunicacion = new JComboBox<>(opcionesComunicacion);
 
-		
-	        comboBoxComunicacion.setSelectedIndex(0);
+		comboBoxComunicacion.setSelectedIndex(0);
 		comboBoxComunicacion.setBounds(242, 358, 124, 20);
 		panelFormadeVida.add(comboBoxComunicacion);
 		comboBoxComunicacion.setPreferredSize(new Dimension(150, 30));
@@ -644,7 +685,7 @@ public class Registro extends JFrame {
 				if (Integer.parseInt(lblCantidadContador.getText()) > 0) {
 					if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 							&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
-							 && !txtObservaciones.getText().equals("")
+							&& !txtObservaciones.getText().equals("")
 							&& alMenosUnCheckBoxSeleccionado(chckbxTransito, chckbxSolRefugio, chckbxSolAsistencia)) {
 						if (validarFecha(txtFechaSalida.getText()) && validarFecha(txtFechaIngreso.getText())
 								&& validarFecha(txtExpedido.getText()) && validarFecha(txtFecha.getText())) {
@@ -711,7 +752,8 @@ public class Registro extends JFrame {
 										buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
 										buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
 										buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
-										comboBoxEnvio.getSelectedItem().toString(), comboBoxComunicacion.getSelectedItem().toString(), txtObservaciones.getText(),
+										comboBoxEnvio.getSelectedItem().toString(),
+										comboBoxComunicacion.getSelectedItem().toString(), txtObservaciones.getText(),
 										chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
 										chckbxSolAsistencia.isSelected(), fam, true);
 								Main.setUltimoForm(form);
@@ -749,7 +791,7 @@ public class Registro extends JFrame {
 				if (Integer.parseInt(lblCantidadContador.getText()) > 0) {
 					if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 							&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
-							 && !txtObservaciones.getText().equals("")
+							&& !txtObservaciones.getText().equals("")
 							&& alMenosUnCheckBoxSeleccionado(chckbxTransito, chckbxSolRefugio, chckbxSolAsistencia)) {
 						if (validarFecha(txtFechaSalida.getText()) && validarFecha(txtFechaIngreso.getText())
 								&& validarFecha(txtExpedido.getText()) && validarFecha(txtFecha.getText())) {
@@ -814,7 +856,8 @@ public class Registro extends JFrame {
 									buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
 									buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
 									buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
-									comboBoxEnvio.getSelectedItem().toString(), comboBoxComunicacion.getSelectedItem().toString(), txtObservaciones.getText(),
+									comboBoxEnvio.getSelectedItem().toString(),
+									comboBoxComunicacion.getSelectedItem().toString(), txtObservaciones.getText(),
 									chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
 									chckbxSolAsistencia.isSelected(), fam, true);
 							// Main.setUltimoForm(form);
@@ -823,7 +866,6 @@ public class Registro extends JFrame {
 							isRegistro = true;
 
 							band = true;
-							
 
 						} else {
 							JOptionPane.showMessageDialog(null, "Ingrese fechas en formato dd/MM/yyyy.");
@@ -839,8 +881,11 @@ public class Registro extends JFrame {
 				}
 
 				try {
-					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_" + form.getCfr() + ".pdf";
+					// Obtiene la ruta del directorio actual
+					String directorioActual = System.getProperty("user.dir");
+
+					// Concatena el nombre del archivo PDF
+					String rutaPDF = directorioActual + "/Registro_" + form.getCfr() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -1071,9 +1116,8 @@ public class Registro extends JFrame {
 					if (Integer.parseInt(lblCantidadContador.getText()) > 0) {
 						if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 								&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
-								 && !txtObservaciones.getText().equals("")
-								&& alMenosUnCheckBoxSeleccionado(chckbxTransito, chckbxSolRefugio,
-										chckbxSolAsistencia)) {
+								&& !txtObservaciones.getText().equals("") && alMenosUnCheckBoxSeleccionado(
+										chckbxTransito, chckbxSolRefugio, chckbxSolAsistencia)) {
 							if (validarFecha(txtFechaSalida.getText()) && validarFecha(txtFechaIngreso.getText())
 									&& validarFecha(txtExpedido.getText()) && validarFecha(txtFecha.getText())) {
 								ArrayList<Beneficiarios> beneficiarios = new ArrayList<>();
@@ -1141,7 +1185,8 @@ public class Registro extends JFrame {
 											buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
 											buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
 											buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
-											comboBoxEnvio.getSelectedItem().toString(),comboBoxComunicacion.getSelectedItem().toString(),
+											comboBoxEnvio.getSelectedItem().toString(),
+											comboBoxComunicacion.getSelectedItem().toString(),
 											txtObservaciones.getText(), chckbxTransito.isSelected(),
 											chckbxSolRefugio.isSelected(), chckbxSolAsistencia.isSelected(), fam, true);
 									Main.setUltimoForm(form);
@@ -1169,7 +1214,7 @@ public class Registro extends JFrame {
 					}
 
 				}
-				Hoja_ruta dj = new Hoja_ruta(null,true);
+				Hoja_ruta dj = new Hoja_ruta(null, true);
 				dj.setVisible(true);
 				dispose();
 			}
@@ -1256,7 +1301,7 @@ public class Registro extends JFrame {
 		ImageIcon iconOriginal = new ImageIcon(Registro.class.getResource("/imagenes_help/perfilpersona.png"));
 		btnPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				PerfilFuncionario pf = new PerfilFuncionario(Main.getFun(), Main.getFun().isAdmin());
 				pf.setVisible(true);
 				ventanaAbierta = true; // Marcar la ventana como abierta
@@ -1415,17 +1460,37 @@ public class Registro extends JFrame {
 		lblPaisOrigen.setBounds(28, 11, 112, 14);
 		panelInfoO.add(lblPaisOrigen);
 
-		
-		
-		
 		JComboBox comboBoxPaisesOrigen = new JComboBox();
-		comboBoxPaisesOrigen
-		.setModel(new DefaultComboBoxModel(new String[] {"Afganistán", "Albania", "Alemania", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bahréin", "Bangladés", "Barbados", "Bélgica", "Belice", "Benín", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina", "Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Catar", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo", "Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eritrea", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Etiopía", "Filipinas", "Finlandia", "Fiyi", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "India", "Indonesia", "Irak", "Irán", "Irlanda", "Islandia", "Islas Marshall", "Islas Salomón", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Montenegro", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Países Bajos", "Pakistán", "Palaos", "Panamá", "Papúa Nueva Guinea", "Paraguay", "Perú", "Polonia", "Portugal", "Reino Unido", "República Centroafricana", "República Checa", "República Democrática del Congo", "República Dominicana", "Ruanda", "Rumanía", "Rusia", "Samoa", "San Cristóbal y Nieves", "San Marino", "San Vicente y las Granadinas", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turkmenistán", "Turquía", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Vaticano", "Venezuela", "Vietnam", "Yemen", "Yibuti", "Zambia", "Zimbabue"}));
+		comboBoxPaisesOrigen.setModel(new DefaultComboBoxModel(new String[] { "Afganistán", "Albania", "Alemania",
+				"Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bahréin", "Bangladés",
+				"Barbados", "Bélgica", "Belice", "Benín", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina",
+				"Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi", "Bután", "Cabo Verde", "Camboya",
+				"Camerún", "Canadá", "Catar", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo",
+				"Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca",
+				"Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eritrea", "Eslovaquia",
+				"Eslovenia", "España", "Estados Unidos", "Estonia", "Etiopía", "Filipinas", "Finlandia", "Fiyi",
+				"Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guinea",
+				"Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "India", "Indonesia", "Irak", "Irán",
+				"Irlanda", "Islandia", "Islas Marshall", "Islas Salomón", "Israel", "Italia", "Jamaica", "Japón",
+				"Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia",
+				"Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte",
+				"Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania",
+				"México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Montenegro", "Mozambique", "Namibia",
+				"Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Países Bajos",
+				"Pakistán", "Palaos", "Panamá", "Papúa Nueva Guinea", "Paraguay", "Perú", "Polonia", "Portugal",
+				"Reino Unido", "República Centroafricana", "República Checa", "República Democrática del Congo",
+				"República Dominicana", "Ruanda", "Rumanía", "Rusia", "Samoa", "San Cristóbal y Nieves", "San Marino",
+				"San Vicente y las Granadinas", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia",
+				"Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sudáfrica",
+				"Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Taiwán", "Tanzania", "Tayikistán",
+				"Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turkmenistán", "Turquía", "Tuvalu",
+				"Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Vaticano", "Venezuela", "Vietnam", "Yemen",
+				"Yibuti", "Zambia", "Zimbabue" }));
 		comboBoxPaisesOrigen.setBounds(136, 7, 102, 22);
 		comboBoxPaisesOrigen.setPreferredSize(new Dimension(200, 30));
 
-	        // Crear un JScrollPane y agregar el JComboBox a él
-	        JScrollPane scrollPane = new JScrollPane(comboBoxPaisesOrigen);
+		// Crear un JScrollPane y agregar el JComboBox a él
+		JScrollPane scrollPane = new JScrollPane(comboBoxPaisesOrigen);
 		comboBoxPaisesOrigen.setSelectedIndex(3);
 		panelInfoO.add(comboBoxPaisesOrigen);
 
@@ -1519,7 +1584,8 @@ public class Registro extends JFrame {
 
 		JComboBox comboBoxDocumentosIngreso = new JComboBox();
 		comboBoxDocumentosIngreso
-		.setModel(new DefaultComboBoxModel(new String[] { "Cédula", "Pasaporte", "Tarjeta Andina","Acta de nacimiento","Denuncia de perdidad de documento","Registro de la corte electoral" }));
+				.setModel(new DefaultComboBoxModel(new String[] { "Cédula", "Pasaporte", "Tarjeta Andina",
+						"Acta de nacimiento", "Denuncia de perdidad de documento", "Registro de la corte electoral" }));
 		comboBoxDocumentosIngreso.setBounds(183, 60, 131, 22);
 		panelDestino.add(comboBoxDocumentosIngreso);
 
@@ -1571,22 +1637,43 @@ public class Registro extends JFrame {
 		lblPaisSiguiente.setVisible(true);
 		panelDestino.add(lblPaisSiguiente);
 
-		
-		
 		JComboBox comboBoxPaisesSiguientes = new JComboBox();
-		comboBoxPaisesSiguientes
-		.setModel(new DefaultComboBoxModel(new String[] {"Afganistán", "Albania", "Alemania", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bahréin", "Bangladés", "Barbados", "Bélgica", "Belice", "Benín", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina", "Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Catar", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo", "Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eritrea", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Etiopía", "Filipinas", "Finlandia", "Fiyi", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guinea", "Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "India", "Indonesia", "Irak", "Irán", "Irlanda", "Islandia", "Islas Marshall", "Islas Salomón", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte", "Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Montenegro", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Países Bajos", "Pakistán", "Palaos", "Panamá", "Papúa Nueva Guinea", "Paraguay", "Perú", "Polonia", "Portugal", "Reino Unido", "República Centroafricana", "República Checa", "República Democrática del Congo", "República Dominicana", "Ruanda", "Rumanía", "Rusia", "Samoa", "San Cristóbal y Nieves", "San Marino", "San Vicente y las Granadinas", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sudáfrica", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Taiwán", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turkmenistán", "Turquía", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Vaticano", "Venezuela", "Vietnam", "Yemen", "Yibuti", "Zambia", "Zimbabue"}));
+		comboBoxPaisesSiguientes.setModel(new DefaultComboBoxModel(new String[] { "Afganistán", "Albania", "Alemania",
+				"Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bahréin", "Bangladés",
+				"Barbados", "Bélgica", "Belice", "Benín", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina",
+				"Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi", "Bután", "Cabo Verde", "Camboya",
+				"Camerún", "Canadá", "Catar", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo",
+				"Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca",
+				"Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eritrea", "Eslovaquia",
+				"Eslovenia", "España", "Estados Unidos", "Estonia", "Etiopía", "Filipinas", "Finlandia", "Fiyi",
+				"Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guinea",
+				"Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "India", "Indonesia", "Irak", "Irán",
+				"Irlanda", "Islandia", "Islas Marshall", "Islas Salomón", "Israel", "Italia", "Jamaica", "Japón",
+				"Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia",
+				"Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte",
+				"Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania",
+				"México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Montenegro", "Mozambique", "Namibia",
+				"Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Países Bajos",
+				"Pakistán", "Palaos", "Panamá", "Papúa Nueva Guinea", "Paraguay", "Perú", "Polonia", "Portugal",
+				"Reino Unido", "República Centroafricana", "República Checa", "República Democrática del Congo",
+				"República Dominicana", "Ruanda", "Rumanía", "Rusia", "Samoa", "San Cristóbal y Nieves", "San Marino",
+				"San Vicente y las Granadinas", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia",
+				"Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sudáfrica",
+				"Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Taiwán", "Tanzania", "Tayikistán",
+				"Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turkmenistán", "Turquía", "Tuvalu",
+				"Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Vaticano", "Venezuela", "Vietnam", "Yemen",
+				"Yibuti", "Zambia", "Zimbabue" }));
 		comboBoxPaisesSiguientes.setBounds(183, 142, 131, 22);
 		comboBoxPaisesSiguientes.setPreferredSize(new Dimension(200, 30));
 		comboBoxPaisesSiguientes.setVisible(true);
-	        // Crear un JScrollPane y agregar el JComboBox a él
-	        JScrollPane scrollPanePaisesSiguientes = new JScrollPane(comboBoxPaisesSiguientes);
-	        comboBoxPaisesSiguientes.setSelectedIndex(3);
-	        panelDestino.add(comboBoxPaisesSiguientes);
+		// Crear un JScrollPane y agregar el JComboBox a él
+		JScrollPane scrollPanePaisesSiguientes = new JScrollPane(comboBoxPaisesSiguientes);
+		comboBoxPaisesSiguientes.setSelectedIndex(3);
+		panelDestino.add(comboBoxPaisesSiguientes);
 
 		JLabel lblPqBolivia = new JLabel("POR QUÉ ESOCOGIO BOLIVIA COMO DESTINO FINAL?:");
 		lblPqBolivia.setBounds(10, 176, 370, 14);
-		lblPqBolivia.setVisible(true);
+		lblPqBolivia.setVisible(false);
 		panelDestino.add(lblPqBolivia);
 
 		JTextArea txtPqBolivia = new JTextArea();
@@ -1594,7 +1681,7 @@ public class Registro extends JFrame {
 		scrollPanePersonas.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPanePersonas.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPqBolivia.setBounds(20, 194, 450, 71);
-		scrollPqBolivia.setVisible(true);
+		scrollPqBolivia.setVisible(false);
 		panelDestino.add(scrollPqBolivia);
 
 		JSeparator separator_4 = new JSeparator();
@@ -1619,6 +1706,7 @@ public class Registro extends JFrame {
 			}
 		});
 
+
 		JPanel panelFormadeVida = new JPanel();
 		panelLlenado.add(panelFormadeVida, BorderLayout.EAST);
 
@@ -1636,7 +1724,7 @@ public class Registro extends JFrame {
 
 		JComboBox comboBoxAlojamiento = new JComboBox();
 		comboBoxAlojamiento.setModel(new DefaultComboBoxModel(
-				new String[] { "Alquiler", "Acogido", "Alojamiento", "Situación de calle", "Otro ","Albergue" }));
+				new String[] { "Alquiler", "Acogido", "Alojamiento", "Situación de calle", "Otro ", "Albergue" }));
 		comboBoxAlojamiento.setBounds(136, 80, 111, 22);
 		panelFormadeVida.add(comboBoxAlojamiento);
 
@@ -1696,12 +1784,11 @@ public class Registro extends JFrame {
 		buttonGroupLeEnvianDinero.add(rdbtnNoLeEnvian);
 
 		JLabel lblMedioEnvio = new JLabel("POR QUÉ MEDIO?:");
-		String[] opcionesEnvio = {"Giros", "Encomiendas"};
+		String[] opcionesEnvio = { "Giros", "Encomiendas" };
 
-        // Crear el JComboBox con las opciones
-       comboBoxEnvio = new JComboBox<>(opcionesEnvio);
-        
-		
+		// Crear el JComboBox con las opciones
+		comboBoxEnvio = new JComboBox<>(opcionesEnvio);
+
 		lblMedioEnvio.setVisible(false);
 		comboBoxEnvio.setVisible(false);
 		lblMedioEnvio.setBounds(10, 305, 111, 14);
@@ -1727,13 +1814,12 @@ public class Registro extends JFrame {
 		lblComunicacion.setBounds(10, 361, 222, 14);
 		panelFormadeVida.add(lblComunicacion);
 
-		 String[] opcionesComunicacion = {"Whatsapp", "Mensajeria"};
+		String[] opcionesComunicacion = { "Whatsapp", "Mensajeria" };
 
-	        // Crear el JComboBox con las opciones
-	        comboBoxComunicacion = new JComboBox<>(opcionesComunicacion);
+		// Crear el JComboBox con las opciones
+		comboBoxComunicacion = new JComboBox<>(opcionesComunicacion);
 
-		
-	        comboBoxComunicacion.setSelectedIndex(0);
+		comboBoxComunicacion.setSelectedIndex(0);
 		comboBoxComunicacion.setBounds(242, 358, 124, 20);
 		panelFormadeVida.add(comboBoxComunicacion);
 		comboBoxComunicacion.setPreferredSize(new Dimension(150, 30));
@@ -1787,7 +1873,7 @@ public class Registro extends JFrame {
 				if (Integer.parseInt(lblCantidadContador.getText()) > 0) {
 					if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 							&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
-						 && !txtObservaciones.getText().equals("")
+							&& !txtObservaciones.getText().equals("")
 							&& alMenosUnCheckBoxSeleccionado(chckbxTransito, chckbxSolRefugio, chckbxSolAsistencia)) {
 						if (validarFecha(txtFechaSalida.getText()) && validarFecha(txtFechaIngreso.getText())
 								&& validarFecha(txtExpedido.getText()) && validarFecha(txtFecha.getText())) {
@@ -1836,35 +1922,34 @@ public class Registro extends JFrame {
 							}
 
 							System.out.println(aux.toString());
-							
-								Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0),
-										beneficiarios, true);
-								form = new FormlarioRegistro(uR, (String) comboBoxLugares.getSelectedItem(),
-										txtTelefono.getText(), (String) comboBoxPaisesOrigen.getSelectedItem(),
-										Extras.fechas(txtFechaSalida.getText()),
-										buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
-										txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
-										(String) comboBoxFronterasIngreso.getSelectedItem(),
-										(String) comboBoxDocumentosIngreso.getSelectedItem(),
-										buttonGroupPermanenciaMigracion.getSelection().getActionCommand(),
-										buttonGroupBoliviaFinal.getSelection().getActionCommand() == "SI",
-										(String) comboBoxPaisesSiguientes.getSelectedItem(), txtPqBolivia.getText(),
-										(String) comboBoxAlojamiento.getSelectedItem(),
-										buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
-										buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
-										buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
-										comboBoxEnvio.getSelectedItem().toString(),comboBoxComunicacion.getSelectedItem().toString(), txtObservaciones.getText(),
-										chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
-										chckbxSolAsistencia.isSelected(), fam, true);
-								// Main.setUltimoForm(form);
-								System.out.println(form);
-								// Conexion.registrarFormBD(form);
-								isRegistro = true;
 
-								band = true;
-							
+							Familias fam = new Familias(uF, beneficiarios.size(), beneficiarios.get(0), beneficiarios,
+									true);
+							form = new FormlarioRegistro(uR, (String) comboBoxLugares.getSelectedItem(),
+									txtTelefono.getText(), (String) comboBoxPaisesOrigen.getSelectedItem(),
+									Extras.fechas(txtFechaSalida.getText()),
+									buttonGroupTransporte.getSelection().getActionCommand() == "TERRESTRE",
+									txtRazones.getText(), Extras.fechas(txtFechaIngreso.getText()),
+									(String) comboBoxFronterasIngreso.getSelectedItem(),
+									(String) comboBoxDocumentosIngreso.getSelectedItem(),
+									buttonGroupPermanenciaMigracion.getSelection().getActionCommand(),
+									buttonGroupBoliviaFinal.getSelection().getActionCommand() == "SI",
+									(String) comboBoxPaisesSiguientes.getSelectedItem(), txtPqBolivia.getText(),
+									(String) comboBoxAlojamiento.getSelectedItem(),
+									buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
+									buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
+									buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
+									comboBoxEnvio.getSelectedItem().toString(),
+									comboBoxComunicacion.getSelectedItem().toString(), txtObservaciones.getText(),
+									chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
+									chckbxSolAsistencia.isSelected(), fam, true);
+							// Main.setUltimoForm(form);
+							System.out.println(form);
+							// Conexion.registrarFormBD(form);
+							isRegistro = true;
 
-							
+							band = true;
+
 						} else {
 							JOptionPane.showMessageDialog(null, "Ingrese fechas en formato dd/MM/yyyy.");
 						}
@@ -1879,8 +1964,11 @@ public class Registro extends JFrame {
 				}
 
 				try {
-					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_" + form.getCfr() + ".pdf";
+					// Obtiene la ruta del directorio actual
+					String directorioActual = System.getProperty("user.dir");
+
+					// Concatena el nombre del archivo PDF
+					String rutaPDF = directorioActual + "/Registro_" + form.getCfr() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -2102,14 +2190,14 @@ public class Registro extends JFrame {
 		panelDatosIniciales.add(btnImprimir);
 		JButton btnHojaRuta = new JButton("IR HOJA DE RUTA");
 		btnHojaRuta.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 
 				if (!isRegistro) {
 					if (Integer.parseInt(lblCantidadContador.getText()) > 0) {
 						if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 								&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
-								 && !txtObservaciones.getText().equals("")) {
+								&& !txtObservaciones.getText().equals("")) {
 							ArrayList<Beneficiarios> beneficiarios = new ArrayList<>();
 							Beneficiarios aux = null;
 							ArrayList<PaisVisita> paises = new ArrayList<>();
@@ -2170,7 +2258,8 @@ public class Registro extends JFrame {
 									buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
 									buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
 									buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
-									comboBoxEnvio.getSelectedItem().toString(),comboBoxComunicacion.getSelectedItem().toString(), txtObservaciones.getText(),
+									comboBoxEnvio.getSelectedItem().toString(),
+									comboBoxComunicacion.getSelectedItem().toString(), txtObservaciones.getText(),
 									chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
 									chckbxSolAsistencia.isSelected(), fam, true);
 							form.setCfr(reg.getCfr());
@@ -2193,7 +2282,7 @@ public class Registro extends JFrame {
 					}
 
 				}
-				Hoja_ruta dj = new Hoja_ruta(null,true);
+				Hoja_ruta dj = new Hoja_ruta(null, true);
 				dj.setVisible(true);
 				dispose();
 			}
@@ -2209,7 +2298,7 @@ public class Registro extends JFrame {
 				if (Integer.parseInt(lblCantidadContador.getText()) > 0) {
 					if (!txtTelefono.getText().equals("") && !txtFechaSalida.getText().equals("")
 							&& !txtRazones.getText().equals("") && !txtFechaIngreso.getText().equals("")
-							 && !txtObservaciones.getText().equals("")
+							&& !txtObservaciones.getText().equals("")
 							&& alMenosUnCheckBoxSeleccionado(chckbxTransito, chckbxSolRefugio, chckbxSolAsistencia)) {
 						if (validarFecha(txtFechaSalida.getText()) && validarFecha(txtFechaIngreso.getText())
 								&& validarFecha(txtExpedido.getText()) && validarFecha(txtFecha.getText())) {
@@ -2277,7 +2366,8 @@ public class Registro extends JFrame {
 										buttonGroupEnviaDinero.getSelection().getActionCommand() == "SI",
 										buttonGroupSustento.getSelection().getActionCommand() == "FORMAL",
 										buttonGroupLeEnvianDinero.getSelection().getActionCommand() == "SI",
-										comboBoxEnvio.getSelectedItem().toString(),comboBoxComunicacion.getSelectedItem().toString(), txtObservaciones.getText(),
+										comboBoxEnvio.getSelectedItem().toString(),
+										comboBoxComunicacion.getSelectedItem().toString(), txtObservaciones.getText(),
 										chckbxTransito.isSelected(), chckbxSolRefugio.isSelected(),
 										chckbxSolAsistencia.isSelected(), fam, true);
 
@@ -2438,7 +2528,7 @@ public class Registro extends JFrame {
 
 		JComboBox comboBoxEducacion = new JComboBox();
 		comboBoxEducacion.setModel(new DefaultComboBoxModel(
-				new String[] { "Primaria", "Secundaria", "Técnico Superior", "Universitario","Profesional" }));
+				new String[] { "Primaria", "Secundaria", "Técnico Superior", "Universitario", "Profesional" }));
 
 		panelPorPersona.add(comboBoxEducacion);
 
@@ -2552,7 +2642,7 @@ public class Registro extends JFrame {
 
 		JComboBox comboBoxEducacion = new JComboBox();
 		comboBoxEducacion.setModel(new DefaultComboBoxModel(
-				new String[] { "Primaria", "Secundaria", "Técnico Superior", "Universitario","Profesional" }));
+				new String[] { "Primaria", "Secundaria", "Técnico Superior", "Universitario", "Profesional" }));
 		comboBoxEducacion.setSelectedItem(ben.getEducacion());
 		panelPorPersona.add(comboBoxEducacion);
 
@@ -2635,12 +2725,36 @@ public class Registro extends JFrame {
 		JLabel lblPaisPaso = new JLabel("PAÍS:");
 		panelPorEstatus.add(lblPaisPaso);
 		JComboBox comboBoxPaisesPaso = new JComboBox();
-		comboBoxPaisesPaso.setModel(new DefaultComboBoxModel(new String[] { "pais 1" })); // paises
+		comboBoxPaisesPaso.setModel(new DefaultComboBoxModel(new String[] { "Afganistán", "Albania", "Alemania",
+				"Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bahréin", "Bangladés",
+				"Barbados", "Bélgica", "Belice", "Benín", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina",
+				"Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi", "Bután", "Cabo Verde", "Camboya",
+				"Camerún", "Canadá", "Catar", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo",
+				"Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca",
+				"Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eritrea", "Eslovaquia",
+				"Eslovenia", "España", "Estados Unidos", "Estonia", "Etiopía", "Filipinas", "Finlandia", "Fiyi",
+				"Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guinea",
+				"Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "India", "Indonesia", "Irak", "Irán",
+				"Irlanda", "Islandia", "Islas Marshall", "Islas Salomón", "Israel", "Italia", "Jamaica", "Japón",
+				"Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia",
+				"Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte",
+				"Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania",
+				"México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Montenegro", "Mozambique", "Namibia",
+				"Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Países Bajos",
+				"Pakistán", "Palaos", "Panamá", "Papúa Nueva Guinea", "Paraguay", "Perú", "Polonia", "Portugal",
+				"Reino Unido", "República Centroafricana", "República Checa", "República Democrática del Congo",
+				"República Dominicana", "Ruanda", "Rumanía", "Rusia", "Samoa", "San Cristóbal y Nieves", "San Marino",
+				"San Vicente y las Granadinas", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia",
+				"Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sudáfrica",
+				"Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Taiwán", "Tanzania", "Tayikistán",
+				"Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turkmenistán", "Turquía", "Tuvalu",
+				"Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Vaticano", "Venezuela", "Vietnam", "Yemen",
+				"Yibuti", "Zambia", "Zimbabue" })); // paises
 		panelPorEstatus.add(comboBoxPaisesPaso);
 		paisesPaso.add(comboBoxPaisesPaso);
 		JLabel lblPermanencia = new JLabel("PERMANENCIA:");
 		panelPorEstatus.add(lblPermanencia);
-
+		comboBoxPaisesPaso.setSelectedIndex(3);
 		JTextField txtPermanencia = new JTextField();
 		txtPermanencia.setText("");
 		panelPorEstatus.add(txtPermanencia);
@@ -2691,12 +2805,36 @@ public class Registro extends JFrame {
 		JLabel lblPaisPaso = new JLabel("PAÍS:");
 		panelPorEstatus.add(lblPaisPaso);
 		JComboBox comboBoxPaisesPaso = new JComboBox();
-		comboBoxPaisesPaso.setModel(new DefaultComboBoxModel(new String[] { "pais 1" })); // paises
+		comboBoxPaisesPaso.setModel(new DefaultComboBoxModel(new String[] { "Afganistán", "Albania", "Alemania",
+				"Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bahréin", "Bangladés",
+				"Barbados", "Bélgica", "Belice", "Benín", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina",
+				"Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi", "Bután", "Cabo Verde", "Camboya",
+				"Camerún", "Canadá", "Catar", "Chad", "Chile", "China", "Chipre", "Colombia", "Comoras", "Congo",
+				"Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca",
+				"Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eritrea", "Eslovaquia",
+				"Eslovenia", "España", "Estados Unidos", "Estonia", "Etiopía", "Filipinas", "Finlandia", "Fiyi",
+				"Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guinea",
+				"Guinea-Bisáu", "Guyana", "Haití", "Honduras", "Hungría", "India", "Indonesia", "Irak", "Irán",
+				"Irlanda", "Islandia", "Islas Marshall", "Islas Salomón", "Israel", "Italia", "Jamaica", "Japón",
+				"Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia",
+				"Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte",
+				"Madagascar", "Malasia", "Malaui", "Maldivas", "Malí", "Malta", "Marruecos", "Mauricio", "Mauritania",
+				"México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Montenegro", "Mozambique", "Namibia",
+				"Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Países Bajos",
+				"Pakistán", "Palaos", "Panamá", "Papúa Nueva Guinea", "Paraguay", "Perú", "Polonia", "Portugal",
+				"Reino Unido", "República Centroafricana", "República Checa", "República Democrática del Congo",
+				"República Dominicana", "Ruanda", "Rumanía", "Rusia", "Samoa", "San Cristóbal y Nieves", "San Marino",
+				"San Vicente y las Granadinas", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia",
+				"Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sudáfrica",
+				"Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Taiwán", "Tanzania", "Tayikistán",
+				"Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turkmenistán", "Turquía", "Tuvalu",
+				"Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Vaticano", "Venezuela", "Vietnam", "Yemen",
+				"Yibuti", "Zambia", "Zimbabue" })); // paises
 		panelPorEstatus.add(comboBoxPaisesPaso);
 		paisesPaso.add(comboBoxPaisesPaso);
 		JLabel lblPermanencia = new JLabel("PERMANENCIA:");
 		panelPorEstatus.add(lblPermanencia);
-
+		comboBoxPaisesPaso.setSelectedIndex(3);
 		JTextField txtPermanencia = new JTextField();
 		txtPermanencia.setText("");
 		panelPorEstatus.add(txtPermanencia);

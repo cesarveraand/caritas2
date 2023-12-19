@@ -365,8 +365,11 @@ public class Hoja_ruta_acciones extends JFrame {
 					JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
 				}
 				try {
+					 // Obtiene la ruta del directorio actual
+				    String directorioActual = System.getProperty("user.dir");
+
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -562,8 +565,11 @@ public class Hoja_ruta_acciones extends JFrame {
 					JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
 				}
 				try {
+					 // Obtiene la ruta del directorio actual
+				    String directorioActual = System.getProperty("user.dir");
+
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -680,9 +686,11 @@ public class Hoja_ruta_acciones extends JFrame {
 					}
 				}
 				try {
-					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
+					 // Obtiene la ruta del directorio actual
+				    String directorioActual = System.getProperty("user.dir");
 
+					// Especifica la ruta donde quieres guardar el PDF
+					String rutaPDF = directorioActual + "Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
 					// Crea un documento PDF
 					Document document = new Document();
 
@@ -752,8 +760,11 @@ public class Hoja_ruta_acciones extends JFrame {
 				}
 
 				try {
+					 // Obtiene la ruta del directorio actual
+				    String directorioActual = System.getProperty("user.dir");
+
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr1.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "Registro_PMH_acciones_" + hjr1.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -832,8 +843,9 @@ public class Hoja_ruta_acciones extends JFrame {
 
 				Hoja_de_ruta hj = hhh;
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_" + hj.getCfhd() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_" + hj.getCfhd() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -1252,8 +1264,9 @@ public class Hoja_ruta_acciones extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_" + hj.getCfhd() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_" + hj.getCfhd() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -1503,8 +1516,9 @@ public class Hoja_ruta_acciones extends JFrame {
 					JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
 				}
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -1700,8 +1714,9 @@ public class Hoja_ruta_acciones extends JFrame {
 					JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
 				}
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -1828,8 +1843,9 @@ public class Hoja_ruta_acciones extends JFrame {
 					}
 				}
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -1900,8 +1916,9 @@ public class Hoja_ruta_acciones extends JFrame {
 				}
 
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr1.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_acciones_" + hjr1.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -2244,8 +2261,9 @@ public class Hoja_ruta_acciones extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_" + hj.getCfhd() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_" + hj.getCfhd() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -2499,8 +2517,9 @@ public class Hoja_ruta_acciones extends JFrame {
 					JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
 				}
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -2700,8 +2719,9 @@ public class Hoja_ruta_acciones extends JFrame {
 					JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
 				}
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -2835,8 +2855,9 @@ public class Hoja_ruta_acciones extends JFrame {
 					}
 				}
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -2907,8 +2928,9 @@ public class Hoja_ruta_acciones extends JFrame {
 				}
 
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr1.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_acciones_" + hjr1.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -3251,8 +3273,9 @@ public class Hoja_ruta_acciones extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_" + hj.getCfhd() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_" + hj.getCfhd() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -3506,8 +3529,9 @@ public class Hoja_ruta_acciones extends JFrame {
 					JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
 				}
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -3698,8 +3722,9 @@ public class Hoja_ruta_acciones extends JFrame {
 					JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
 				}
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -3833,8 +3858,9 @@ public class Hoja_ruta_acciones extends JFrame {
 					}
 				}
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_acciones_" + hjr.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -3905,8 +3931,9 @@ public class Hoja_ruta_acciones extends JFrame {
 				}
 
 				try {
+					String directorioActual = System.getProperty("user.dir");
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_acciones_" + hjr1.getCpmh() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_acciones_" + hjr1.getCpmh() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();

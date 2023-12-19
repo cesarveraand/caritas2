@@ -283,7 +283,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 		String[] columnNames = { "Codigo registro", "fecha", "CI representante", "Nombre Representante" };
 		String[] registros = new String[7];
 		DefaultTableModel model = new DefaultTableModel(null, columnNames);
-		String cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+		String cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 				+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
 				+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
 				+ "where b.cid = c.beneficiario_cid\n"
@@ -294,6 +294,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 				+ "and a.cfr = f.formularioregistro_cfr\n"
 				+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 				+ "and g.estado = true\n"
+				+ "and b.estado = true\n"
 				+ "and not exists (select * from FormularioHPMH i, PMH j\n"
 				+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
 				+ "				and j.cpmh = i.pmh_cpmh)\n"
@@ -305,7 +306,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 
 			// Filtrar los funcionarios que coinciden con el valor de búsqueda
 			if (valor.isEmpty()) {
-				cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+				cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 						+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
 						+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
 						+ "where b.cid = c.beneficiario_cid\n"
@@ -316,6 +317,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 						+ "and a.cfr = f.formularioregistro_cfr\n"
 						+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 						+ "and g.estado = true\n"
+						+ "and b.estado = true\n"
 						+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
 						+ "and not exists (select * from FormularioHPMH i, PMH j\n"
 						+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
@@ -325,7 +327,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 			} else {
 				switch (tipoBusqueda) {
 				case "Codigo Formulario":
-					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
 							+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
 							+ "where b.cid = c.beneficiario_cid\n"
@@ -336,6 +338,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 							+ "and a.cfr = f.formularioregistro_cfr\n"
 							+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 							+ "and g.estado = true\n"
+							+ "and b.estado = true\n"
 							+ "and g.cfhd = " + Integer.parseInt(valor) +"\n"
 							+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
 							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
@@ -344,7 +347,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 							+ "group by g.cfhd, b.ci, a.fecharegistro";
 					break;
 				case "CI Representante":
-					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci\n"
+					cons = "select g.cfhd, TO_CHAR(a.fecharegistro, 'DD/MM/YYYY'), b.ci, b.nombre\n"
 							+ "from formularioregistro a, beneficiario b, FormularioHojaDeRuta g,\n"
 							+ "formularioregbeneficiario c, Familia_beneficiario_voluntario d, familias e, NombresBeneficiario f\n"
 							+ "where b.cid = c.beneficiario_cid\n"
@@ -355,6 +358,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 							+ "and a.cfr = f.formularioregistro_cfr\n"
 							+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 							+ "and g.estado = true\n"
+							+ "and b.estado = true\n"
 							+ "and b.ci like '%" + valor + "%'\n"
 							+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
 							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
@@ -374,6 +378,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 							+ "and a.cfr = f.formularioregistro_cfr\n"
 							+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 							+ "and g.estado = true\n"
+							+ "and b.estado = true\n"
 							+ "and a.fechaRegistro between '"+ fechaInicio +"' and '" + fechaFinal + "'\n"
 							+ "and LOWER(b.nombre) like '%" + valor.toLowerCase() + "%'\n"
 							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
@@ -432,6 +437,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 				+ "and a.cfr = f.formularioregistro_cfr\n"
 				+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 				+ "and g.estado = true\n"
+				+ "and b.estado = true\n"
 				+ "and not exists (select * from FormularioHPMH i, PMH j\n"
 				+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
 				+ "				and j.cpmh = i.pmh_cpmh)\n"
@@ -454,6 +460,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 						+ "and a.cfr = f.formularioregistro_cfr\n"
 						+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 						+ "and g.estado = true\n"
+						+ "and b.estado = true\n"
 						+ "and not exists (select * from FormularioHPMH i, PMH j\n"
 						+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
 						+ "				and j.cpmh = i.pmh_cpmh)\n"
@@ -474,6 +481,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 							+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 							+ "and g.cfhd = " + Integer.parseInt(valor) + "\n"
 							+ "and g.estado = true\n"
+							+ "and b.estado = true\n"
 							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
 							+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
 							+ "				and j.cpmh = i.pmh_cpmh)\n"
@@ -491,6 +499,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 							+ "and a.cfr = f.formularioregistro_cfr\n"
 							+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 							+ "and g.estado = true\n"
+							+ "and b.estado = true\n"
 							+ "and b.ci like '%" + valor + "%'\n"
 							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
 							+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
@@ -509,6 +518,7 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 							+ "and a.cfr = f.formularioregistro_cfr\n"
 							+ "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 							+ "and g.estado = true\n"
+							+ "and b.estado = true\n"
 							+ "and LOWER(b.nombre) like '%" + valor.toLowerCase() + "%'\n"
 							+ "and not exists (select * from FormularioHPMH i, PMH j\n"
 							+ "				where g.cfhd = i.FormularioHojaDeRuta_cfhd\n"
@@ -541,7 +551,6 @@ public class PaginaHojaRutaAccionesV extends JFrame {
 		}
 
 	}
-
 
 
 	private void mnactualizarActionPerformed(java.awt.event.ActionEvent evt) {

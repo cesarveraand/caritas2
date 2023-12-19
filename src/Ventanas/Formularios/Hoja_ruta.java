@@ -333,8 +333,11 @@ public class Hoja_ruta extends JFrame {
 				}
 
 				try {
+				    // Obtiene la ruta del directorio actual
+				    String directorioActual = System.getProperty("user.dir");
+
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_" + hj.getCfhd() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_" + hj.getCfhd() + ".pdf";
 
 					// Crea un documento PDF
 					Document document = new Document();
@@ -877,9 +880,11 @@ public class Hoja_ruta extends JFrame {
 				}
 
 				try {
-					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = "Archivos pdf registro/Registro_PMH_" + hj.getCfhd() + ".pdf";
+					 // Obtiene la ruta del directorio actual
+				    String directorioActual = System.getProperty("user.dir");
 
+					// Especifica la ruta donde quieres guardar el PDF
+					String rutaPDF = directorioActual + "/Registro_PMH_" + hj.getCfhd() + ".pdf";
 					// Crea un documento PDF
 					Document document = new Document();
 

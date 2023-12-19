@@ -1,4 +1,4 @@
-package Ventanas.Voluntario;
+package Ventana.Voluntario;
 
 import java.awt.EventQueue;
 import java.awt.Font;

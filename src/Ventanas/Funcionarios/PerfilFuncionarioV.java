@@ -25,7 +25,7 @@ import Ventanas.Admins.PaginaAdministradores;
 
 import java.awt.Color;
 import java.awt.Toolkit;
-public class PerfilFuncionario extends JFrame {
+public class PerfilFuncionarioV extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldNombre;
@@ -45,8 +45,8 @@ public class PerfilFuncionario extends JFrame {
 	private JLabel lblAdmin;
 	private JButton btnBorrar;
 
-	public PerfilFuncionario(Funcionario f, boolean admin) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(PerfilFuncionario.class.getResource("/imagenes_help/iconCaritas.png")));
+	public PerfilFuncionarioV(Funcionario f, boolean admin) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PerfilFuncionarioV.class.getResource("/imagenes_help/iconCaritas.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 578, 424);
 		contentPane = new JPanel();
@@ -299,9 +299,9 @@ public class PerfilFuncionario extends JFrame {
 		JButton btnBorrar = new JButton("Eliminar");
 		btnBorrar.setForeground(new Color(255, 255, 255));
 		btnBorrar.setBackground(new Color(23, 74, 131));
-//		if(!admin) {
-//			btnBorrar.setEnabled(false);
-//		}
+		if(!admin) {
+			btnBorrar.setEnabled(false);
+		}
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {

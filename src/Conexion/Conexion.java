@@ -13,11 +13,13 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
 
-	static final String DB_URl="jdbc:postgresql://192.168.1.4:5432/caritas";
+//	static final String DB_URl="jdbc:postgresql://192.168.1.4:5432/caritas";
+//	static final String USER ="postgres";
+//	static final String PASS= "D4l3mb3rt";
+
+	static final String DB_URl="jdbc:postgresql://localhost/caritas";
 	static final String USER ="postgres";
-	static final String PASS= "D4l3mb3rt";
-
-
+	static final String PASS= "3211";
 
 
 	public Connection getConexionPostgres() throws SQLException {

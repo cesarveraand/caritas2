@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import poo.*;
 import Conexion.*;
+import Ventana.Voluntario.PaginaVoluntarios;
 import Ventanas.*;
 import Ventanas.Formularios.Hoja_ruta;
 import Ventanas.Formularios.Registro;
@@ -14,7 +15,6 @@ import Ventanas.Pagina_HojaRutaAcciones.PaginaHojaRutaAcciones;
 import Ventanas.Pagina_Registro.PaginaFormulariosRegistro;
 import Ventanas.Paginas_Beneficiarios.PaginaBeneficiario;
 import Ventanas.Paginas_HojaRuta.PaginaHojaRuta;
-import Ventanas.Voluntario.PaginaVoluntarios;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;

@@ -58,7 +58,8 @@ public class PaginaHojaRutaE extends JFrame {
 	static JComboBox comboBoxBuqueda = new JComboBox();
 
 	public PaginaHojaRutaE() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(PaginaHojaRutaE.class.getResource("/imagenes_help/iconCaritas.png")));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(PaginaHojaRutaE.class.getResource("/imagenes_help/iconCaritas.png")));
 
 		JPopupMenu jPopupMenu1 = new javax.swing.JPopupMenu();
 		JMenuItem mnactualizar = new javax.swing.JMenuItem();
@@ -259,7 +260,9 @@ public class PaginaHojaRutaE extends JFrame {
 				+ "and b.cid = d.beneficiario_cid\n" + "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n"
 				+ "and a.cfr = f.formularioregistro_cfr\n" + "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 				+ "and a.fechaRegistro between '" + fechaInicio + "' and '" + fechaFinal + "'\n"
-				+ "and g.estado = true\n" + "group by g.cfhd, b.ci, a.fecharegistro";
+				+ "and g.estado = true\n" 
+				+ "and b.estado = true\n"
+				+ "group by g.cfhd, b.ci, a.fecharegistro";
 		try {
 			Conexion cn = new Conexion();
 			Connection conexion = cn.getConexionPostgres();
@@ -274,7 +277,9 @@ public class PaginaHojaRutaE extends JFrame {
 						+ "and b.cid = d.beneficiario_cid\n" + "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n"
 						+ "and a.cfr = f.formularioregistro_cfr\n" + "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 						+ "and a.fechaRegistro between '" + fechaInicio + "' and '" + fechaFinal + "'\n"
-						+ "and g.estado = true\n" + "group by g.cfhd, b.ci, a.fecharegistro";
+						+ "and g.estado = true\n" 
+						+ "and b.estado = true\n"
+						+ "group by g.cfhd, b.ci, a.fecharegistro";
 
 			} else {
 				switch (tipoBusqueda) {
@@ -287,6 +292,7 @@ public class PaginaHojaRutaE extends JFrame {
 							+ "and a.cfr = f.formularioregistro_cfr\n" + "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 							+ "and g.cfhd = " + Integer.parseInt(valor) + "\n" + "and g.estado = true\n"
 							+ "and a.fechaRegistro between '" + fechaInicio + "' and '" + fechaFinal + "'\n"
+							+ "and b.estado = true\n"
 							+ "group by g.cfhd, b.ci, a.fecharegistro";
 					break;
 				case "CI Representante":
@@ -298,6 +304,7 @@ public class PaginaHojaRutaE extends JFrame {
 							+ "and a.cfr = f.formularioregistro_cfr\n" + "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 							+ "and b.ci like '%" + valor + "%'\n" + "and g.estado = true\n"
 							+ "and a.fechaRegistro between '" + fechaInicio + "' and '" + fechaFinal + "'\n"
+							+ "and b.estado = true\n"
 							+ "group by g.cfhd, b.ci, a.fecharegistro";
 					break;
 				}
@@ -346,7 +353,9 @@ public class PaginaHojaRutaE extends JFrame {
 				+ "where b.cid = c.beneficiario_cid\n" + "and a.cfr = c.formularioregistro_cfr\n"
 				+ "and b.cid = d.beneficiario_cid\n" + "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n"
 				+ "and a.cfr = f.formularioregistro_cfr\n" + "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
-				+ "and g.estado = true\n" + "group by g.cfhd, b.ci, a.fecharegistro";
+				+ "and g.estado = true\n" 
+				+ "and b.estado = true\n"
+				+ "group by g.cfhd, b.ci, a.fecharegistro";
 		try {
 			Conexion cn = new Conexion();
 			Connection conexion = cn.getConexionPostgres();
@@ -360,7 +369,9 @@ public class PaginaHojaRutaE extends JFrame {
 						+ "where b.cid = c.beneficiario_cid\n" + "and a.cfr = c.formularioregistro_cfr\n"
 						+ "and b.cid = d.beneficiario_cid\n" + "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n"
 						+ "and a.cfr = f.formularioregistro_cfr\n" + "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
-						+ "and g.estado = true\n" + "group by g.cfhd, b.ci, a.fecharegistro";
+						+ "and g.estado = true\n" 
+						+ "and b.estado = true\n"
+						+ "group by g.cfhd, b.ci, a.fecharegistro";
 
 			} else {
 				switch (tipoBusqueda) {
@@ -372,6 +383,7 @@ public class PaginaHojaRutaE extends JFrame {
 							+ "and b.cid = d.beneficiario_cid\n" + "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n"
 							+ "and a.cfr = f.formularioregistro_cfr\n" + "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 							+ "and g.cfhd = " + Integer.parseInt(valor) + "\n" + "and g.estado = true\n"
+							+ "and b.estado = true\n"
 							+ "group by g.cfhd, b.ci, a.fecharegistro";
 					break;
 				case "CI Representante":
@@ -382,6 +394,7 @@ public class PaginaHojaRutaE extends JFrame {
 							+ "and b.cid = d.beneficiario_cid\n" + "and e.cf = d.familias_cf\n" + "and b.ci = e.ci_r\n"
 							+ "and a.cfr = f.formularioregistro_cfr\n" + "and g.cfhd = f.FormularioHojaDeRuta_cfhd\n"
 							+ "and b.ci like '%" + valor + "%'\n" + "and g.estado = true\n"
+							+ "and b.estado = true\n"
 							+ "group by g.cfhd, b.ci, a.fecharegistro";
 					break;
 				}

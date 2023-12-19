@@ -20,9 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import Ventana.Voluntario.PaginaUsuarioV;
 import Ventanas.Admins.*;
-import Ventanas.Voluntario.PaginaUsuarioV;
-
 
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;

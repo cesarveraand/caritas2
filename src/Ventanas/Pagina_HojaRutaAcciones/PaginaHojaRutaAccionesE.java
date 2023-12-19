@@ -302,6 +302,7 @@ public class PaginaHojaRutaAccionesE extends JFrame {
 				+ "and a.estado = true\n"
 				+ "and j.estado = true\n"
 				+ "and g.estado = true\n"
+				+ "and b.estado = true\n"
 				+ "group by j.cpmh, b.ci, j.fecha, g.cfhd";
 		try {
 			Conexion cn = new Conexion();
@@ -327,6 +328,7 @@ public class PaginaHojaRutaAccionesE extends JFrame {
 						+ "and a.estado = true\n"
 						+ "and j.estado = true\n"
 						+ "and g.estado = true\n"
+						+ "and b.estado = true\n"
 						+ "group by j.cpmh, b.ci, j.fecha, g.cfhd";
 
 			} else {
@@ -350,6 +352,7 @@ public class PaginaHojaRutaAccionesE extends JFrame {
 							+ "and a.estado = true\n"
 							+ "and j.estado = true\n"
 							+ "and g.estado = true\n"
+							+ "and b.estado = true\n"
 							+ "group by j.cpmh, b.ci, j.fecha, g.cfhd";
 					break;
 				case "CI Representante":
@@ -371,6 +374,7 @@ public class PaginaHojaRutaAccionesE extends JFrame {
 							+ "and a.estado = true\n"
 							+ "and j.estado = true\n"
 							+ "and g.estado = true\n"
+							+ "and b.estado = true\n"
 							+ "group by j.cpmh, b.ci, j.fecha, g.cfhd";
 					break;
 				case "Codigo Formulario":
@@ -392,6 +396,7 @@ public class PaginaHojaRutaAccionesE extends JFrame {
 							+ "and a.estado = true\n"
 							+ "and j.estado = true\n"
 							+ "and g.estado = true\n"
+							+ "and b.estado = true\n"
 							+ "group by j.cpmh, b.ci, j.fecha, g.cfhd";
 					break;
 				}
@@ -451,6 +456,7 @@ public class PaginaHojaRutaAccionesE extends JFrame {
 				+ "and a.estado = true\n"
 				+ "and j.estado = true\n"
 				+ "and g.estado = true\n"
+				+ "and b.estado = true\n"
 				+ "group by j.cpmh, b.ci, j.fecha, g.cfhd";
 		try {
 			Conexion cn = new Conexion();
@@ -475,6 +481,7 @@ public class PaginaHojaRutaAccionesE extends JFrame {
 						+ "and a.estado = true\n"
 						+ "and j.estado = true\n"
 						+ "and g.estado = true\n"
+						+ "and b.estado = true\n"
 						+ "group by j.cpmh, b.ci, j.fecha, g.cfhd";
 
 			} else {
@@ -497,6 +504,7 @@ public class PaginaHojaRutaAccionesE extends JFrame {
 							+ "and a.estado = true\n"
 							+ "and j.estado = true\n"
 							+ "and g.estado = true\n"
+							+ "and b.estado = true\n"
 							+ "group by j.cpmh, b.ci, j.fecha, g.cfhd";
 					break;
 				case "CI Representante":
@@ -517,6 +525,7 @@ public class PaginaHojaRutaAccionesE extends JFrame {
 							+ "and a.estado = true\n"
 							+ "and j.estado = true\n"
 							+ "and g.estado = true\n"
+							+ "and b.estado = true\n"
 							+ "group by j.cpmh, b.ci, j.fecha, g.cfhd";
 					break;
 				case "Codigo Formulario":
@@ -537,6 +546,7 @@ public class PaginaHojaRutaAccionesE extends JFrame {
 							+ "and a.estado = true\n"
 							+ "and j.estado = true\n"
 							+ "and g.estado = true\n"
+							+ "and b.estado = true\n"
 							+ "group by j.cpmh, b.ci, j.fecha, g.cfhd";
 					break;
 				}
