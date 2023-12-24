@@ -849,11 +849,11 @@ public class Hoja_ruta extends JFrame {
 		JButton btnImprimir = new JButton("IMPRIMIR");
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Hoja_de_ruta hj = null;
+				Hoja_de_ruta hjn = null;
 				if (!txtNombresBenef.getText().equals("") && !txtObservaciones.getText().equals("")) {
 					if (!txtAsignacion.getText().equals("") || !textFieldFechaAsigacion.getText().equals("")) {
 						if (!textFieldFechaAsigacion.getText().equals("") && !txtAsignacion.getText().equals("")) {
-							hj = new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(),
+							hjn = new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(),
 									chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(),
 									chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(),
 									chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(),
@@ -866,7 +866,7 @@ public class Hoja_ruta extends JFrame {
 
 						}
 					} else {
-						hj = new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(),
+						hjn = new Hoja_de_ruta(cod, txtNumero.getText(), personas, txtObservaciones.getText(),
 								chckbxAseLegal.isSelected(), chckbxSoliRefugio.isSelected(),
 								chckbxAtenSocial.isSelected(), chckbxAlbergue.isSelected(),
 								chckbxServiciosMedicos.isSelected(), chckbxAimentacion.isSelected(),
@@ -884,7 +884,7 @@ public class Hoja_ruta extends JFrame {
 				    String directorioActual = System.getProperty("user.dir");
 
 					// Especifica la ruta donde quieres guardar el PDF
-					String rutaPDF = directorioActual + "/Registro_PMH_" + hj.getCfhd() + ".pdf";
+					String rutaPDF = directorioActual + "/Registro_PMH_" + hjn.getCfhd() + ".pdf";
 					// Crea un documento PDF
 					Document document = new Document();
 
@@ -910,19 +910,19 @@ public class Hoja_ruta extends JFrame {
 					document.add(paragraph);
 					// line2
 					// Crea un párrafo centrado y en negrita
-					paragraph = new Paragraph("N° " + hj.getNumero());
+					paragraph = new Paragraph("N° " + hjn.getNumero());
 					// Agrega el párrafo al documento
 					document.add(paragraph);
-					paragraph = new Paragraph("Fecha de atención: " + hj.getFechaReg());
+					paragraph = new Paragraph("Fecha de atención: " + hjn.getFechaReg());
 					// Agrega el párrafo al documento
 					document.add(paragraph);
-					paragraph = new Paragraph("Numero de personas:  " + hj.getCantPer());
+					paragraph = new Paragraph("Numero de personas:  " + hjn.getCantPer());
 					// Agrega el párrafo al documento
 					document.add(paragraph);
 					paragraph = new Paragraph("Nombre(s) Apellidos: \n");
 					// Agrega el párrafo al documento
 
-					for (Beneficiarios i : hj.getForm().getFam().getFamilia()) {
+					for (Beneficiarios i : hjn.getForm().getFam().getFamilia()) {
 						paragraph.add(i.getNombre() + "\n");
 						// Agrega el párrafo al documento
 
@@ -933,17 +933,17 @@ public class Hoja_ruta extends JFrame {
 					// Agrega el párrafo al documento
 					document.add(paragraph);
 
-					if (hj.isLegal()) {
+					if (hjn.isLegal()) {
 						paragraph = new Paragraph("Asesoramiento legal");
 						// Agrega el párrafo al documento
 						document.add(paragraph);
 					}
-					if (hj.isRefugio()) {
+					if (hjn.isRefugio()) {
 						paragraph = new Paragraph("Solicitud refugio");
 						// Agrega el párrafo al documento
 						document.add(paragraph);
 					}
-					if (hj.isAtencion()) {
+					if (hjn.isAtencion()) {
 						paragraph = new Paragraph("Solo atención social");
 						// Agrega el párrafo al documento
 						document.add(paragraph);
@@ -952,42 +952,42 @@ public class Hoja_ruta extends JFrame {
 					// Agrega el párrafo al documento
 					document.add(paragraph);
 
-					if (hj.isAccionAlbergue()) {
+					if (hjn.isAccionAlbergue()) {
 						paragraph = new Paragraph("Albergue");
 						// Agrega el párrafo al documento
 						document.add(paragraph);
 					}
-					if (hj.isAccionSerMedico()) {
+					if (hjn.isAccionSerMedico()) {
 						paragraph = new Paragraph("Servicios Médicos");
 						// Agrega el párrafo al documento
 						document.add(paragraph);
 					}
-					if (hj.isAccionAlimentacion()) {
+					if (hjn.isAccionAlimentacion()) {
 						paragraph = new Paragraph("Alimentación");
 						// Agrega el párrafo al documento
 						document.add(paragraph);
 					}
 
-					if (hj.isAccionAyudaHum()) {
+					if (hjn.isAccionAyudaHum()) {
 						paragraph = new Paragraph("Ayuda Humanitaria");
 						// Agrega el párrafo al documento
 						document.add(paragraph);
 					}
-					if (hj.isAccionPasajes()) {
+					if (hjn.isAccionPasajes()) {
 						paragraph = new Paragraph("Pasajes");
 						// Agrega el párrafo al documento
 						document.add(paragraph);
 					}
-					if (hj.isAccionCondonacion()) {
+					if (hjn.isAccionCondonacion()) {
 						paragraph = new Paragraph("Info. Condonación");
 						// Agrega el párrafo al documento
 						document.add(paragraph);
 					}
-					paragraph = new Paragraph("Asignación: " + hj.getAsignacion());
+					paragraph = new Paragraph("Asignación: " + hjn.getAsignacion());
 					// Agrega el párrafo al documento
 					document.add(paragraph);
 					// Cierra el documento
-					paragraph = new Paragraph("Fecha accion: " + hj.getFechaAsig());
+					paragraph = new Paragraph("Fecha accion: " + hjn.getFechaAsig());
 					// Agrega el párrafo al documento
 					document.add(paragraph);
 
@@ -995,7 +995,7 @@ public class Hoja_ruta extends JFrame {
 
 					// Agrega el párrafo al documento
 					document.add(paragraph);
-					paragraph = new Paragraph(hj.getObs());
+					paragraph = new Paragraph(hjn.getObs());
 
 					document.add(paragraph);
 

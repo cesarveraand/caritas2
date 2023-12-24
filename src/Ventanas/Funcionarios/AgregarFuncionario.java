@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 import java.awt.HeadlessException;
 import poo.*;
 import Conexion.*;
-import Ventana.Voluntario.PaginaVoluntarios;
+import Ventanas.Voluntario.PaginaVoluntarios;
 import Ventanas.Admins.PaginaAdministradores;
 
 import javax.swing.JFrame;

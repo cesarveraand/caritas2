@@ -6,7 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import poo.*;
 import Conexion.*;
-import Ventana.Voluntario.PaginaVoluntarios;
+import Ventanas.Voluntario.PaginaVoluntarios;
 import Ventanas.*;
 import Ventanas.Formularios.Hoja_ruta;
 import Ventanas.Formularios.Registro;

@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import Ventana.Voluntario.PaginaUsuarioV;
+import Ventanas.Voluntario.PaginaUsuarioV;
 import Ventanas.Admins.*;
 
 import javax.swing.JCheckBox;

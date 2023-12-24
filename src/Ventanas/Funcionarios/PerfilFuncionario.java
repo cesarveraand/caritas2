@@ -19,7 +19,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JRadioButton;
 import poo.*;
 import Conexion.*;
-import Ventana.Voluntario.PaginaVoluntarios;
+import Ventanas.Voluntario.PaginaVoluntarios;
 import Ventanas.Extras;
 import Ventanas.Admins.PaginaAdministradores;
 
